@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>X-STORE | Kinetic Console Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#474746",
+                    "surface-container-highest": "#353534",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-container": "#ffe6ed",
+                    "on-secondary-container": "#b7b5b4",
+                    "error": "#ffb4ab",
+                    "primary": "#79dd68",
+                    "surface": "#131313",
+                    "outline-variant": "#3f4a3b",
+                    "outline": "#899482",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#ffd9e4",
+                    "surface-container": "#201f1f",
+                    "on-primary-fixed-variant": "#005303",
+                    "secondary": "#c8c6c5",
+                    "on-surface": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#474746",
+                    "on-error-container": "#ffdad6",
+                    "surface-tint": "#79dd68",
+                    "surface-bright": "#3a3939",
+                    "inverse-on-surface": "#313030",
+                    "tertiary": "#ffb0cd",
+                    "on-primary": "#003a01",
+                    "surface-variant": "#353534",
+                    "tertiary-container": "#b83a77",
+                    "surface-container-low": "#1c1b1b",
+                    "primary-fixed": "#94fa81",
+                    "primary-fixed-dim": "#79dd68",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "inverse-primary": "#006e06",
+                    "secondary-fixed": "#e4e2e1",
+                    "on-surface": "#e5e2e1",
+                    "on-primary-container": "#b5ffa2",
+                    "tertiary-fixed-dim": "#ffb0cd",
+                    "background": "#131313",
+                    "on-tertiary-fixed": "#3e0021",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-dim": "#131313",
+                    "primary-container": "#107c10",
+                    "on-primary-fixed": "#002200",
+                    "on-secondary": "#303030",
+                    "inverse-surface": "#e5e2e1",
+                    "on-tertiary-fixed-variant": "#890f52"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "sm": "12px",
+                    "lg": "40px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "base": "8px",
+                    "md": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "mono-label": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #101010; /* Xbox Base Background Level 0 */
+            color: #e5e2e1;
+            -webkit-font-smoothing: antialiased;
+        }
+        .kinetic-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(16, 124, 16, 0.15) 0%, rgba(16, 16, 16, 0) 70%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #252525;
+            border-radius: 10px;
+        }
+        .hover-lift {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+        }
+        .focus-ring:focus {
+            outline: 2px solid #107C10;
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body class="dark overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface">
+<nav class="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-xl">
+<span class="font-headline-lg text-headline-lg font-black text-primary uppercase tracking-tighter">X-STORE</span>
+<div class="hidden md:flex gap-md">
+<a class="text-primary font-bold transition-colors duration-200" href="#">Store</a>
+<a class="text-secondary dark:text-secondary hover:bg-surface-container-high transition-colors duration-200 px-xs rounded" href="#">Games</a>
+<a class="text-secondary dark:text-secondary hover:bg-surface-container-high transition-colors duration-200 px-xs rounded" href="#">Hardware</a>
+<a class="text-secondary dark:text-secondary hover:bg-surface-container-high transition-colors duration-200 px-xs rounded" href="#">Community</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="bg-surface-container-lowest border-none rounded-full py-base pl-xl pr-md text-body-md focus:ring-2 focus:ring-primary w-64" placeholder="Search Kinetic" type="text"/>
+</div>
+<div class="flex gap-sm">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high p-xs rounded-full transition-colors duration-200 active:scale-95 transition-transform">shopping_cart</button>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high p-xs rounded-full transition-colors duration-200 active:scale-95 transition-transform">account_circle</button>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-xl lg:py-xl relative">
+<!-- Subtle background effect -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] kinetic-gradient pointer-events-none opacity-50"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl relative z-10">
+<!-- Gallery Column (Left) -->
+<div class="lg:col-span-7 flex flex-col gap-md">
+<!-- Large Main Image -->
+<div class="aspect-square bg-[#181818] rounded-xl overflow-hidden relative group cursor-zoom-in">
+<img class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" data-alt="A cinematic studio shot of the Xbox Kinetic Series X console standing vertically on a dark reflective surface. The console features a sleek matte black finish with a subtle glowing green ring at its core, suggesting high-performance power. Atmospheric green ambient lighting catches the sharp edges of the monolithic design, emphasizing its futuristic and powerful presence in a minimal, high-tech environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHFJ7lFv1fhOLyFsMsfKQZvV8SJji0Q6yKyfySWHaNN-bEcvse3XCAw7CDd3lMbvryFSin8-RWo8qKQQ-d7RJcKMAMPD9o6_b28O47M_pAScA8jB0-oGRvZznbYPdoTN-mUHJ017fI06TH0sCvz5gAHJtlH6HKIP1RNtWiuq62PoiLpq04Nx6kt_-4xRSi-6o4_24DevUcoppnHucLnlACjL-A8KH6Yj-oExmf0na8QVPRlmmUq9xV"/>
+<div class="absolute bottom-md right-md bg-black/60 backdrop-blur-md px-sm py-xs rounded-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">view_in_ar</span>
+<span class="font-mono-label text-mono-label">3D VIEW</span>
+</div>
+</div>
+<!-- Thumbnails -->
+<div class="grid grid-cols-4 gap-sm">
+<button class="aspect-square rounded-lg overflow-hidden border-2 border-primary ring-offset-4 ring-offset-[#101010] bg-[#181818] focus-ring">
+<img class="w-full h-full object-cover" data-alt="Close up detail of the Xbox Kinetic Series X cooling vent at the top, featuring the signature circular patterns with a deep emerald green glow emanating from within. The texture of the matte black high-grade plastic is visible under dramatic studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1yQEf0z4yzfG-U3lbRyrsGlDMRNX1zfsg5-zB10_FC8e3T9yObHqD1EZFe5ztRfiD8_z_qc8RzLQaf8sJa99pP7qAvxSATLIXgIHtu1vkZ66dt1MNJBmJvl9sMEdTGAHg3FFzHyY84DldlfVhQ2kFDBcLx3rzTXPaDpbjUt3LH1duqSeGFvSNL-G_0k_Oz3-XaED4Sqfc4XQ6_c21bgRvD5bLLgf5Yikb_pidw9eq-hHPVPs4rudG"/>
+</button>
+<button class="aspect-square rounded-lg overflow-hidden border border-transparent hover:border-secondary transition-all bg-[#181818] focus-ring">
+<img class="w-full h-full object-cover" data-alt="Rear view of the Xbox Kinetic Series X showing the clean arrangement of high-speed ports including HDMI, Ethernet, and expansion slots. The design is industrial and clean, set against a dark, tech-oriented backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1lnHePZkcacD7_vbsZBqBA-lJ9ohlm1mJmSMZpWUUA8JyVyatfJR8DzZnVtRzkV6kWKVxtjcydTTDIECDKI5W3KG6r4I2Q4gCeE5qtOKeqV9zvIiWVJc2DmHUUF7o7ydQyL-OkjuZN_CjuV3G7r49XmyJukQ2Ju74lKq0Xr9pI7gaGtXjuHT-YQpXlvSBU52Z4uLVXd-hxGoB3fxIej2SVTbNNUn4fT13G-6u4MePuKAkNrneWup4"/>
+</button>
+<button class="aspect-square rounded-lg overflow-hidden border border-transparent hover:border-secondary transition-all bg-[#181818] focus-ring">
+<img class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" data-alt="The Xbox Kinetic Series X console shown horizontally on a low-profile media stand. The glowing green power button is illuminated, and a matching wireless controller rests beside it. Soft focus background with subtle tech elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6p7r0UHfp3UpJ4DL4EFGoseCXSIqFAVwa6HfQabcn7hNjJl0PGkVALo_lSJBI2dWOs4e_IxoLvZlC2HcH_5AwAcLdtEZlFzg4IYJXtUSNIwweXoYY-YRB5HpIp-1JbXuAmE0WlPMGch8BltYT-m0U8U4UdGUp1yyd78xhjw7sZyACfn9pEkSDmZdXnvOsnIoOQfLuiv54koi28pldvky1pygycR0JNrUHCwdvsjkvNolSLAm3Xgbd"/>
+</button>
+<button class="aspect-square rounded-lg overflow-hidden border border-transparent hover:border-secondary transition-all bg-[#181818] focus-ring relative group">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Lifestyle shot of a modern gaming setup with the Xbox Kinetic Series X as the centerpiece. A large OLED screen in the background shows a vibrant high-action game, while the console sits quietly in its designated space. The room is dimly lit with custom LED strips." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvZuDfq6o7OtcBC7zUCwT8nSX4SolvogpXDoPjhBUXT-oxxHBuzMIFgUJNWZErhVKj2lOU4YE_JF3BKGQjsy5gtpT7I5VpOzYXp4kM-lWWJt_ELw9UL3LXiPz7LGaf-ugVTAUAAgDDXXewEDYMhP5J9kyDj-N8rie4wgkEjamfoEP1KTIyZNXoxlpkhrn9PJfU4DY2nF8ryfmPzFr4yEgv5gJxh2u2nQG_tVU4Cdes8a1zo98gjUSG"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-transparent transition-colors">
+<span class="material-symbols-outlined">play_circle</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Content Column (Right) -->
+<div class="lg:col-span-5 flex flex-col justify-start pt-md">
+<nav class="flex items-center gap-xs text-secondary font-label-caps mb-sm">
+<a class="hover:text-primary transition-colors" href="#">Hardaware</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Consoles</a>
+</nav>
+<h1 class="font-display-lg text-display-lg lg:text-[56px] leading-[1.1] mb-xs">KINETIC SERIES X</h1>
+<p class="text-primary font-headline-md text-headline-md tracking-wider mb-md">PREMIUM EDITION</p>
+<div class="flex items-baseline gap-sm mb-lg">
+<span class="text-primary font-display-lg text-[40px] font-extrabold">$499.99</span>
+<span class="text-secondary line-through font-headline-md">$549.99</span>
+<span class="bg-primary/10 text-primary px-sm py-xs rounded font-label-caps ml-base">SAVE 10%</span>
+</div>
+<div class="space-y-md mb-xl">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed opacity-90">
+                        Experience the zenith of gaming technology. The Kinetic Series X features lightning-fast NVMe storage, 12 teraflops of raw graphical power, and our signature silent cooling architecture. Designed for those who demand absolute performance.
+                    </p>
+<!-- Feature Chips -->
+<div class="flex flex-wrap gap-sm">
+<div class="bg-[#181818] px-md py-sm rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<span class="font-mono-label text-mono-label">12 TFLOPS</span>
+</div>
+<div class="bg-[#181818] px-md py-sm rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">speed</span>
+<span class="font-mono-label text-mono-label">4K / 120 FPS</span>
+</div>
+<div class="bg-[#181818] px-md py-sm rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">memory</span>
+<span class="font-mono-label text-mono-label">1TB CUSTOM SSD</span>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="flex flex-col gap-md">
+<button class="w-full bg-primary-container text-white font-bold py-md rounded-lg text-headline-md hover:brightness-110 active:scale-[0.98] transition-all focus-ring flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">shopping_bag</span>
+                        AGREGAR AL CARRITO
+                    </button>
+<button class="w-full bg-[#252525] text-white font-bold py-md rounded-lg text-headline-md hover:bg-surface-container-highest active:scale-[0.98] transition-all focus-ring">
+                        AGREGAR A LISTA DE DESEOS
+                    </button>
+<div class="flex items-center gap-md py-md border-t border-surface-container-highest mt-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md">En stock</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span class="text-body-md">Envío Gratis</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Info Section (Bento Style) -->
+<section class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="md:col-span-2 bg-[#181818] p-lg rounded-xl flex flex-col justify-between min-h-[320px] group overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="font-headline-lg text-headline-lg mb-sm">Master your surroundings</h3>
+<p class="font-body-lg text-secondary max-w-md">3D Spatial Sound creates immersive life-like environments. Hear every footstep, every whisper, and every explosion with precision.</p>
+</div>
+<div class="absolute right-0 bottom-0 w-1/2 h-full opacity-30 group-hover:opacity-60 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="Close-up of the Xbox Kinetic Series X logo engraved into the side of the console with beautiful dark shadows and highlights, showcasing premium build quality. The material has a subtle grain that reflects the dark environment with high-contrast Xbox green highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPQuGt0p2ez4QD1DB2ddBzQsNNJKITbh5hH9rGWLxo-002ZbsFH4dwlPuAC5H4YnY4YAjsqogwZqOPgw7If4yiVweaNoLzoIVSYjKVQkEKfw9RVrp5K4mlYk2cwrLBWY0-U-CNwffJQmT-nBpO9xyW8yuddruRSAvPnEna09BZy9Q8ygF8PGToAXNOEx2tn8n3O2J-nuBrrzIWKr4m_1ccaRyysbPKvT_BiMZSMMK8ic09jGG5owmc"/>
+</div>
+</div>
+<div class="bg-primary-container p-lg rounded-xl flex flex-col justify-center items-center text-center group">
+<span class="material-symbols-outlined text-[64px] mb-md group-hover:scale-110 transition-transform duration-500">videogame_asset</span>
+<h3 class="font-headline-lg text-headline-lg text-white mb-sm">Game Pass Ready</h3>
+<p class="font-body-md text-white/80">Play hundreds of high-quality games out of the box.</p>
+<button class="mt-lg border-2 border-white/40 hover:border-white px-xl py-sm rounded-full font-label-caps transition-colors">VER PLANES</button>
+</div>
+</section>
+</main>
+<!-- Footer Space -->
+<footer class="w-full py-xl mt-xl border-t border-surface-container-highest">
+<div class="max-w-container-max mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-md">
+<span class="font-headline-md text-secondary opacity-50 tracking-tighter">X-STORE KINETIC</span>
+<div class="flex gap-lg text-body-md text-secondary">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Sale</a>
+<a class="hover:text-primary transition-colors" href="#">Help &amp; Support</a>
+</div>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer">face_nod</span>
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer">bento</span>
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer">youtube_activity</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Haptic feedback logic could go here
+            });
+        });
+
+        // Simple gallery switcher logic
+        const thumbnails = document.querySelectorAll('.grid-cols-4 button');
+        const mainImage = document.querySelector('.lg\\:col-span-7 img');
+
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                // Update main image source (simulated with placeholder logic)
+                const thumbImg = thumb.querySelector('img');
+                const oldSrc = mainImage.getAttribute('src');
+                const oldAlt = mainImage.getAttribute('data-alt');
+                
+                // Visual swap feedback
+                mainImage.style.opacity = '0';
+                setTimeout(() => {
+                    mainImage.setAttribute('data-alt', thumbImg.getAttribute('data-alt'));
+                    mainImage.style.opacity = '1';
+                }, 200);
+
+                // Update active state
+                thumbnails.forEach(t => t.classList.remove('border-primary', 'ring-offset-4', 'ring-offset-[#101010]'));
+                thumb.classList.add('border-primary', 'ring-offset-4', 'ring-offset-[#101010]');
+            });
+        });
+    </script>
+</body></html>

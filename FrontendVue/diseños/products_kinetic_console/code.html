@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#ffb0cd",
+                    "surface-container-lowest": "#0e0e0e",
+                    "secondary": "#c8c6c5",
+                    "on-primary-container": "#b5ffa2",
+                    "on-primary-fixed-variant": "#005303",
+                    "on-primary-fixed": "#002200",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-tint": "#79dd68",
+                    "on-tertiary-fixed-variant": "#890f52",
+                    "secondary-container": "#474746",
+                    "inverse-primary": "#006e06",
+                    "surface-bright": "#3a3939",
+                    "tertiary-fixed": "#ffd9e4",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-container": "#ffe6ed",
+                    "on-background": "#e5e2e1",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-container": "#b7b5b4",
+                    "background": "#131313",
+                    "on-error": "#690005",
+                    "outline": "#899482",
+                    "on-tertiary": "#640039",
+                    "surface-container-highest": "#353534",
+                    "primary": "#79dd68",
+                    "inverse-on-surface": "#313030",
+                    "primary-fixed-dim": "#79dd68",
+                    "secondary-fixed": "#e4e2e1",
+                    "on-surface": "#e5e2e1",
+                    "surface": "#131313",
+                    "tertiary-container": "#b83a77",
+                    "surface-container": "#201f1f",
+                    "primary-container": "#107c10",
+                    "outline-variant": "#3f4a3b",
+                    "on-primary": "#003a01",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#3e0021",
+                    "primary-fixed": "#94fa81",
+                    "surface-dim": "#131313",
+                    "on-secondary": "#303030",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-container-high": "#2a2a2a",
+                    "on-surface-variant": "#becab7",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "tertiary-fixed-dim": "#ffb0cd",
+                    "surface-variant": "#353534"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "xl": "64px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-label": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="flex min-h-screen">
+<!-- SIDE NAV BAR (Persistent Sidebar) -->
+<aside class="w-64 h-full fixed left-0 top-0 bg-surface-container-lowest flex flex-col py-md border-r border-surface-container-low z-50">
+<div class="px-md mb-xl">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Kinetic Console</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant opacity-60">Admin Terminal</p>
+</div>
+<nav class="flex-grow space-y-1">
+<!-- Dashboard -->
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-primary">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<!-- Customers -->
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-primary">group</span>
+<span class="text-body-md font-body-md">Customers</span>
+</a>
+<!-- Products (ACTIVE) -->
+<a href="#" class="flex items-center text-primary font-bold border-l-4 border-primary pl-4 py-3 bg-surface-container transition-all duration-150 active:scale-95">
+<span class="material-symbols-outlined mr-3 text-body-md" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-body-md font-body-md">Products</span>
+</a>
+<!-- Sales -->
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-primary">payments</span>
+<span class="text-body-md font-body-md">Sales</span>
+</a>
+<!-- Services -->
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-primary">settings_applications</span>
+<span class="text-body-md font-body-md">Services</span>
+</a>
+<!-- Reports -->
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-primary">bar_chart</span>
+<span class="text-body-md font-body-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-md space-y-1">
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-primary">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+<a href="#" class="flex items-center text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 group">
+<span class="material-symbols-outlined mr-3 text-body-md group-hover:text-error">logout</span>
+<span class="text-body-md font-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-grow ml-64 flex flex-col">
+<!-- TOP APP BAR -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface-container-lowest flex justify-between items-center px-lg shadow-sm">
+<!-- Search Bar on Left -->
+<div class="flex items-center bg-surface-container-low rounded-lg px-4 py-2 w-96 border border-surface-container-highest/10 focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-3 text-body-md">search</span>
+<input type="text" placeholder="Search products, IDs, or categories..." class="bg-transparent border-none focus:ring-0 text-body-md text-on-surface w-full placeholder:text-on-surface-variant/50">
+</div>
+<!-- Actions on Right -->
+<div class="flex items-center space-x-md">
+<div class="flex items-center space-x-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<button class="bg-primary-container text-white px-md py-2 rounded-lg font-bold flex items-center space-x-2 hover:opacity-90 active:scale-95 transition-all xbox-focus">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="text-body-md">Add Product</span>
+</button>
+<div class="flex items-center space-x-sm pl-4 border-l border-surface-container-high">
+<img class="w-8 h-8 rounded-full border border-primary/20" data-alt="Close-up professional headshot of a modern administrative user with a focused expression, set against a dark, tech-inspired background with subtle green neon lighting accents. The style is crisp and high-definition, reflecting a high-performance gaming ecosystem aesthetic with cool tones and sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzc2f_ZvhjJ--Ubb5BAGu9vZTaH1c597lRFCaRpyjbOxRy6S4MxIrKsmXmiQphojuWZxdOaoAo6gr0wDqpqkf0NuESShwGQmxO6-8vEJRs_UaqFr4aPKZSbXbiH3sAKiJjGuI2LMK5EWf0AYqiP95DZwnnUlSmwgai0SPUZQSRgwIyPDy9aG8xK1AG-R1CsLmdSeZs3aj0wxytKMM7gOFSG4BFnAueEEVCVsgEj9ht8sa8sEh57LfE">
+<span class="text-label-caps font-label-caps text-on-surface hidden xl:block">ADMIN_ROOT</span>
+</div>
+</div>
+</header>
+<!-- CONTENT CANVAS -->
+<div class="p-lg flex flex-col space-y-md">
+<!-- Page Header Section -->
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="text-display-lg font-display-lg text-on-surface">Products</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Manage your inventory, pricing, and stock levels across all platforms.</p>
+</div>
+<div class="flex space-x-sm">
+<button class="px-md py-2 bg-surface-container-high text-on-surface rounded-lg font-medium text-body-md hover:bg-surface-container-highest transition-colors flex items-center">
+<span class="material-symbols-outlined mr-2 text-[20px]">filter_list</span> Filter
+                    </button>
+<button class="px-md py-2 bg-surface-container-high text-on-surface rounded-lg font-medium text-body-md hover:bg-surface-container-highest transition-colors flex items-center">
+<span class="material-symbols-outlined mr-2 text-[20px]">file_download</span> Export
+                    </button>
+</div>
+</div>
+<!-- DATA TABLE CARD -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-surface-container-highest/10">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-highest/20">
+<tr>
+<th class="px-md py-4 text-label-caps font-label-caps text-on-surface-variant opacity-70">ITEM</th>
+<th class="px-md py-4 text-label-caps font-label-caps text-on-surface-variant opacity-70">CATEGORY</th>
+<th class="px-md py-4 text-label-caps font-label-caps text-on-surface-variant opacity-70">PRICE</th>
+<th class="px-md py-4 text-label-caps font-label-caps text-on-surface-variant opacity-70">STOCK STATUS</th>
+<th class="px-md py-4 text-label-caps font-label-caps text-on-surface-variant opacity-70 text-right">ACTIONS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest/10">
+<!-- Product 1: Xbox Series X -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center space-x-md">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A sleek Xbox Series X console shown in a dramatic studio setting with deep black shadows and a single glowing green power light. The lighting is moody and cinematic, emphasizing the monolithic design and premium matte finish. High-contrast tech photography style with crisp details and a clean dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUCYkUOP-qyR1EAJZDEylPqQtyePFNwFmVkSXd_dB2hyQtX6V5MYvpJ5rqJryEGXp_-ASL5Z18CG8kztLc0EeXqmIE1VTPNdRpEEXFe8X_s7Lkfzvdq-fEo9VoPtFPk65aDdCKEHtG7u2pR3qu0DSgnuH6Atf8R-O8f9DbniBcqxxnR6Kbo5h2WVuKinFTPX8k0CaF5e4AK_1dUdyOP0rpyQyh99RwycFGwGUoxWOt8NUwiLLfC5NG">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">Xbox Series X</p>
+<p class="text-mono-label font-mono-label text-on-surface-variant uppercase">SKU: HW-XBX-001</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-caps font-label-caps text-secondary">CONSOLES</span>
+</td>
+<td class="px-md py-md">
+<p class="text-body-md font-bold text-on-surface">$499.99</p>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-body-md font-medium text-primary">In Stock (24)</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end space-x-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product 2: DualSense Controller -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center space-x-md">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up professional product shot of a white DualSense wireless controller for PlayStation 5. The lighting highlights the intricate textures of the grips and the glowing blue light bar. Clean, high-tech aesthetic with a minimalist dark grey background, emphasizing form and ergonomic detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXOgR_zw7Wy3jbm47zylTV0BQb6OttkE_wIjt9mbDAPzZ6WCJAlXF-NpoLSrhsofNZsiXHFCsE7vEKngiTv1_jJYDiBb-QDT_Aj-WBSbcaGzuxJaHOc_ftszA6Hy2h4m5PMH67Jkms8mgAl7eO78Xccwiw7LVMEQ1KhD2GNKstsRwADSahckOwzJMN8rFxlaN72-EKH9BpdvsjGvnnwZmBPCfs2rNToOEaI72jyB8OOuk0lQ5WpCN0">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">DualSense Controller</p>
+<p class="text-mono-label font-mono-label text-on-surface-variant uppercase">SKU: AC-PS5-042</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-caps font-label-caps text-secondary">ACCESSORIES</span>
+</td>
+<td class="px-md py-md">
+<p class="text-body-md font-bold text-on-surface">$69.99</p>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-body-md font-medium text-tertiary">Low Stock (3)</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end space-x-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product 3: Elden Ring -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center space-x-md">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Cinematic video game cover art for Elden Ring, featuring a tarnished knight in ornate armor standing before a glowing, ethereal Erdtree. The colors are dominated by dark golds, deep blacks, and fiery oranges. Intense, high-fantasy art style with a dark, atmospheric mood and high level of intricate detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHvx_MUhk8siqqkRI7JM30j7awseTHGnvjoB15E7QpfyxEi0m1i5A_2AjiJTmbGx-kmUblkMZBxbgCyP9VwiF-8fF-EtLzUyUYKs4ICq8CDJQAAtZ4hR_TgTIIZAmwA02xpSZ1puWs6E02sLFSbT2-_OSspMp1VxXsWKadnFIiZuVJMQY8sP7eI9smfBESrqdCaoPtpUJ6ntJywXsIoolLJSNFJ9vmwsePM37-DzSuDeLQhGyFxw__">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">Elden Ring</p>
+<p class="text-mono-label font-mono-label text-on-surface-variant uppercase">SKU: GS-MUL-889</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-caps font-label-caps text-secondary">GAMES</span>
+</td>
+<td class="px-md py-md">
+<p class="text-body-md font-bold text-on-surface">$59.99</p>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-body-md font-medium text-primary">In Stock (112)</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end space-x-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product 4: Halo Infinite -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center space-x-md">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="High-action video game key art for Halo Infinite featuring Master Chief in his iconic green Spartan armor. He is posed heroically against a backdrop of a fractured Halo ring and a sci-fi landscape. Vibrant greens, metallic greys, and deep space blues. Epic, high-performance sci-fi aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzWF_BjCFZ8gAIFdv65uaBYEYZQUsgaDSJ4905N7FCKm8JWscwU7_nna06b8rrLzGrBf6pGWXrPkdMi5M_29uUrCEQfOfrunWN0te2GbXgKd6n1zgfRefydzPR_gJvEUA4YjlmxpKi0ZPUnBU4sVyCdIGnCPb_kbvya_KpzqbUnn6MXwrdhfXA82B_yK24p83BfkshYWBSwOcwLMtEu1E6AS7_3byh2ZIdTKiVftdzgwmQGgZqsInh">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">Halo Infinite</p>
+<p class="text-mono-label font-mono-label text-on-surface-variant uppercase">SKU: GS-XBX-011</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-caps font-label-caps text-secondary">GAMES</span>
+</td>
+<td class="px-md py-md">
+<p class="text-body-md font-bold text-on-surface">$59.99</p>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="text-body-md font-medium text-error">Out of Stock</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end space-x-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="px-md py-4 bg-surface-container-lowest flex justify-between items-center border-t border-surface-container-highest/10">
+<p class="text-body-md text-on-surface-variant">Showing <span class="text-on-surface font-bold">1-4</span> of <span class="text-on-surface font-bold">42</span> products</p>
+<div class="flex space-x-1">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dashboard Atmospheric micro-interaction -->
+<div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="p-md bg-surface-container-low rounded-lg border border-surface-container-highest/10 flex items-center space-x-md">
+<div class="p-3 bg-primary/10 rounded-full">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">MONTHLY GROWTH</p>
+<p class="text-headline-md font-headline-md text-on-surface">+12.5%</p>
+</div>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-surface-container-highest/10 flex items-center space-x-md">
+<div class="p-3 bg-tertiary/10 rounded-full">
+<span class="material-symbols-outlined text-tertiary">inventory</span>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">TOTAL VALUE</p>
+<p class="text-headline-md font-headline-md text-on-surface">$248,390</p>
+</div>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-surface-container-highest/10 flex items-center space-x-md">
+<div class="p-3 bg-secondary/10 rounded-full">
+<span class="material-symbols-outlined text-secondary">flash_on</span>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">SYSTEM STATUS</p>
+<p class="text-headline-md font-headline-md text-primary">STABLE</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple UI Interaction logic
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // In a real app, this might navigate to details
+                console.log('Product row clicked');
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

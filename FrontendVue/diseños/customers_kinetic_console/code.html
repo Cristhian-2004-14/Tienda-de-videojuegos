@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#353534",
+                    "error-container": "#93000a",
+                    "primary-fixed": "#94fa81",
+                    "outline-variant": "#3f4a3b",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#005303",
+                    "on-tertiary-fixed": "#3e0021",
+                    "on-error-container": "#ffdad6",
+                    "surface-dim": "#131313",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "tertiary-fixed": "#ffd9e4",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-tertiary-fixed-variant": "#890f52",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "surface-bright": "#3a3939",
+                    "outline": "#899482",
+                    "surface-container-high": "#2a2a2a",
+                    "on-secondary": "#303030",
+                    "tertiary": "#ffb0cd",
+                    "surface-container": "#201f1f",
+                    "primary-container": "#107c10",
+                    "surface-tint": "#79dd68",
+                    "surface": "#131313",
+                    "secondary-fixed": "#e4e2e1",
+                    "background": "#101010",
+                    "on-surface-variant": "#becab7",
+                    "tertiary-container": "#b83a77",
+                    "on-primary-container": "#b5ffa2",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-container-low": "#1c1b1b",
+                    "primary": "#107c10",
+                    "inverse-primary": "#006e06",
+                    "primary-fixed-dim": "#79dd68",
+                    "tertiary-fixed-dim": "#ffb0cd",
+                    "on-error": "#690005",
+                    "on-primary": "#FFFFFF",
+                    "secondary": "#c8c6c5",
+                    "secondary-container": "#474746",
+                    "on-primary-fixed": "#002200",
+                    "on-surface": "#e5e2e1",
+                    "on-tertiary-container": "#ffe6ed",
+                    "surface-container-highest": "#353534",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary": "#640039",
+                    "on-secondary-container": "#b7b5b4",
+                    "on-background": "#e5e2e1",
+                    "inverse-surface": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "xs": "4px",
+                    "xl": "64px",
+                    "md": "24px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "mono-label": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-background text-on-background">
+<!-- SideNavBar Shell -->
+<aside class="w-64 h-full fixed left-0 top-0 flex flex-col py-md bg-surface-container-lowest z-50">
+<div class="px-md mb-xl flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Kinetic Console</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant opacity-60">Admin Terminal</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium pl-5 py-3 flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a href="#" class="text-primary font-bold border-l-4 border-primary pl-4 py-3 bg-surface-container flex items-center gap-4 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-body-md font-body-md">Customers</span>
+</a>
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium pl-5 py-3 flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">inventory_2</span>
+<span class="text-body-md font-body-md">Products</span>
+</a>
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium pl-5 py-3 flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">payments</span>
+<span class="text-body-md font-body-md">Sales</span>
+</a>
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium pl-5 py-3 flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">settings_applications</span>
+<span class="text-body-md font-body-md">Services</span>
+</a>
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium pl-5 py-3 flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">bar_chart</span>
+<span class="text-body-md font-body-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-md flex flex-col gap-1">
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium py-3 px-3 rounded-lg flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+<a href="#" class="hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium py-3 px-3 rounded-lg flex items-center gap-4 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">logout</span>
+<span class="text-body-md font-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface-container-lowest flex justify-between items-center px-lg">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input type="text" placeholder="Search customers..." class="w-full bg-[#121212] border border-surface-variant rounded-lg pl-10 pr-4 py-2 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">help_outline</button>
+</div>
+<div class="h-8 w-[1px] bg-surface-variant"></div>
+
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 p-lg max-w-[1440px] w-full mx-auto">
+<!-- Section Header -->
+<div class="flex justify-between items-center mb-lg">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Customers</h2>
+<p class="text-body-md text-on-surface-variant">Manage and track your active user base.</p>
+</div>
+<button class="bg-primary hover:bg-opacity-90 active:scale-95 text-on-primary font-bold px-gutter py-3 rounded-lg flex items-center gap-2 transition-all shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined">person_add</span>
+<span class="">Add Customer</span>
+</button>
+</div>
+<!-- Stats Overview (Bento Style) -->
+<div class="grid grid-cols-4 gap-gutter mb-lg">
+<div class="bg-surface-container-low p-gutter rounded-lg hover:bg-surface-container transition-colors cursor-default">
+<p class="text-label-caps text-on-surface-variant mb-1">Total Customers</p>
+<p class="text-headline-lg text-primary">12,842</p>
+<p class="text-body-md text-primary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +8.4%
+                    </p>
+</div>
+<div class="bg-surface-container-low p-gutter rounded-lg hover:bg-surface-container transition-colors cursor-default">
+<p class="text-label-caps text-on-surface-variant mb-1">Active Now</p>
+<p class="text-headline-lg text-on-surface">1,204</p>
+<div class="w-full h-1 bg-surface-variant mt-4 rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-gutter rounded-lg hover:bg-surface-container transition-colors cursor-default">
+<p class="text-label-caps text-on-surface-variant mb-1">Churn Rate</p>
+<p class="text-headline-lg text-on-surface">1.2%</p>
+<p class="text-body-md text-on-surface-variant mt-2">Stable growth</p>
+</div>
+<div class="bg-surface-container-low p-gutter rounded-lg hover:bg-surface-container transition-colors cursor-default">
+<p class="text-label-caps text-on-surface-variant mb-1">New this month</p>
+<p class="text-headline-lg text-on-surface">432</p>
+<div class="flex -space-x-2 mt-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up face of a young tech professional with short dark hair, smiling subtly. The background is a minimalist dark tech office with subtle green neon accents. Cinematic lighting, portrait style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAst6PsUaqYsIO57Xycp2HGQDhP7mfIYwjSjy--h9k08dNxQ_jln7f3aUfw_aXzgo1pZnIjLwuO-hSKAJPj5lolI-XknGNTP89qGYHWkhgUBa5-4JATmBTJlVkmEsm486FB15XfW4hnekrwdhWnuWh3tJp6bXnpi0qM7PKjQLZ_WIN5wAWqNDXqz4nwkAWzW_JbR7Nu0aqTQohOMsQszhuGZkOnxdejmfGt7e33KI1EmVZew99uhMBS">
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a woman with long red hair and creative glasses, looking at the camera. The setting is high-end corporate dark mode, with soft emerald green rim lighting. High resolution digital art." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy2Mn0Whuy1ZkSIGE5Ib4Nkb9m_FVhq_TNpx58NAK0uCXieYJ-or8-yZjjOjqOfZPQTtt9q_pzOrfwhR7-OnJoO0rHJdkQhM3x9tGu70dgJNiN8bsT9Rc1cGhD8ZmrEFDl-gDE2lEvs_vS3ODKLaBtzeghBNgYKqEUCd8EFvXM4kQSxYsekRUf8vKm5wKhCtmwHwOT-8lJubg0ikZazZE9Bx8EJ2Cv0RIaBT1bMlQIeuMfCssv9_Rm">
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-low overflow-hidden bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface">
+                            +12
+                        </div>
+</div>
+</div>
+</div>
+<!-- Customers Table Card -->
+<div class="bg-surface-container-low rounded-lg overflow-hidden border border-transparent hover:border-surface-variant/30 transition-all">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest text-left">
+<th class="px-gutter py-4 text-label-caps text-on-surface-variant">Customer Name</th>
+<th class="px-gutter py-4 text-label-caps text-on-surface-variant">Phone Number</th>
+<th class="px-gutter py-4 text-label-caps text-on-surface-variant">Email Address</th>
+<th class="px-gutter py-4 text-label-caps text-on-surface-variant">Registration Date</th>
+<th class="px-gutter py-4 text-label-caps text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Headshot of a modern software engineer in their 30s, neutral expression, soft lighting from the side casting dramatic shadows. Dark gray backdrop with a subtle green tint. Hyper-realistic details, corporate profile style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0Db7RyYTh8_IFR7yNIQXbHa7-WkChtk0m6p84H0YKUSe8N2EO1GJfTi4KE1ArvUJp78kuWAXi8cwX7TK5e_qjOLDUJThU_uqJOOs6lWtfTXCOEPplzAcQiP1n66cCSwnXXIJocsBcOy0cWtG54q9n0wocw_YAi_2DLmwYF_MjXGYmLqxTkG3TuKCwji_XWkuSneamshACu8LvgXr_lg2eyfTxqNFEyp0y7epwegjIVnbuPDM6HROr">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">Alexander Vance</p>
+<p class="text-mono-label text-on-surface-variant opacity-60">ID: KC-9421</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant font-mono-label">+1 (555) 012-9834</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">alex.vance@example.com</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">Oct 12, 2023</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 rounded-sm hover:bg-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-sm hover:bg-error-container/20 flex items-center justify-center transition-colors group/del">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/del:text-error text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young entrepreneur woman with sleek dark hair in a professional setting. The lighting is high-contrast, featuring deep blacks and vibrant emerald green highlights. Cinematic feel, ultra-sharp focus on the eyes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNY94yU1Y7rjdKMzCdMV8lCHFHajUs3A_5_6qGPnnL8QUUWg2COkSjoCoudgavz8FmIuSt38nO1cS0DLMDKPkU5XUnOZVyR8XWFHtMMwFt1gUfARALBRxYJ92OmdigfSCqZ7l-yMKoPg29uOakThqqaDJLpjjDEN99xQvrXPcmxYtBnM3KTgABQI-klKFJGIdD6fy2Swc7Mk4tq76MkBtL-RSWCiHLtO8JK0An7BL9CE52o4I4BD6-">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">Elena Rodriguez</p>
+<p class="text-mono-label text-on-surface-variant opacity-60">ID: KC-8812</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant font-mono-label">+1 (555) 948-2231</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">e.rodriguez@kinetic.tech</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">Sep 28, 2023</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 rounded-sm hover:bg-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-sm hover:bg-error-container/20 flex items-center justify-center transition-colors group/del">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/del:text-error text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a senior consultant with distinguished gray hair, wearing designer spectacles. Dark navy and black background with a glowing green neon line in the distance. Professional administrative UI portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAmbux9M9qpSNrciwc0DBs6ceI4qKnXM4HFoWikM-dZy3bpaCIJa7lu6o5iZYpd1Owde0MNVmKUleUrzUkNgEbZZogiJquDe2J8h5H0NtsT_uox3yD4tbdbdffy2-XXq6KDWU25xn916UqtqTOj14PHNf3qqtSXqQa3PGCRolUJ0-AjeKQ2Y3Ei4vPo1CoaUSqjiPIW-Nmwfww5jB3NkmpQwIdxJijbmv8IOEiHqnFXvP36Hkw9rPb">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">Marcus Sterling</p>
+<p class="text-mono-label text-on-surface-variant opacity-60">ID: KC-7255</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant font-mono-label">+44 20 7946 0145</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">sterling.m@global.com</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">Nov 03, 2023</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 rounded-sm hover:bg-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-sm hover:bg-error-container/20 flex items-center justify-center transition-colors group/del">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/del:text-error text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of a creative designer with tattoos on their neck, smiling brightly. The lighting is warm but within a dark tech aesthetic, using green environmental glows. High resolution, 8k digital photograph." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6AlmQSyDlw0KZWrg1dCDWHnF_Iy1IcI42lrpKMrcSTVDzI9ltVGWkFTrqr_tLaBdYiabWT4c-V8Za0VXEmXk1ed9oZN7vSuWzQqAz_7SANd9NaKe6W4eMCI70iZd2APRdfi6CKwde2Qo2qE7S3R3v2H39wC0W63XAokUGn8l5FBoSRR9OSgf-kDX9Wbn4V7sht2QFiv1oL47C2Tfj7Jd43lX5UaITMmGyrOuOZDsQ1GsLjBxkuQGq">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">Sami Jone</p>
+<p class="text-mono-label text-on-surface-variant opacity-60">ID: KC-6401</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant font-mono-label">+1 (555) 723-1109</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">sami.j@creative-hub.io</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">Oct 29, 2023</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 rounded-sm hover:bg-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-sm hover:bg-error-container/20 flex items-center justify-center transition-colors group/del">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/del:text-error text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-gutter py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a thoughtful data scientist in a dark room illuminated by the glow of multiple screens. His face is caught in a green and blue reflected light. Professional, high-end tech aesthetic, ultra-detailed skin textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl80bHdaJwCSPqvP_TbbiT58T33pLYRuOd5FgUYPKtyZw-fMFMF0Pivr8IiTEFCCNY48qHhkpj1YNIUS5sJ09_451GuGxNnb_qIHB3ypN5BSVYpFhtwgZg1R9LpP0VzMe0Q1dTWFJshRJn1df1HhcuKh19k9zhJLV-EO3N5eWH-pVW0y_qiOTN-OV2Uo2JBO6qUbJzVLQuUjeWDucrV_qHOc2c13jqcOTYX0SegKrcsEnM0f0YmLM0">
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">Hiroshi Tanaka</p>
+<p class="text-mono-label text-on-surface-variant opacity-60">ID: KC-5992</p>
+</div>
+</div>
+</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant font-mono-label">+81 90 1234 5678</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">tanaka.h@data-systems.jp</td>
+<td class="px-gutter py-5 text-body-md text-on-surface-variant">Dec 01, 2023</td>
+<td class="px-gutter py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 rounded-sm hover:bg-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-sm hover:bg-error-container/20 flex items-center justify-center transition-colors group/del">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/del:text-error text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="bg-surface-container-lowest p-gutter flex justify-between items-center">
+<p class="text-body-md text-on-surface-variant">Showing <span class="text-on-surface font-bold">1 - 5</span> of 12,842 customers</p>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-lg border border-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-lg border border-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors text-on-surface">2</button>
+<button class="w-10 h-10 rounded-lg border border-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors text-on-surface">3</button>
+<span class="text-on-surface-variant px-2">...</span>
+<button class="w-10 h-10 rounded-lg border border-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors text-on-surface">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mousedown', () => {
+                row.style.transform = 'scale(0.995)';
+                row.style.transition = 'transform 0.1s ease';
+            });
+            row.addEventListener('mouseup', () => {
+                row.style.transform = 'scale(1)';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'scale(1)';
+            });
+        });
+
+        // Search focus interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.style.boxShadow = '0 0 0 2px rgba(16, 124, 16, 0.3)';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.style.boxShadow = 'none';
+        });
+    </script>
+
+</body></html>

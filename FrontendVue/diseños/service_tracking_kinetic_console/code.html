@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glow-active {
+            box-shadow: 0 0 20px rgba(121, 221, 104, 0.3);
+        }
+        body {
+            background-color: #101010;
+            color: #e5e2e1;
+            -webkit-font-smoothing: antialiased;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .timeline-line {
+            background: linear-gradient(90deg, #107c10 50%, #252525 50%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#640039",
+                        "surface-tint": "#79dd68",
+                        "secondary-container": "#474746",
+                        "on-tertiary-container": "#ffe6ed",
+                        "error-container": "#93000a",
+                        "on-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "outline-variant": "#3f4a3b",
+                        "on-surface-variant": "#becab7",
+                        "on-primary": "#003a01",
+                        "surface-variant": "#353534",
+                        "on-secondary-container": "#b7b5b4",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-container": "#b5ffa2",
+                        "tertiary": "#ffb0cd",
+                        "primary-fixed-dim": "#79dd68",
+                        "on-secondary": "#303030",
+                        "on-primary-fixed": "#002200",
+                        "on-tertiary-fixed": "#3e0021",
+                        "tertiary-fixed-dim": "#ffb0cd",
+                        "error": "#ffb4ab",
+                        "background": "#101010",
+                        "tertiary-fixed": "#ffd9e4",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container-highest": "#353534",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-low": "#1c1b1b",
+                        "surface": "#131313",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "inverse-surface": "#e5e2e1",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-primary-fixed-variant": "#005303",
+                        "tertiary-container": "#b83a77",
+                        "primary-fixed": "#94fa81",
+                        "primary-container": "#107c10",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#201f1f",
+                        "secondary": "#c8c6c5",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-bright": "#3a3939",
+                        "on-background": "#e5e2e1",
+                        "inverse-primary": "#006e06",
+                        "primary": "#79dd68",
+                        "outline": "#899482",
+                        "on-tertiary-fixed-variant": "#890f52"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "xl": "64px",
+                        "base": "8px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "mono-label": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<header class="bg-background w-full top-0 z-50">
+<div class="flex justify-between items-center w-full px-md py-base max-w-container-max mx-auto">
+<div class="flex items-center gap-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">GameCore</h1>
+<nav class="hidden md:flex gap-md">
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Store</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Games</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Services</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-base">
+<button class="bg-surface-container-high px-sm py-xs rounded-lg text-on-surface font-bold hover:bg-surface-variant transition-colors">Sign In</button>
+<button class="bg-primary-container px-sm py-xs rounded-lg text-on-primary-container font-bold hover:opacity-90 transition-opacity">Register</button>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-md py-lg">
+<!-- Back Navigation -->
+<div class="mb-lg flex items-center gap-xs cursor-pointer text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-caps text-label-caps">CENTRO DE SOPORTE</span>
+</div>
+<!-- Hero Section / Title -->
+<div class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg mb-xs">Seguimiento de Servicio Técnico</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Consulta el progreso en tiempo real de tu reparación Kinetic.</p>
+</div>
+<!-- Tracking Timeline Section -->
+<section class="bg-[#181818] rounded-xl p-lg mb-md relative overflow-hidden">
+<!-- Background Decoration (Subtle Atmospheric) -->
+<div class="absolute -right-20 -top-20 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">build_circle</span>
+</div>
+<div class="relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-lg md:gap-0 relative">
+<!-- Progress Line (Desktop) -->
+<div class="absolute top-[22px] left-[12%] right-[12%] h-[2px] bg-surface-variant hidden md:block">
+<div class="h-full bg-primary" style="width: 50%;"></div>
+</div>
+<!-- Step 1: Recibido -->
+<div class="flex flex-col items-center gap-sm relative z-20 group">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">Recibido</span>
+<span class="text-[10px] text-on-surface-variant font-mono-label">24 OCT, 09:12 AM</span>
+</div>
+<!-- Step 2: Diagnóstico -->
+<div class="flex flex-col items-center gap-sm relative z-20 group">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">Diagnóstico</span>
+<span class="text-[10px] text-on-surface-variant font-mono-label">24 OCT, 02:45 PM</span>
+</div>
+<!-- Step 3: En reparación (ACTIVE) -->
+<div class="flex flex-col items-center gap-sm relative z-20 group">
+<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-on-primary glow-active animate-pulse">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">handyman</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary font-extrabold tracking-widest scale-110">En reparación</span>
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 bg-primary rounded-full animate-ping"></span>
+<span class="text-[10px] text-primary font-mono-label">TRABAJO EN CURSO</span>
+</div>
+</div>
+<!-- Step 4: Listo -->
+<div class="flex flex-col items-center gap-sm relative z-20 group">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Listo</span>
+<span class="text-[10px] text-surface-container-highest font-mono-label">PENDIENTE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Information Cards Grid -->
+<div class="bento-grid">
+<!-- Main Data Card -->
+<div class="col-span-12 lg:col-span-8 bg-[#181818] rounded-xl p-lg flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">info</span>
+                        Detalles del Ticket
+                    </h3>
+<div class="space-y-sm">
+<div class="flex justify-between items-center py-base border-b border-surface-variant/30">
+<span class="text-on-surface-variant">Dispositivo</span>
+<span class="font-bold text-on-surface">Kinetic Series X</span>
+</div>
+<div class="flex justify-between items-center py-base border-b border-surface-variant/30">
+<span class="text-on-surface-variant">ID de Ticket</span>
+<span class="font-mono-label text-primary font-bold">#SRV-90210</span>
+</div>
+<div class="flex justify-between items-center py-base">
+<span class="text-on-surface-variant">Fecha de ingreso</span>
+<span class="text-on-surface">24 Oct 2023</span>
+</div>
+</div>
+</div>
+<div class="mt-lg pt-lg border-t border-surface-variant/30">
+<p class="font-body-md text-on-surface-variant italic">
+                        "Estamos reemplazando el módulo de enfriamiento y realizando mantenimiento preventivo. Se espera que el proceso finalice en las próximas 24 horas."
+                    </p>
+</div>
+</div>
+<!-- Side Card: Technical Contact -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-md">
+<div class="bg-[#181818] rounded-xl p-md flex-1 group hover:bg-[#252525] transition-colors cursor-pointer">
+<div class="flex items-center gap-md mb-base">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a technical service engineer in a clean, high-tech laboratory environment. Soft teal and neutral grey lighting, shallow depth of field, wearing a dark branded uniform with a 'Kinetic' logo patch. The atmosphere is professional, technical, and trustworthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-CKc_XeV7ZBlHIvjfCIPRZVwau_6hlzyzWUElGBQNvJ8BGQzPsLqKGtyHbH7Vf8iiKGZEHuwfLOi-S1w1TaLAzxRZUd8y0tt0kfUpslVDwJ7vpnAirF8z9ldnoxX-IQG2scI4PcoPYmP7f5WOiJ_aPqpbkhqatVaEX3eDJ-WvGFChdK-t9jJ2KAdP9Xa6MX96YeGcUuV_-erPZmOLSZqEosf0uFrw7NV4zL9YmN-z7TE-qKf9Oh8Q"/>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">TÉCNICO ASIGNADO</p>
+<p class="font-headline-md text-headline-md">Marcus J.</p>
+</div>
+</div>
+<div class="flex items-center gap-xs text-primary mb-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+<span class="text-xs font-mono-label text-on-surface-variant ml-xs">4.8 (Expert)</span>
+</div>
+<button class="w-full bg-secondary-container text-on-surface-variant font-bold py-sm rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-all duration-300 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-lg">chat</span>
+                        Contactar Técnico
+                    </button>
+</div>
+<div class="bg-[#181818] rounded-xl p-md group">
+<div class="flex items-center justify-between mb-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant">UBICACIÓN DEL CENTRO</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">map</span>
+</div>
+<div class="aspect-video w-full rounded-lg overflow-hidden bg-surface-dim relative border border-surface-variant/30">
+<div class="w-full h-full bg-cover bg-center" data-alt="A high-tech digital map visualization showing a modern laboratory location in a dark, minimalist city layout. The map uses neon green accents for points of interest, glowing paths, and a clean interface that fits the Xbox Dashboard aesthetic. No labels, just graphical data representation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBcPtFVH320CmM8y0YMuX7YyC1425Lk27eIpkr6d9iUf3rVN2RYdLQUHzWDLqNuCiirBBssdhguuwdlX6451_olqBhnVqBC5em8ncnKV00oubUo30JYSVhU7lRdcsWz_-9kUMYr4IFiQjKMLFFmy5qPJ_sWq3-2Ff4N5TcSe_XpG9T8N6w1s2GJZA2pUC0OgEwAEjYKdJLK1wJTijim72k-8H4Ad6TMz5cLYfWfe1MJGmp_aWiOWJov')"></div>
+<div class="absolute bottom-2 left-2 bg-background/80 backdrop-blur-md px-sm py-xs rounded text-[10px] font-mono-label border border-primary/20">
+                            COORD: 40.7128° N, 74.0060° W
+                         </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Help Section -->
+<div class="mt-lg grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-transparent hover:border-primary/20 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">description</span>
+</div>
+<div>
+<p class="font-bold">Garantía</p>
+<p class="text-xs text-on-surface-variant">Ver estado de cobertura</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-transparent hover:border-primary/20 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</div>
+<div>
+<p class="font-bold">FAQs</p>
+<p class="text-xs text-on-surface-variant">Preguntas frecuentes</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-transparent hover:border-primary/20 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">support_agent</span>
+</div>
+<div>
+<p class="font-bold">Soporte 24/7</p>
+<p class="text-xs text-on-surface-variant">Habla con un humano</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full px-md py-lg mt-xl bg-surface-container-low border-t border-surface-variant">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex flex-col gap-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">GAMECORE INDUSTRIES</span>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-60">© 2024 GameCore Industries. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-md text-on-surface-variant font-body-md text-body-md">
+<a class="hover:text-on-surface transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="hover:text-on-surface transition-colors duration-200" href="#">Terms of Service</a>
+<a class="hover:text-on-surface transition-colors duration-200" href="#">Contact Us</a>
+<a class="hover:text-on-surface transition-colors duration-200" href="#">Technical Support</a>
+<a class="hover:text-on-surface transition-colors duration-200" href="#">Global Sitemap</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for hovering cards
+        document.querySelectorAll('.rounded-xl').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simulating live update glow
+        const activeIndicator = document.querySelector('.animate-pulse');
+        if(activeIndicator) {
+            setInterval(() => {
+                activeIndicator.classList.toggle('glow-active');
+            }, 1500);
+        }
+    </script>
+</body></html>

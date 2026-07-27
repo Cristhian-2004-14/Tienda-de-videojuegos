@@ -1,0 +1,19 @@
+@BackendApi_HostAddress = http://localhost:5158
+
+POST {{BackendApi_HostAddress}}/api/database/seed
+Accept: application/json
+
+###
+
+GET {{BackendApi_HostAddress}}/api/productos
+Accept: application/json
+
+###
+
+POST {{BackendApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}

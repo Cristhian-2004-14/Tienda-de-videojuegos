@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Xbox Retail Terminal - Sales</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#94fa81",
+                        "background": "#131313",
+                        "secondary": "#c8c6c5",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-container": "#ffe6ed",
+                        "error-container": "#93000a",
+                        "on-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "outline": "#899482",
+                        "surface-container-highest": "#353534",
+                        "on-tertiary-fixed-variant": "#890f52",
+                        "tertiary-fixed": "#ffd9e4",
+                        "on-tertiary-fixed": "#3e0021",
+                        "secondary-container": "#474746",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#79dd68",
+                        "inverse-on-surface": "#313030",
+                        "tertiary-fixed-dim": "#ffb0cd",
+                        "secondary-fixed": "#e4e2e1",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface": "#131313",
+                        "primary-container": "#107c10",
+                        "on-tertiary": "#640039",
+                        "on-primary": "#003a01",
+                        "primary": "#79dd68",
+                        "surface-variant": "#353534",
+                        "surface-container": "#201f1f",
+                        "on-background": "#e5e2e1",
+                        "on-primary-fixed": "#002200",
+                        "on-secondary": "#303030",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "primary-fixed-dim": "#79dd68",
+                        "on-surface-variant": "#becab7",
+                        "tertiary": "#ffb0cd",
+                        "on-primary-container": "#b5ffa2",
+                        "surface-container-high": "#2a2a2a",
+                        "outline-variant": "#3f4a3b",
+                        "on-primary-fixed-variant": "#005303",
+                        "on-error": "#690005",
+                        "tertiary-container": "#b83a77",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-primary": "#006e06"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "base": "8px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-label": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #101010;
+            color: #e5e2e1;
+            overflow: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .product-card {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.03);
+            background-color: #252525;
+        }
+        .product-card:focus-within {
+            outline: 2px solid #107C10;
+            outline-offset: 4px;
+        }
+        /* Custom scrollbar for Xbox aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101010;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353534;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #107C10;
+        }
+    </style>
+</head>
+<body class="flex font-body-md text-body-md antialiased">
+<!-- SideNavBar Anchor -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest flex flex-col p-md z-50">
+<div class="mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Store Admin</h1>
+<p class="text-on-surface-variant text-xs font-mono-label opacity-60">Terminal v2.0</p>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-body-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container bg-primary-container rounded-lg" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-body-md">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="font-body-md">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md">Reports</span>
+</a>
+</div>
+<button class="mt-auto bg-primary-container text-on-primary-container font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+            New Sale
+        </button>
+<div class="mt-md flex items-center gap-3 pt-md border-t border-surface-variant">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A profile portrait of a professional retail manager, focused and calm, shot with high-contrast cinematic lighting against a dark charcoal background. The image has a clean, modern aesthetic with subtle green ambient rim lighting reflecting off their shoulder, matching the Xbox brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu98jA2X4Yp5yxSQgc9AKb25oufjB83AjeGKXKyduAYEzYWafNmYj3KzHbWofOhzM1I5KE_0dKw3-0Pi2KwIRz5RwUW_nQSmPuZyq2l0e3aBI3-1-yQpCcWEGXutvxn8P2zbsLgj9QNkXVTUfHJlbEhkE97Mtugkp6gXZHB_T01ENyC0Y5zcDBOh2A0OnrdA6xoiMVsaZera3jdxbZNy7HA7FSg3F4i33Yb6-hzpSaSSf7oBd-kBUQ"/>
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Manager</p>
+<p class="text-xs text-on-surface-variant">Shift: AM</p>
+</div>
+</div>
+</nav>
+<!-- TopNavBar Anchor -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface flex justify-between items-center px-md w-auto z-40">
+<div class="flex items-center gap-md flex-1">
+<span class="font-headline-md text-headline-md font-extrabold text-on-surface">Xbox Retail Terminal</span>
+<div class="relative w-96 ml-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-surface-container-highest rounded-lg py-2 pl-10 pr-4 text-on-surface focus:ring-2 focus:ring-primary focus:outline-none transition-all" placeholder="Search products or SKU..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Main Content Grid -->
+<main class="ml-64 mt-16 p-md flex gap-gutter w-full h-[calc(100vh-64px)]">
+<!-- Left: Product Grid (Fixed-Fluid Hybrid) -->
+<section class="flex-1 overflow-y-auto pr-2">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Hardware &amp; Games</h2>
+<div class="flex gap-2">
+<button class="bg-surface-container-high px-4 py-2 rounded-lg text-sm font-bold border border-transparent hover:border-primary transition-all">Consoles</button>
+<button class="bg-surface-container-high px-4 py-2 rounded-lg text-sm font-bold border border-transparent hover:border-primary transition-all">Accessories</button>
+<button class="bg-surface-container-high px-4 py-2 rounded-lg text-sm font-bold border border-transparent hover:border-primary transition-all">Digital</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md pb-xl">
+<!-- Product 1 -->
+<div class="product-card bg-surface-container rounded-lg p-4 cursor-pointer group flex flex-col">
+<div class="aspect-square bg-surface-container-lowest rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A sleek, futuristic gaming console, Kinetic Series X, presented in a minimalist studio setting with deep black shadows and sharp green neon highlights. The console features a matte black finish with clean geometric lines, emphasizing industrial design and high performance in a professional product photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARAV03iPA8MhqFs5GlAoYgiwMk3Vvo04zXXKm-14LeKX9xqcZDh8V0lGhWWqV8Bt2DZnBlKdvMn0caVGWJ1HzNPvr1FXvR1WUeL5Xct60u165nHMKKSADj6r9Mt2ArSFtLzUhEkV8dgd0RE2nIpiiKgmZvz8fnEIZdHa22hg-OxpFLJYlT_Th7vtX_-q-IX9NUP5-sPVgBGekkKuArac-05vZAJ5RvSORj1RM04JW6416gG8fXCE20"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Kinetic Series X</h3>
+<p class="text-on-surface-variant text-sm mb-2">High-performance console</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="font-mono-label text-primary font-bold text-lg">$499.00</span>
+<button class="bg-surface-container-highest w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="product-card bg-surface-container rounded-lg p-4 cursor-pointer group flex flex-col">
+<div class="aspect-square bg-surface-container-lowest rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="The Pulse Elite Controller for Xbox, featuring an ergonomic design with premium textures and iridescent white accents. Captured in a close-up macro shot that highlights the precision triggers and buttons. The lighting is cold and atmospheric, with subtle green glows casting soft shadows on a dark textured surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJTXUkdFUSkmp2J04mw8uZcYFRYlzrSXM13WRmTAxPwgJ1cdJS2Z4shxkIqHENR7dz9-Bt1wQLG_QbowSCcWAPU76gwTKmWQcqVUHTnjOXDuq3KFVSXsvei_fZ1pWHlRvV00cTXklFP_vbAZ8vgr9FaTvvVWzx8SfUMUoLI4N747L1hMvnUynwm38KXy6jXnywW55cHbkwApw8yPHX0P_y8N1y8ve38uewKTP1UFxXIegBSC5MTHWQ"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Pulse Elite Controller</h3>
+<p class="text-on-surface-variant text-sm mb-2">Precision gaming gear</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="font-mono-label text-primary font-bold text-lg">$69.99</span>
+<button class="bg-surface-container-highest w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="product-card bg-surface-container rounded-lg p-4 cursor-pointer group flex flex-col">
+<div class="aspect-square bg-surface-container-lowest rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Vibrant box art for Velocity: Neon Nights video game, showing high-speed futuristic cars racing through a cyberpunk cityscape at night. The art style is bold and saturated with neon pinks, blues, and Xbox greens. The composition is dynamic, suggesting extreme speed and excitement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGdI3-QLzhdtUU5GQWXSXkVMIC7gG3RgWIIDIQ4kPK3w523jPsurHH_KKNIgPymD9hfAbVw3a0jEaP2YVcqRFuCPrtHw477lgFpB_SBdozNXi5upNR2tuoTyCPdKLtLixQcNpX9sCs4Lliaht3ERgYR_VRcteHsIVnbTQljYynf4iq_IEmhIPOgglBeXEcevPcSoYDty9wl4h6rDAKavtfo45HB4LCXW4c5cYBfDTBfP7iHGEzpnHn"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Velocity: Neon Nights</h3>
+<p class="text-on-surface-variant text-sm mb-2">Racing / Action</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="font-mono-label text-primary font-bold text-lg">$59.99</span>
+<button class="bg-surface-container-highest w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="product-card bg-surface-container rounded-lg p-4 cursor-pointer group flex flex-col">
+<div class="aspect-square bg-surface-container-lowest rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Aether 700 Wireless headphones, matte charcoal finish with integrated green LED rings on the earcups. The headset looks robust and comfortable, floating in a dark void with subtle particle effects. High-tech aesthetic with sharp focus on the metallic hinges and plush ear cushions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6hpqJPTY7X2Wax_0XmlG5XelB8xdkNU15T4sfoGLMHF-6z7RBPPc2tQjeKqwVdhOT6Ez6q-v6ZFIl88UVof0mp4svg0vV4fx-Mx_3oszkPvuhpCoxX6_ZiN9lPQp7T0LGyBzWn7vufZu0GVVcaoakK03CheGbvJibR8WpIMkCZI6ZnrVVbnKs2ltFgiwKVE9sDkSRkYISxg7RYRG5w_R1ejrd_hDENdzzjymINrfIVRpaKWB_Mm81"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Aether 700 Wireless</h3>
+<p class="text-on-surface-variant text-sm mb-2">Immersive spatial audio</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="font-mono-label text-primary font-bold text-lg">$129.00</span>
+<button class="bg-surface-container-highest w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 5 -->
+<div class="product-card bg-surface-container rounded-lg p-4 cursor-pointer group flex flex-col">
+<div class="aspect-square bg-surface-container-lowest rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="An expansion card for Xbox console storage, 2TB capacity, shown with a metallic casing and industrial markings. The image is clean and clinical, lit by sharp overhead light to emphasize the brushed metal texture. The background is a very dark, matte surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY8ewEungqEaJTEcOV2dz8Cvk_cdHU3BjaBFup4pLL4sjH1uqln_yzzO5biGW3_RtDkeGBk6fDXn6gk6hI9Jl03AfLDCTUUhEEW890j_ZEMy-o5hF8n25Ory-3GraPjzNZIPeM1BQ4mbQnfYdHs4L0ydZls2PI8EDN8jDFF-SUlIM96RAwXBBb_47gah-w_QGc0RacbyszzgdoKo0qIcQ_u_fxYK9EuEzwp5mamR0IZPufhlzAMroe"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Expansion Card 2TB</h3>
+<p class="text-on-surface-variant text-sm mb-2">Ultra-fast storage</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="font-mono-label text-primary font-bold text-lg">$219.99</span>
+<button class="bg-surface-container-highest w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 6 -->
+<div class="product-card bg-surface-container rounded-lg p-4 cursor-pointer group flex flex-col">
+<div class="aspect-square bg-surface-container-lowest rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Forest Emerald Shell for Xbox controllers, a deep translucent green plastic with crystalline textures inside. The shell is presented under a soft warm spotlight that brings out the richness of the emerald color against a black minimalist background. Luxury custom accessory style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLBOtD3c7o8uBYMkBjzc6ULi-Z9UfzddiysKBwIYp07NpA0ev4ccTTAf55VS3d5_PiWx-z-7umcW39DIrIiQNbIPR8Be7hHmnVikyxszdhq_Q1fwpLO5Wimt1xfyUH26m-n0l2sNlJYukNRT9DzMcfoIB1yEBWyZH-2Irt2NQbgUQKSrOc6naKhmbDf5KdK-bdFBux_TUJeYESoX_fyoTCHDdDba1ok-ATYwQn2inR9Y2VqgW7PbDa"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Forest Emerald Shell</h3>
+<p class="text-on-surface-variant text-sm mb-2">Premium customization</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="font-mono-label text-primary font-bold text-lg">$34.99</span>
+<button class="bg-surface-container-highest w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Current Cart (Fixed Panel) -->
+<aside class="w-[420px] bg-surface-container-low rounded-xl flex flex-col overflow-hidden">
+<!-- Cart Header -->
+<div class="p-md bg-surface-container flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">shopping_bag</span>
+                    Current Sale
+                </h2>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete_sweep</span>
+</button>
+</div>
+<!-- Cart Items -->
+<div class="flex-1 overflow-y-auto p-md space-y-4">
+<!-- Cart Item 1 -->
+<div class="flex items-center gap-3 bg-surface-container rounded-lg p-3 group">
+<div class="w-16 h-16 bg-surface-container-lowest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up of Kinetic Series X console." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBLcbuJ5Zyu-m8p0J5O2Y53yN1461v2SGFtNxsqNb51hJ2RbicBAvi-oKpNQgjn2Fclz5c3odFzYZZee77GlRYy275BGNpqhJlXAJPKLKNeMh5c_Kuu1swywEtKSoHfo8rliDsXfUCPlk5AALa_v8ytcubLD-4m3iqL9ElMIOvSDIv0BuWJ0QFRyqket2Nan27ve_iQUeebYAsTJ-DF_6KkLDWHGiM27VG48X-DEN_-x38knC3GZiq"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-bold text-on-surface truncate">Kinetic Series X</h4>
+<p class="text-primary font-mono-label">$499.00</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest rounded-lg p-1">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded transition-colors">-</button>
+<span class="font-bold w-6 text-center">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded transition-colors">+</button>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="flex items-center gap-3 bg-surface-container rounded-lg p-3 group">
+<div class="w-16 h-16 bg-surface-container-lowest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Pulse Elite Controller for Xbox." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeFiARDWZcwIbFhjBCUmCxyUXupjghQYNoOqX7DjNBzrYKXNcO9jptX5Oj-D9pCqJjVDCFzFBowzqw-MajvGkOMO6uzwBffHXmvUQu7yMLe1EPSer6xtIbYpVdEXQT81385llyD7MxTYum3BsSAZbh_HQYNwYlwnNwoN1aneEipqOtiEgrwSNTmiQzET6GiYHdJZ0AvbsKj52NQS4BJOUZHR5DbEycBFlLlmuz9kzmWlJb0lWpT6Gw"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-bold text-on-surface truncate">Pulse Elite Controller</h4>
+<p class="text-primary font-mono-label">$69.99</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest rounded-lg p-1">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded transition-colors">-</button>
+<span class="font-bold w-6 text-center">2</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded transition-colors">+</button>
+</div>
+</div>
+<!-- Cart Item 3 -->
+<div class="flex items-center gap-3 bg-surface-container rounded-lg p-3 group">
+<div class="w-16 h-16 bg-surface-container-lowest rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Forest Emerald Shell for Xbox controllers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVW6Q9vUq9e97FLLvwpQK5M6OCKcvt38R-zce27cu0V3Hqq1KZ5Q1o2LPLDoP_w5UwGdTp2wOSmzfuPN1ZLtb7Bvw4crUQsk7-iCSEujeFoVXjcyp6kLopYyG2EOacdDaWyi2Mi_Muv1H8JOlkD21Nt3-_5QM3CMRdOcKAeLHq5otOr7_bT10yRH81S_jDIMSIOHgnrVjD9sgSifhOAFFDn32Ni08TF_f5ippGGTF_T5l7I0R6AOcq"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-bold text-on-surface truncate">Forest Emerald Shell</h4>
+<p class="text-primary font-mono-label">$34.99</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest rounded-lg p-1">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded transition-colors">-</button>
+<span class="font-bold w-6 text-center">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded transition-colors">+</button>
+</div>
+</div>
+</div>
+<!-- Totals & Actions -->
+<div class="bg-surface p-md space-y-4 shadow-[0_-8px_24px_rgba(0,0,0,0.5)]">
+<div class="space-y-1">
+<div class="flex justify-between text-on-surface-variant text-sm">
+<span>Subtotal</span>
+<span class="font-mono-label">$673.97</span>
+</div>
+<div class="flex justify-between text-on-surface-variant text-sm">
+<span>Estimated Tax (8%)</span>
+<span class="font-mono-label">$53.92</span>
+</div>
+<div class="pt-2 flex justify-between items-baseline">
+<span class="font-bold text-on-surface">Total general</span>
+<span class="font-display-lg text-display-lg text-primary">$727.89</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-4 bg-surface-container-high rounded-lg font-bold hover:bg-surface-container-highest transition-colors">
+                        Add Customer
+                    </button>
+<button class="py-4 bg-surface-container-high rounded-lg font-bold hover:bg-surface-container-highest transition-colors">
+                        Hold Order
+                    </button>
+</div>
+<button class="w-full py-6 bg-primary-container text-white rounded-lg font-bold text-headline-md shadow-[0_4px_20px_rgba(16,124,16,0.3)] hover:shadow-[0_4px_30px_rgba(16,124,16,0.5)] transform hover:-translate-y-1 transition-all active:scale-95">
+                    Confirmar venta
+                </button>
+</div>
+</aside>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple scale effect on product click
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1.03)';
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary');
+        });
+    </script>
+</body></html>

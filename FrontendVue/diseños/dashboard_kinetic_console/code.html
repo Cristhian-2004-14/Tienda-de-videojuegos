@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-container": "#107c10",
+                        "on-primary-fixed": "#002200",
+                        "on-primary-fixed-variant": "#005303",
+                        "on-primary": "#003a01",
+                        "on-surface-variant": "#becab7",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed": "#ffd9e4",
+                        "secondary": "#c8c6c5",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary-container": "#b5ffa2",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed": "#3e0021",
+                        "on-tertiary-fixed-variant": "#890f52",
+                        "on-tertiary-container": "#ffe6ed",
+                        "surface-tint": "#79dd68",
+                        "surface": "#131313",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-background": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "background": "#101010",
+                        "tertiary-fixed-dim": "#ffb0cd",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary": "#640039",
+                        "on-surface": "#e5e2e1",
+                        "tertiary": "#ffb0cd",
+                        "secondary-container": "#474746",
+                        "outline": "#899482",
+                        "inverse-primary": "#006e06",
+                        "primary-fixed": "#94fa81",
+                        "surface-container": "#201f1f",
+                        "tertiary-container": "#b83a77",
+                        "surface-container-highest": "#353534",
+                        "surface-dim": "#131313",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-secondary": "#303030",
+                        "surface-variant": "#353534",
+                        "primary-fixed-dim": "#79dd68",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e4e2e1",
+                        "primary": "#79dd68",
+                        "outline-variant": "#3f4a3b",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "8px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "lg": "40px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "mono-label": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    }catch(_e){}</script></head><body class="antialiased overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-low flex flex-col py-md z-50">
+<div class="px-md mb-xl flex items-center gap-sm">
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLsw1_L5DCUVV1LoQ3UJ6ZoiT89Losnb2LfE6NQnBjhzsbSX6142NDlsWC8SGTOekBKRsIoE4n9LV8c_zML47EDCWs6F63_45EpgtFLQ_jzwL_v381WBsJjSCR03JCkEztmWfZCW4AcCNlzIWywS6Jkm-AmbtIAGx-pyo5Aw6QGiD7tfUA4KXI6gw_eRneHkhIUNEzB6OfJg5PYDksTocd1KrCJK-MfOitIbGCPLH5EBQi0FIi4Ws2NMTA" class="w-10 h-10 object-contain" alt="GamerOps Logo">
+<div class="flex flex-col">
+<span class="font-display-lg text-headline-md font-extrabold text-primary tracking-tight leading-none">Kinetic</span>
+<span class="font-body-md text-on-surface-variant text-xs opacity-70">Console Admin</span>
+</div>
+</div>
+<nav class="flex-grow flex flex-col px-sm space-y-1">
+<a href="#" class="flex items-center gap-sm text-primary font-bold border-l-4 border-primary bg-surface-container-high px-4 py-3 xbox-glow transition-all">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest hover:text-on-surface transition-colors rounded-r-md">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md">Customers</span>
+</a>
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest hover:text-on-surface transition-colors rounded-r-md">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-body-md">Products</span>
+</a>
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest hover:text-on-surface transition-colors rounded-r-md">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-body-md">Sales</span>
+</a>
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest hover:text-on-surface transition-colors rounded-r-md">
+<span class="material-symbols-outlined" data-icon="settings_applications">settings_applications</span>
+<span class="font-body-md">Services</span>
+</a>
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest hover:text-on-surface transition-colors rounded-r-md">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-sm space-y-1 border-t border-surface-container-highest pt-md">
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest transition-colors rounded-md">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-md">Support</span>
+</a>
+<a href="#" class="flex items-center gap-sm text-on-surface-variant px-4 py-3 hover:bg-surface-container-highest transition-colors rounded-md">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+<div class="px-4 py-4 flex items-center gap-sm mt-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-xs">
+                    JD
+                </div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Admin User</span>
+<span class="font-body-md text-on-surface font-semibold">John Doe</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen relative overflow-y-auto">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-lg py-md bg-surface sticky top-0 z-40">
+<h1 class="font-headline-lg text-headline-md text-on-surface">Overview</h1>
+<div class="flex items-center gap-md">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input type="text" placeholder="Search orders, tickets..." class="bg-[#121212] border border-[#252525] rounded-lg pl-10 pr-4 py-2 text-body-md text-on-surface focus:ring-primary focus:border-primary w-64 transition-all">
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-lg max-w-container-max mx-auto space-y-lg">
+<!-- Summary Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Total Sales -->
+<div class="bg-[#181818] p-md rounded-lg flex flex-col justify-between group hover:bg-[#252525] transition-colors cursor-default">
+<div class="flex justify-between items-start mb-md">
+<span class="text-on-surface-variant font-label-caps tracking-wider text-[11px] uppercase">Total Sales</span>
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">$12,450</h2>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-primary text-xs" style="font-variation-settings: 'wght' 700;">trending_up</span>
+<span class="font-mono-label text-[10px] text-primary">+12.5% vs last month</span>
+</div>
+</div>
+</div>
+<!-- Active Users -->
+<div class="bg-[#181818] p-md rounded-lg flex flex-col justify-between group hover:bg-[#252525] transition-colors cursor-default">
+<div class="flex justify-between items-start mb-md">
+<span class="text-on-surface-variant font-label-caps tracking-wider text-[11px] uppercase">Active Users</span>
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">1,204</h2>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-primary text-xs" style="font-variation-settings: 'wght' 700;">trending_up</span>
+<span class="font-mono-label text-[10px] text-primary">+3.2% since yesterday</span>
+</div>
+</div>
+</div>
+<!-- Products in Stock -->
+<div class="bg-[#181818] p-md rounded-lg flex flex-col justify-between group hover:bg-[#252525] transition-colors cursor-default">
+<div class="flex justify-between items-start mb-md">
+<span class="text-on-surface-variant font-label-caps tracking-wider text-[11px] uppercase">In Stock</span>
+<span class="material-symbols-outlined text-primary" data-icon="inventory_2">inventory_2</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">456</h2>
+<div class="flex items-center gap-xs mt-xs">
+<span class="font-mono-label text-[10px] text-on-surface-variant">92% inventory capacity</span>
+</div>
+</div>
+</div>
+<!-- Pending Services -->
+<div class="bg-[#181818] p-md rounded-lg flex flex-col justify-between group hover:bg-[#252525] transition-colors cursor-default">
+<div class="flex justify-between items-start mb-md">
+<span class="text-on-surface-variant font-label-caps tracking-wider text-[11px] uppercase">Pending Services</span>
+<span class="material-symbols-outlined text-primary" data-icon="settings_applications">settings_applications</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">23</h2>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-error text-xs" style="font-variation-settings: 'wght' 700;">priority_high</span>
+<span class="font-mono-label text-[10px] text-error">4 tickets overdue</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Detail Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Last Sales List -->
+<div class="bg-[#181818] rounded-lg overflow-hidden">
+<div class="px-md py-md border-b border-[#252525] flex justify-between items-center">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Últimas ventas</h3>
+<button class="text-primary text-xs font-label-caps hover:underline">View All</button>
+</div>
+<div class="divide-y divide-[#252525]">
+<!---->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-[#252525] rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Alex Rivera</span>
+<span class="text-[12px] text-on-surface-variant">Controller Pro Elite</span>
+</div>
+</div>
+<span class="font-mono-label text-primary font-bold">$179.99</span>
+</div>
+<!-- Sale Row 2 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-[#252525] rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Sarah Connor</span>
+<span class="text-[12px] text-on-surface-variant">Cyberpunk Edition Console</span>
+</div>
+</div>
+<span class="font-mono-label text-primary font-bold">$499.00</span>
+</div>
+<!-- Sale Row 3 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-[#252525] rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Marcus Fenix</span>
+<span class="text-[12px] text-on-surface-variant">Crimson Omen Skins</span>
+</div>
+</div>
+<span class="font-mono-label text-primary font-bold">$24.50</span>
+</div>
+<!-- Sale Row 4 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-[#252525] rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Jill Valentine</span>
+<span class="text-[12px] text-on-surface-variant">4K HDMI 2.1 Cable</span>
+</div>
+</div>
+<span class="font-mono-label text-primary font-bold">$39.99</span>
+</div>
+<!-- Sale Row 5 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-[#252525] rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-on-surface">Ethan Winters</span>
+<span class="text-[12px] text-on-surface-variant">Wireless Headset V2</span>
+</div>
+</div>
+<span class="font-mono-label text-primary font-bold">$120.00</span>
+</div>
+</div>
+</div>
+<!-- Services in Progress List -->
+<div class="bg-[#181818] rounded-lg overflow-hidden">
+<div class="px-md py-md border-b border-[#252525] flex justify-between items-center">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Servicios en proceso</h3>
+<button class="text-primary text-xs font-label-caps hover:underline">Manage All</button>
+</div>
+<div class="divide-y divide-[#252525]">
+<!-- Service Row 1 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex flex-col">
+<span class="font-mono-label font-bold text-on-surface">#TK-8892</span>
+<span class="text-[12px] text-on-surface-variant">Cleaning &amp; Thermal Paste</span>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-xs py-[2px] bg-primary/10 rounded-sm">
+<span class="text-[10px] font-bold text-primary uppercase">In Progress</span>
+</div>
+<span class="text-[11px] text-on-surface-variant mt-1">Oct 24, 2023</span>
+</div>
+</div>
+<!-- Service Row 2 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex flex-col">
+<span class="font-mono-label font-bold text-on-surface">#TK-8901</span>
+<span class="text-[12px] text-on-surface-variant">Stick Drift Repair</span>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-xs py-[2px] bg-tertiary-container rounded-sm">
+<span class="text-[10px] font-bold text-white uppercase">Waiting Parts</span>
+</div>
+<span class="text-[11px] text-on-surface-variant mt-1">Oct 25, 2023</span>
+</div>
+</div>
+<!-- Service Row 3 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex flex-col">
+<span class="font-mono-label font-bold text-on-surface">#TK-8904</span>
+<span class="text-[12px] text-on-surface-variant">HDMI Port Replacement</span>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-xs py-[2px] bg-primary/10 rounded-sm">
+<span class="text-[10px] font-bold text-primary uppercase">Testing</span>
+</div>
+<span class="text-[11px] text-on-surface-variant mt-1">Oct 25, 2023</span>
+</div>
+</div>
+<!-- Service Row 4 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex flex-col">
+<span class="font-mono-label font-bold text-on-surface">#TK-8910</span>
+<span class="text-[12px] text-on-surface-variant">System Reinstall</span>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-xs py-[2px] bg-primary/10 rounded-sm">
+<span class="text-[10px] font-bold text-primary uppercase">Assigned</span>
+</div>
+<span class="text-[11px] text-on-surface-variant mt-1">Oct 26, 2023</span>
+</div>
+</div>
+<!-- Service Row 5 -->
+<div class="px-md py-4 flex items-center justify-between hover:bg-[#202020] transition-colors">
+<div class="flex flex-col">
+<span class="font-mono-label font-bold text-on-surface">#TK-8911</span>
+<span class="text-[12px] text-on-surface-variant">Fan Replacement</span>
+</div>
+<div class="flex flex-col items-end">
+<div class="px-xs py-[2px] bg-primary/10 rounded-sm">
+<span class="text-[10px] font-bold text-primary uppercase">Pending</span>
+</div>
+<span class="text-[11px] text-on-surface-variant mt-1">Oct 26, 2023</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Micro-interaction: Scale down header actions on click
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

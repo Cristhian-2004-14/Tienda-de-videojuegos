@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Registration | Kinetic Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#b7b5b4",
+                    "surface-variant": "#353534",
+                    "secondary-container": "#474746",
+                    "on-tertiary-container": "#ffe6ed",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#2a2a2a",
+                    "on-tertiary": "#640039",
+                    "surface-tint": "#79dd68",
+                    "outline-variant": "#3f4a3b",
+                    "on-surface-variant": "#becab7",
+                    "on-primary": "#003a01",
+                    "on-surface": "#e5e2e1",
+                    "surface-dim": "#131313",
+                    "tertiary-fixed": "#ffd9e4",
+                    "tertiary-fixed-dim": "#ffb0cd",
+                    "error": "#ffb4ab",
+                    "background": "#101010",
+                    "on-primary-container": "#b5ffa2",
+                    "inverse-on-surface": "#313030",
+                    "tertiary": "#ffb0cd",
+                    "primary-fixed-dim": "#79dd68",
+                    "on-secondary": "#303030",
+                    "on-primary-fixed": "#002200",
+                    "on-tertiary-fixed": "#3e0021",
+                    "secondary-fixed": "#e4e2e1",
+                    "on-primary-fixed-variant": "#005303",
+                    "tertiary-container": "#b83a77",
+                    "primary-fixed": "#94fa81",
+                    "primary-container": "#107c10",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-container-highest": "#353534",
+                    "surface-container-low": "#1c1b1b",
+                    "surface": "#131313",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "inverse-surface": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "inverse-primary": "#006e06",
+                    "surface-bright": "#3a3939",
+                    "outline": "#899482",
+                    "on-tertiary-fixed-variant": "#890f52",
+                    "primary": "#79dd68",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#201f1f",
+                    "secondary": "#c8c6c5",
+                    "on-secondary-fixed": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "lg": "40px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "xl": "64px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "mono-label": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #101010;
+            color: #e5e2e1;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 10px;
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #107C10;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-hidden">
+<!-- Sidebar Shell -->
+<aside class="w-64 h-full fixed left-0 top-0 bg-surface-container-lowest flex flex-col py-md border-r border-surface-variant/10 z-50">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[20px]">terminal</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary leading-none">Kinetic Console</h1>
+<p class="text-[10px] font-label-caps tracking-widest text-on-surface-variant uppercase mt-1">Admin Terminal</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-sm overflow-y-auto custom-scrollbar">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<!-- Active Tab: Customers -->
+<a class="flex items-center gap-md text-primary font-bold border-l-4 border-primary pl-4 py-3 bg-surface-container transition-all duration-150 scale-100 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-body-md">Customers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">inventory_2</span>
+<span class="font-body-md">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">payments</span>
+<span class="font-body-md">Sales</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings_applications</span>
+<span class="font-body-md">Services</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">bar_chart</span>
+<span class="font-body-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-sm pt-md border-t border-surface-variant/20 space-y-1">
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant font-medium pl-5 py-3 hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-error">logout</span>
+<span class="font-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface-container-lowest flex justify-between items-center px-lg ml-64 border-b border-surface-variant/5">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="bg-surface-container-low border border-surface-variant/20 rounded-lg pl-10 pr-4 py-2 text-body-md w-80 focus:border-primary transition-all" placeholder="Search customers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-surface-variant/30 mx-2"></div>
+<div class="flex items-center gap-sm cursor-pointer hover:opacity-80 transition-opacity">
+<div class="text-right">
+<p class="text-label-caps font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">System Overseer</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-surface-variant" data-alt="A professional headshot of a diverse administrative user in a modern tech setting, soft studio lighting, high-end corporate portrait style, dark background with subtle green neon rim light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPX2T_kerxSMlMBhB7Ev38CcnSeWwDvLZiP2UvMiKGM6BfMsUgf7jcef4Fn5qiKYoSnlW-eSQTTRBdoSp2mU37pwhEO_woX3B_HjBw5VPbY8pCI_1xvKXVlkjst61U5MqiLKMHbSafK2QN4cdbZ1OAHmxSoRLTUJMDGqPNirNWWBWVdZ97g08WYQcsa-k6kw-ymrwb7crmk0f4uNIZP8nBD7LEUHOoBGGyMzg2i1IvtlMHOGTFzgwt"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 p-lg h-[calc(100vh-64px)] overflow-y-auto bg-background">
+<div class="max-w-4xl mx-auto">
+<!-- Header Section -->
+<div class="mb-lg flex items-center justify-between">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant text-label-caps mb-2">
+<a class="hover:text-primary transition-colors" href="#">Customers</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface">Registration</span>
+</nav>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Register New Customer</h2>
+</div>
+<div class="flex gap-sm">
+<span class="px-sm py-xs bg-surface-container-high text-primary text-label-caps rounded-sm border border-primary/20">STATUS: READY</span>
+</div>
+</div>
+<!-- Form Card -->
+<div class="bg-[#181818] rounded-lg p-lg border border-white/5 shadow-2xl">
+<form class="space-y-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- Left Column -->
+<div class="space-y-md">
+<div class="group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="first_name">First Name</label>
+<input class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md transition-all duration-200" id="first_name" name="first_name" placeholder="Enter first name" type="text"/>
+</div>
+<div class="group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="ci">National ID (CI)</label>
+<input class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md transition-all duration-200" id="ci" name="ci" placeholder="0-0000000-0" type="text"/>
+</div>
+<div class="group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="email">Email Address</label>
+<input class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md transition-all duration-200" id="email" name="email" placeholder="example@kinetic.com" type="email"/>
+</div>
+</div>
+<!-- Right Column -->
+<div class="space-y-md">
+<div class="group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="last_name">Last Name</label>
+<input class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md transition-all duration-200" id="last_name" name="last_name" placeholder="Enter last name" type="text"/>
+</div>
+<div class="group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="phone">Phone Number</label>
+<input class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md transition-all duration-200" id="phone" name="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="loyalty_tier">Loyalty Tier</label>
+<select class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md focus:ring-primary focus:border-primary" id="loyalty_tier">
+<option>Standard</option>
+<option>Pro</option>
+<option>Elite</option>
+<option>Founder</option>
+</select>
+</div>
+</div>
+<!-- Full Width Field -->
+<div class="col-span-1 md:col-span-2 group">
+<label class="block text-label-caps text-on-surface-variant mb-2 group-focus-within:text-primary transition-colors" for="address">Residential Address</label>
+<textarea class="w-full bg-[#121212] border border-[#252525] rounded-lg px-md py-sm text-on-surface font-body-md transition-all duration-200 resize-none" id="address" name="address" placeholder="Street name, Building, Apartment, City" rows="3"></textarea>
+</div>
+</div>
+<!-- Visual Accent Divider -->
+<div class="h-px bg-gradient-to-r from-transparent via-surface-variant/30 to-transparent my-md"></div>
+<!-- Form Footer Actions -->
+<div class="flex items-center justify-between pt-md">
+<p class="text-body-md text-on-surface-variant italic">
+<span class="material-symbols-outlined text-[16px] mr-1">info</span>
+                            Ensure all data matches official government records.
+                        </p>
+<div class="flex items-center gap-md">
+<button class="px-lg py-sm text-on-secondary-container hover:text-on-surface font-bold transition-all hover:bg-surface-container-high rounded-lg active:scale-95" type="button">
+                                Cancel
+                            </button>
+<button class="bg-primary-container text-white px-xl py-sm rounded-lg font-bold hover:brightness-110 transition-all shadow-lg shadow-primary-container/10 active:scale-95 flex items-center gap-sm" type="submit">
+<span class="material-symbols-outlined">save</span>
+                                Save Customer
+                            </button>
+</div>
+</div>
+</form>
+</div>
+<!-- Additional Help / Context Section -->
+<div class="mt-lg grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-[#181818] p-md rounded-lg border-l-4 border-primary/40">
+<h4 class="text-label-caps text-primary mb-2">QUICK TIP</h4>
+<p class="text-body-md text-on-surface-variant">Use Tab to navigate fields quickly. CI format is validated automatically upon entry.</p>
+</div>
+<div class="bg-[#181818] p-md rounded-lg">
+<h4 class="text-label-caps text-on-secondary-container mb-2">GDPR COMPLIANCE</h4>
+<p class="text-body-md text-on-surface-variant">Customer data is encrypted at rest and compliant with system privacy standards.</p>
+</div>
+<div class="bg-[#181818] p-md rounded-lg">
+<h4 class="text-label-caps text-on-secondary-container mb-2">SUPPORT</h4>
+<p class="text-body-md text-on-surface-variant">Need assistance? Contact terminal support or use the help icon in the header.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Micro-interaction Overlay (Hidden by default) -->
+<div class="fixed bottom-lg right-lg translate-y-20 opacity-0 transition-all duration-300 pointer-events-none" id="toast">
+<div class="bg-primary-container text-white px-lg py-md rounded-lg shadow-2xl flex items-center gap-md">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-bold">Customer Profile Created Successfully</span>
+</div>
+</div>
+<script>
+        // Simple Micro-interaction for form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        });
+
+        // Focus ring glow effect reinforcement
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label').style.color = '#79dd68';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label').style.color = '';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GameCore | Iniciar sesión</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#2a2a2a",
+                    "on-tertiary": "#640039",
+                    "surface-tint": "#79dd68",
+                    "secondary-container": "#474746",
+                    "on-tertiary-container": "#ffe6ed",
+                    "error-container": "#93000a",
+                    "on-surface": "#e5e2e1",
+                    "surface-dim": "#131313",
+                    "outline-variant": "#3f4a3b",
+                    "on-surface-variant": "#becab7",
+                    "on-primary": "#003a01",
+                    "surface-variant": "#353534",
+                    "on-secondary-container": "#b7b5b4",
+                    "inverse-on-surface": "#313030",
+                    "on-primary-container": "#b5ffa2",
+                    "tertiary": "#ffb0cd",
+                    "primary-fixed-dim": "#79dd68",
+                    "on-secondary": "#303030",
+                    "on-primary-fixed": "#002200",
+                    "on-tertiary-fixed": "#3e0021",
+                    "tertiary-fixed-dim": "#ffb0cd",
+                    "error": "#ffb4ab",
+                    "background": "#101010",
+                    "tertiary-fixed": "#ffd9e4",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-container-highest": "#353534",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-container-low": "#1c1b1b",
+                    "surface": "#131313",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary-fixed": "#e4e2e1",
+                    "on-primary-fixed-variant": "#005303",
+                    "tertiary-container": "#b83a77",
+                    "primary-fixed": "#94fa81",
+                    "primary-container": "#107c10",
+                    "on-error": "#690005",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#201f1f",
+                    "secondary": "#c8c6c5",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "surface-bright": "#3a3939",
+                    "on-background": "#e5e2e1",
+                    "inverse-primary": "#006e06",
+                    "primary": "#79dd68",
+                    "outline": "#899482",
+                    "on-tertiary-fixed-variant": "#890f52"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "xl": "64px",
+                    "base": "8px",
+                    "md": "24px",
+                    "lg": "40px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "mono-label": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #101010;
+            color: #e5e2e1;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .xbox-focus:focus {
+            outline: none;
+            border-color: #107C10;
+            box-shadow: 0 0 0 2px #107C10;
+        }
+        .tonal-step-1 { background-color: #181818; }
+        .tonal-step-2 { background-color: #252525; }
+        .tonal-input { background-color: #121212; border: 1px solid #252525; }
+        
+        /* Atmospheric background effect */
+        .ambient-glow {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(16, 124, 16, 0.08) 0%, rgba(16, 124, 16, 0) 70%);
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<div class="ambient-glow"></div>
+<!-- Header / TopAppBar (Context: Linear/Transactional) -->
+<!-- Note: TopAppBar and BottomNavBar are suppressed for transactional flows per guidelines -->
+<header class="w-full px-md py-lg max-w-container-max mx-auto flex justify-center">
+<div class="flex items-center gap-base">
+<div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">GameCore</h1>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center px-base">
+<div class="w-full max-w-[440px] tonal-step-1 rounded-xl overflow-hidden shadow-2xl transition-all duration-300">
+<!-- Tabs -->
+<div class="flex border-b border-surface-variant">
+<button class="flex-1 py-md font-label-caps text-label-caps text-primary border-b-2 border-primary transition-all duration-200" id="loginTab">
+                    Iniciar sesión
+                </button>
+<button class="flex-1 py-md font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-all duration-200" id="registerTab">
+                    Registrarse
+                </button>
+</div>
+<!-- Content Area -->
+<div class="p-lg">
+<!-- Login Form -->
+<form class="space-y-md" id="authForm">
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant px-xs" for="email">Email</label>
+<input class="w-full px-md py-base tonal-input rounded-lg text-body-md font-body-md focus:ring-2 focus:ring-primary-container focus:border-primary-container transition-all outline-none text-on-surface" id="email" name="email" placeholder="nombre@ejemplo.com" required="" type="email"/>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center px-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="password">Contraseña</label>
+<a class="font-body-md text-body-md text-primary hover:underline transition-all" href="#">¿Olvidaste tu contraseña?</a>
+</div>
+<input class="w-full px-md py-base tonal-input rounded-lg text-body-md font-body-md focus:ring-2 focus:ring-primary-container focus:border-primary-container transition-all outline-none text-on-surface" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="flex items-center gap-sm pt-xs">
+<input class="w-5 h-5 rounded tonal-input text-primary-container focus:ring-offset-background" id="remember" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface-variant cursor-pointer" for="remember">Mantener sesión iniciada</label>
+</div>
+<button class="w-full py-md mt-base bg-primary-container text-on-primary-container font-headline-md text-headline-md font-bold rounded-lg hover:brightness-110 active:scale-[0.98] transition-all duration-200 xbox-focus" type="submit">
+                        Continuar
+                    </button>
+</form>
+<!-- Social Sign-In (Xbox dashboard inspired) -->
+<div class="mt-lg">
+<div class="relative flex items-center justify-center py-md">
+<div class="absolute inset-0 flex items-center"><div class="w-full border-t border-surface-variant"></div></div>
+<span class="relative px-md bg-[#181818] font-label-caps text-label-caps text-on-surface-variant">O continúa con</span>
+</div>
+<div class="grid grid-cols-2 gap-md mt-md">
+<button class="flex items-center justify-center gap-sm py-base tonal-step-2 rounded-lg font-body-md text-body-md hover:brightness-125 transition-all xbox-focus">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+                            Microsoft
+                        </button>
+<button class="flex items-center justify-center gap-sm py-base tonal-step-2 rounded-lg font-body-md text-body-md hover:brightness-125 transition-all xbox-focus">
+<span class="material-symbols-outlined text-[#1DA1F2]" style="font-variation-settings: 'FILL' 1;">public</span>
+                            Google
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer from JSON -->
+<footer class="w-full px-md py-lg mt-xl flex flex-col md:flex-row justify-between items-center border-t border-surface-variant bg-surface-container-low">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-md md:mb-0">
+            © 2024 GameCore Industries. All rights reserved.
+        </div>
+<nav class="flex flex-wrap justify-center gap-md">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Contact Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Technical Support</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Global Sitemap</a>
+</nav>
+</footer>
+<script>
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const authForm = document.getElementById('authForm');
+        const forgotLink = document.querySelector('a[href="#"]');
+
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('text-primary', 'border-primary', 'border-b-2');
+            loginTab.classList.remove('text-on-surface-variant');
+            registerTab.classList.add('text-on-surface-variant');
+            registerTab.classList.remove('text-primary', 'border-primary', 'border-b-2');
+            forgotLink.style.opacity = '1';
+        });
+
+        registerTab.addEventListener('click', () => {
+            registerTab.classList.add('text-primary', 'border-primary', 'border-b-2');
+            registerTab.classList.remove('text-on-surface-variant');
+            loginTab.classList.add('text-on-surface-variant');
+            loginTab.classList.remove('text-primary', 'border-primary', 'border-b-2');
+            forgotLink.style.opacity = '0';
+        });
+
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Micro-interaction: button pulse
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+            setTimeout(() => {
+                btn.innerHTML = 'Continuar';
+                alert('Funcionalidad de demostración. Los servicios de GameCore se están iniciando.');
+            }, 1500);
+        });
+
+        // Atmosphere interaction
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.querySelector('.ambient-glow');
+            const x = (e.clientX / window.innerWidth) * 20 - 10;
+            const y = (e.clientY / window.innerHeight) * 20 - 10;
+            glow.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body></html>
