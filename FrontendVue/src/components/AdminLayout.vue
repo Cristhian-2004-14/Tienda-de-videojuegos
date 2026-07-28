@@ -1,6 +1,8 @@
 <script setup>
+import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
+import { useNotificacionesStore } from '../stores/notificaciones';
 
 // Componente reutilizable: sidebar + top bar compartidos por todas las
 // vistas del panel administrativo (Dashboard, Productos, Clientes, etc.).
@@ -12,14 +14,29 @@ defineProps({
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
+const notificaciones = useNotificacionesStore();
+const mostrarAviso = ref(false);
+let temporizadorAviso;
+watch(() => notificaciones.id, () => {
+  mostrarAviso.value = true;
+  clearTimeout(temporizadorAviso);
+  temporizadorAviso = setTimeout(() => mostrarAviso.value = false, 3500);
+});
 
 const navItems = [
-  { label: 'Dashboard', icon: 'dashboard', to: '/admin' },
-  { label: 'Clientes', icon: 'group', to: '/admin/clientes' },
-  { label: 'Productos', icon: 'inventory_2', to: '/admin/productos' },
-  { label: 'Ventas', icon: 'payments', to: '/admin/ventas/nueva' },
-  { label: 'Servicios', icon: 'settings_applications', to: '/admin/servicios' },
+  { label: 'Dashboard', icon: 'dashboard', to: '/admin', permiso: 'dashboard' },
+  { label: 'Clientes', icon: 'group', to: '/admin/clientes', permiso: 'clientes' },
+  { label: 'Productos', icon: 'inventory_2', to: '/admin/productos', permiso: 'productos' },
+  { label: 'Ventas', icon: 'payments', to: '/admin/ventas', permiso: 'ventas' },
+  { label: 'Servicios', icon: 'settings_applications', to: '/admin/servicios', permiso: 'servicios' },
+  { label: 'Dispositivos', icon: 'devices', to: '/admin/dispositivos', permiso: 'servicios' },
+  { label: 'Compras', icon: 'local_shipping', to: '/admin/compras', permiso: 'compras' },
+  { label: 'Proveedores', icon: 'warehouse', to: '/admin/proveedores', permiso: 'compras' },
+  { label: 'Personal', icon: 'badge', to: '/admin/personal', permiso: 'personal' },
+  { label: 'Reportes', icon: 'monitoring', to: '/admin/reportes', permiso: 'reportes' },
+  { label: 'Roles', icon: 'admin_panel_settings', to: '/admin/roles', permiso: 'roles' },
 ];
+const navPermitida = computed(() => navItems.filter(item => authStore.tienePermiso(item.permiso)));
 
 function esActivo(to) {
   return route.path === to || (to !== '/admin' && route.path.startsWith(to));
@@ -41,7 +58,7 @@ function cerrarSesion() {
 
       <nav class="sidebar-nav">
         <router-link
-          v-for="item in navItems"
+          v-for="item in navPermitida"
           :key="item.to"
           :to="item.to"
           class="nav-item"
@@ -67,9 +84,6 @@ function cerrarSesion() {
           <input type="text" :placeholder="buscadorPlaceholder" />
         </div>
         <div class="topbar-actions">
-          <button class="icon-btn">
-            <span class="material-symbols-outlined">notifications</span>
-          </button>
           <div class="user-chip">
             <div class="avatar">
               {{ (authStore.usuarioActual?.username || 'AD').slice(0, 2).toUpperCase() }}
@@ -85,6 +99,13 @@ function cerrarSesion() {
         </slot>
         <slot />
       </div>
+      <transition name="aviso">
+        <div v-if="mostrarAviso && notificaciones.mensaje" class="notificacion" :class="notificaciones.tipo" role="status" aria-live="polite">
+          <span class="material-symbols-outlined">{{ notificaciones.tipo === 'error' ? 'error' : 'check_circle' }}</span>
+          <strong>{{ notificaciones.mensaje }}</strong>
+          <button aria-label="Cerrar aviso" @click="mostrarAviso=false">×</button>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -275,4 +296,5 @@ function cerrarSesion() {
   font-size: 24px;
   font-weight: 700;
 }
+.notificacion{position:fixed;right:24px;bottom:24px;z-index:100;display:flex;align-items:center;gap:12px;max-width:430px;padding:15px 18px;background:#182519;border:1px solid #79dd68;border-radius:9px;box-shadow:0 16px 45px #0009}.notificacion span{color:#79dd68}.notificacion.error{background:#321819;border-color:#ffb4ab}.notificacion.error span{color:#ffb4ab}.notificacion button{margin-left:auto;border:0;background:transparent;color:inherit;font-size:20px}.aviso-enter-active,.aviso-leave-active{transition:.22s}.aviso-enter-from,.aviso-leave-to{opacity:0;transform:translateY(12px)}
 </style>

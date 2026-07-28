@@ -5,30 +5,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackendApi.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
+[ApiController, Route("api/[controller]")]
 public class AuthController(
-    IFirestoreRepository<Usuario> repositorio,
+    IFirestoreRepository<Usuario> usuarios,
+    IFirestoreRepository<Rol> roles,
     IPasswordHasher<Usuario> passwordHasher) : ControllerBase
 {
     [HttpPost("login")]
     public async Task<IActionResult> IniciarSesion(LoginRequest credenciales)
     {
-        var usuarios = await repositorio.ObtenerTodosAsync();
-        var usuario = usuarios.FirstOrDefault(item =>
-            item.Username.Equals(credenciales.Username, StringComparison.OrdinalIgnoreCase) &&
-            item.Activo);
-
+        var usuario = (await usuarios.ObtenerTodosAsync()).FirstOrDefault(item =>
+            item.Username.Equals(credenciales.Username, StringComparison.OrdinalIgnoreCase) && item.Activo);
         if (usuario is null) return Unauthorized(new { message = "Usuario o contraseña incorrectos." });
-
-        var resultado = passwordHasher.VerifyHashedPassword(
-            usuario,
-            usuario.Password,
-            credenciales.Password);
-
-        return resultado == PasswordVerificationResult.Failed
-            ? Unauthorized(new { message = "Usuario o contraseña incorrectos." })
-            : Ok(UsuariosController.SinPassword(usuario));
+        var resultado = passwordHasher.VerifyHashedPassword(usuario, usuario.Password, credenciales.Password);
+        if (resultado == PasswordVerificationResult.Failed)
+            return Unauthorized(new { message = "Usuario o contraseña incorrectos." });
+        var rol = await roles.ObtenerPorIdAsync(usuario.RolId);
+        return Ok(new
+        {
+            usuario.Id, usuario.EmpleadoId, usuario.RolId, usuario.Username,
+            usuario.Nombre, usuario.Rol, usuario.Activo,
+            Permisos = rol?.Permisos ?? [],
+        });
     }
 }
 

@@ -1,73 +1,30 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import AdminLayout from '../../components/AdminLayout.vue';
 import ProductoVisual from '../../components/ProductoVisual.vue';
 import { useDatosApiStore } from '../../stores/datosApi';
-import { productosApi } from '../../services/recursosApi';
+import { useAuthStore } from '../../stores/auth';
+import { useNotificacionesStore } from '../../stores/notificaciones';
 
-const datosStore = useDatosApiStore();
-const { productos } = storeToRefs(datosStore);
-const carritoDemo = computed(() => [
-  { ...productos.value[0], cantidad: 1 },
-  { ...productos.value[1], cantidad: 2 },
-].filter((item) => item.id));
-onMounted(() => datosStore.cargarRecurso('productos', productosApi));
+const router=useRouter(), datos=useDatosApiStore(), auth=useAuthStore();
+const avisos=useNotificacionesStore();
+const {productos,clientes}=storeToRefs(datos);
+const lineas=ref([]), clienteId=ref(''), categoria=ref('Todos'), busqueda=ref(''), descuento=ref(0), error=ref(''), guardando=ref(false);
+const categorias=['Todos','Consolas','Videojuegos','Accesorios'];
+const filtrados=computed(()=>productos.value.filter(p=>(categoria.value==='Todos'||p.categoria===categoria.value)&&(!busqueda.value||`${p.nombre} ${p.marca}`.toLowerCase().includes(busqueda.value.toLowerCase()))));
+const subtotal=computed(()=>lineas.value.reduce((s,l)=>s+l.precioUnitario*l.cantidad,0));
+const total=computed(()=>Math.max(0,subtotal.value-Number(descuento.value||0)));
+function agregar(p){error.value='';const l=lineas.value.find(x=>x.productoId===p.id);const cantidad=(l?.cantidad||0)+1;if(cantidad>p.stock){error.value=`Stock insuficiente para ${p.nombre}.`;return;}if(l)l.cantidad=cantidad;else lineas.value.push({productoId:p.id,producto:p.nombre,edicion:'Estándar',cantidad:1,precioUnitario:p.precioVenta});}
+function cambiar(l,delta){const p=productos.value.find(x=>x.id===l.productoId);const nueva=l.cantidad+delta;if(nueva<=0){lineas.value=lineas.value.filter(x=>x!==l);return;}if(nueva>p.stock){error.value=`Solo hay ${p.stock} unidades de ${p.nombre}.`;return;}l.cantidad=nueva;}
+async function confirmar(){error.value='';if(!clienteId.value){error.value='Selecciona un cliente.';return;}if(!lineas.value.length){error.value='Agrega al menos un producto.';return;}const cliente=clientes.value.find(c=>c.id===Number(clienteId.value));guardando.value=true;try{const venta=await datos.registrarVenta({clienteId:cliente.id,cliente:`${cliente.nombre} ${cliente.apellido}`,empleadoId:auth.usuarioActual?.empleadoId||1,empleado:auth.usuarioActual?.nombre||auth.usuarioActual?.username||'Administrador',fecha:new Date().toISOString(),estado:'Pendiente',descuento:Number(descuento.value||0),detalles:lineas.value,pagos:[]});avisos.mostrar(`Venta #${venta.id} registrada. El stock fue actualizado.`);router.push(`/admin/ventas/${venta.id}`);}catch(e){error.value=e.response?.data?.message||'No se pudo registrar la venta.';}finally{guardando.value=false;}}
+function cancelar(){lineas.value=[];clienteId.value='';error.value='';}
+onMounted(()=>datos.cargarTodo());
 </script>
-
-<template>
-  <AdminLayout titulo="Terminal de venta" buscador-placeholder="Buscar productos o SKU...">
-    <template #header>
-      <div class="encabezado">
-        <div><p class="eyebrow mono">PUNTO DE VENTA / TERMINAL 02</p><h2>Hardware y juegos</h2></div>
-        <div class="turno"><span></span>Turno activo</div>
-      </div>
-    </template>
-
-    <div class="pos-grid">
-      <section>
-        <div class="filtros">
-          <button class="activo">Todos</button><button>Consolas</button><button>Videojuegos</button><button>Accesorios</button>
-        </div>
-        <div class="productos">
-          <article v-for="producto in productos" :key="producto.id" class="producto">
-            <div class="visual"><ProductoVisual :tipo="producto.categoria" /></div>
-            <div class="producto-info">
-              <p class="mono sku">SKU-00{{ producto.id }}</p>
-              <h3>{{ producto.nombre }}</h3>
-              <p>{{ producto.marca }}</p>
-              <div><strong>${{ producto.precioVenta.toFixed(2) }}</strong><span>{{ producto.stock }} disponibles</span></div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <aside class="orden">
-        <div class="orden-titulo"><h3>Orden actual</h3><span class="mono">#V-2048</span></div>
-        <label class="cliente"><span class="material-symbols-outlined">person</span><input value="Alex Rivera" aria-label="Cliente" /></label>
-        <div class="lineas">
-          <article v-for="item in carritoDemo" :key="item.id">
-            <div><strong>{{ item.nombre }}</strong><small>${{ item.precioVenta.toFixed(2) }} c/u</small></div>
-            <div class="cantidad"><button>−</button><span>{{ item.cantidad }}</span><button>+</button></div>
-            <b>${{ (item.precioVenta * item.cantidad).toFixed(2) }}</b>
-          </article>
-        </div>
-        <div class="totales">
-          <p><span>Subtotal</span><strong>$639.97</strong></p>
-          <p><span>Impuestos</span><strong>$83.20</strong></p>
-          <p class="total"><span>Total</span><strong>$723.17</strong></p>
-        </div>
-        <button class="cobrar"><span class="material-symbols-outlined">point_of_sale</span>Cobrar $723.17</button>
-        <button class="cancelar">Cancelar venta</button>
-      </aside>
-    </div>
-  </AdminLayout>
-</template>
-
+<template><AdminLayout titulo="Terminal de venta" buscador-placeholder="Buscar productos o SKU..."><template #header><div class="encabezado"><div><p class="eyebrow mono">PUNTO DE VENTA</p><h2>Nueva venta</h2></div><div class="turno"><span></span>Turno activo</div></div></template>
+<div class="pos-grid"><section><div class="herramientas"><div class="busqueda"><span class="material-symbols-outlined">search</span><input v-model="busqueda" placeholder="Buscar nombre o marca"></div><div class="filtros"><button v-for="c in categorias" :key="c" :class="{activo:categoria===c}" @click="categoria=c">{{c}}</button></div></div><div class="productos"><button v-for="p in filtrados" :key="p.id" class="producto" :disabled="p.stock<=0" @click="agregar(p)"><div class="visual"><ProductoVisual :producto="p"/></div><div class="producto-info"><p class="mono sku">SKU-{{String(p.id).padStart(4,'0')}}</p><h3>{{p.nombre}}</h3><p>{{p.marca}}</p><div><strong>${{p.precioVenta.toFixed(2)}}</strong><span :class="{agotado:p.stock<=0}">{{p.stock}} disponibles</span></div></div></button></div></section>
+<aside class="orden"><div class="orden-titulo"><h3>Orden actual</h3><span>{{lineas.length}} líneas</span></div><label class="cliente"><span class="material-symbols-outlined">person</span><select v-model="clienteId"><option value="">Seleccionar cliente</option><option v-for="c in clientes" :key="c.id" :value="c.id">{{c.nombre}} {{c.apellido}}</option></select></label><div v-if="lineas.length" class="lineas"><article v-for="l in lineas" :key="l.productoId"><div><strong>{{l.producto}}</strong><small>${{l.precioUnitario.toFixed(2)}} c/u</small></div><b>${{(l.precioUnitario*l.cantidad).toFixed(2)}}</b><div class="cantidad"><button @click="cambiar(l,-1)">−</button><span>{{l.cantidad}}</span><button @click="cambiar(l,1)">+</button></div></article></div><p v-else class="vacio">Selecciona productos del catálogo.</p><div class="totales"><p><span>Subtotal</span><strong>${{subtotal.toFixed(2)}}</strong></p><label class="descuento"><span>Descuento</span><input v-model.number="descuento" type="number" min="0" :max="subtotal" step=".01"></label><p class="total"><span>Total</span><strong>${{total.toFixed(2)}}</strong></p></div><p v-if="error" class="error">{{error}}</p><button class="cobrar" :disabled="guardando||!lineas.length" @click="confirmar"><span class="material-symbols-outlined">save</span>{{guardando?'Registrando...':'Registrar venta pendiente'}}</button><button class="cancelar" @click="cancelar">Cancelar venta</button></aside></div></AdminLayout></template>
 <style scoped>
-.encabezado{display:flex;justify-content:space-between;align-items:end}.encabezado h2{font-size:32px}.eyebrow{font-size:11px;color:#79dd68;margin-bottom:8px}.turno{display:flex;gap:8px;align-items:center;color:#aab4a6;font-size:13px}.turno span{width:8px;height:8px;border-radius:50%;background:#79dd68;box-shadow:0 0 0 4px #79dd6820}
-.pos-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:28px}.filtros{display:flex;gap:8px;margin-bottom:20px}.filtros button{border:1px solid #303030;background:#1b1b1b;color:#bbb;padding:10px 18px;border-radius:6px}.filtros .activo{background:#107c10;border-color:#107c10;color:#fff;font-weight:800}
-.productos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.producto{display:grid;grid-template-columns:132px 1fr;background:#1b1b1b;border-radius:8px;overflow:hidden;min-height:160px}.visual{display:grid;place-items:center;background:#242424;padding:18px}.producto-info{padding:18px;display:flex;flex-direction:column}.sku{font-size:10px;color:#79dd68}.producto h3{font-size:17px;margin:6px 0}.producto-info>p:not(.sku){color:#999;font-size:12px}.producto-info>div{margin-top:auto;display:flex;justify-content:space-between;align-items:end}.producto-info strong{font-size:19px}.producto-info span{font-size:10px;color:#9eaa9a}
-.orden{background:#191919;border-left:3px solid #107c10;padding:24px;border-radius:8px;height:max-content;position:sticky;top:88px}.orden-titulo{display:flex;justify-content:space-between;align-items:center}.orden-titulo h3{font-size:21px}.orden-titulo span{color:#79dd68;font-size:11px}.cliente{display:flex;align-items:center;gap:10px;background:#0f0f0f;border:1px solid #303030;border-radius:7px;padding:11px;margin:20px 0}.cliente input{border:0;background:transparent;color:#eee;width:100%;outline:0}.lineas article{display:grid;grid-template-columns:1fr auto;gap:12px;padding:17px 0;border-bottom:1px solid #303030}.lineas small{display:block;color:#999;margin-top:5px}.lineas b{grid-column:2;grid-row:1}.cantidad{display:flex;align-items:center;gap:10px}.cantidad button{width:25px;height:25px;border:0;background:#303030;color:#fff}.totales{padding:22px 0}.totales p{display:flex;justify-content:space-between;color:#aaa;margin:10px 0}.totales .total{color:#fff;border-top:1px solid #3b3b3b;padding-top:18px;font-size:21px}.cobrar,.cancelar{width:100%;border:0;border-radius:7px;padding:14px;font-weight:800}.cobrar{background:#107c10;color:#fff;display:flex;justify-content:center;align-items:center;gap:10px}.cancelar{background:transparent;color:#999;margin-top:7px}
-@media(max-width:1100px){.pos-grid{grid-template-columns:1fr}.orden{position:static}.productos{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.productos{grid-template-columns:1fr}.encabezado{align-items:start;gap:15px;flex-direction:column}.producto{grid-template-columns:100px 1fr}}
+.encabezado{display:flex;justify-content:space-between;align-items:end}.encabezado h2{font-size:32px}.eyebrow{font-size:11px;color:#79dd68}.turno{display:flex;gap:8px;align-items:center;color:#aab4a6}.turno span{width:8px;height:8px;border-radius:50%;background:#79dd68}.pos-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:28px}.herramientas{display:flex;gap:12px;justify-content:space-between;margin-bottom:20px}.busqueda{display:flex;align-items:center;gap:8px;background:#181818;border:1px solid #333;padding:8px 12px;border-radius:6px}.busqueda input{border:0;background:transparent;color:#fff;outline:0}.filtros{display:flex;gap:7px}.filtros button{border:1px solid #303030;background:#1b1b1b;color:#bbb;padding:9px 13px;border-radius:6px}.filtros .activo{background:#107c10;color:#fff}.productos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.producto{display:grid;grid-template-columns:125px 1fr;padding:0;text-align:left;border:1px solid transparent;background:#1b1b1b;color:#fff;border-radius:8px;overflow:hidden}.producto:hover{border-color:#79dd68}.producto:disabled{opacity:.45}.visual{padding:12px;background:#242424}.producto-info{padding:16px;display:flex;flex-direction:column}.sku{font-size:9px;color:#79dd68}.producto h3{font-size:16px;margin:5px 0}.producto-info>p:not(.sku){color:#999;font-size:11px}.producto-info>div{margin-top:auto;display:flex;justify-content:space-between}.producto-info span{font-size:9px;color:#9eaa9a}.agotado{color:#ffb4ab!important}.orden{background:#191919;border-left:3px solid #107c10;padding:24px;border-radius:8px;height:max-content;position:sticky;top:88px}.orden-titulo,.totales p{display:flex;justify-content:space-between}.cliente{display:flex;gap:9px;align-items:center;background:#101010;padding:10px;margin:18px 0}.cliente select{width:100%;border:0;background:#101010;color:#fff}.lineas article{display:grid;grid-template-columns:1fr auto;gap:10px;padding:15px 0;border-bottom:1px solid #303030}.lineas small{display:block;color:#999}.cantidad{display:flex;gap:8px}.cantidad button{width:26px;height:26px;border:0;background:#303030;color:#fff}.totales{padding:20px 0}.total{font-size:20px}.vacio{text-align:center;color:#777;padding:35px 0}.error{color:#ffb4ab;font-size:12px;margin-bottom:12px}.cobrar,.cancelar{width:100%;border:0;padding:14px;border-radius:7px;font-weight:800}.cobrar{background:#107c10;color:#fff}.cobrar:disabled{opacity:.45}.cancelar{background:transparent;color:#999}@media(max-width:1100px){.pos-grid{grid-template-columns:1fr}.orden{position:static}}@media(max-width:760px){.productos{grid-template-columns:1fr}.herramientas{flex-direction:column}.filtros{overflow:auto}}
 </style>

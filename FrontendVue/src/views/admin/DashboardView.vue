@@ -63,7 +63,7 @@ function formatoMoneda(valor) {
       <div class="panel">
         <div class="panel-header">
           <h3>Últimas ventas</h3>
-          <router-link to="/admin/ventas/nueva" class="ver-todo">Ver todas</router-link>
+          <router-link to="/admin/ventas" class="ver-todo">Ver todas</router-link>
         </div>
         <div class="panel-list">
           <div v-for="venta in ventas" :key="venta.id" class="panel-row">

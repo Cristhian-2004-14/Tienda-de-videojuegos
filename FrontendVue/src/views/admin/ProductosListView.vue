@@ -28,6 +28,11 @@ function estadoStock(stock) {
   if (stock <= 5) return { texto: `Stock bajo (${stock})`, clase: 'stock-bajo' };
   return { texto: `En stock (${stock})`, clase: 'en-stock' };
 }
+async function darDeBaja(producto) {
+  if (!producto.activo || !window.confirm(`¿Dar de baja ${producto.nombre}?`)) return;
+  await productosApi.eliminar(producto.id);
+  await datosStore.cargarRecurso('productos', productosApi);
+}
 </script>
 
 <template>
@@ -41,10 +46,6 @@ function estadoStock(stock) {
           </p>
         </div>
         <div class="page-actions">
-          <button class="btn-secondary">
-            <span class="material-symbols-outlined">filter_list</span>
-            Filtrar
-          </button>
           <router-link to="/admin/productos/nuevo" class="btn-primary">
             <span class="material-symbols-outlined">add</span>
             Agregar producto
@@ -103,8 +104,8 @@ function estadoStock(stock) {
                 <router-link :to="`/admin/productos/${producto.id}/editar`" class="icon-btn">
                   <span class="material-symbols-outlined">edit</span>
                 </router-link>
-                <button class="icon-btn icon-btn-danger">
-                  <span class="material-symbols-outlined">delete</span>
+                <button class="icon-btn icon-btn-danger" :disabled="!producto.activo" :title="producto.activo?'Dar de baja':'Producto inactivo'" @click="darDeBaja(producto)">
+                  <span class="material-symbols-outlined">{{producto.activo?'visibility_off':'block'}}</span>
                 </button>
               </div>
             </td>

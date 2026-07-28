@@ -5,6 +5,9 @@ export function crearDetalleVenta(producto, cantidad = 1) {
   return {
     productoId: producto.id,
     nombre: producto.nombre,
+    categoria: producto.categoria,
+    marca: producto.marca,
+    edicion: producto.edicion || 'Estándar',
     cantidad,
     precioUnitario: producto.precioVenta,
   };

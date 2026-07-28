@@ -5,11 +5,13 @@ import { useRouter } from 'vue-router';
 import AdminLayout from '../../components/AdminLayout.vue';
 import { useDatosApiStore } from '../../stores/datosApi';
 import { productosApi } from '../../services/recursosApi';
+import { useNotificacionesStore } from '../../stores/notificaciones';
 
 // Patrón Repository: la vista carga el producto desde la capa mock src/data.
 const props = defineProps({ id: { type: String, default: null } });
 const router = useRouter();
 const datosStore = useDatosApiStore();
+const avisos = useNotificacionesStore();
 const { productos } = storeToRefs(datosStore);
 const original = computed(() => productos.value.find((producto) => producto.id === Number(props.id)));
 const editando = computed(() => Boolean(original.value));
@@ -17,8 +19,11 @@ const formulario = reactive({
   nombre: '',
   categoria: 'Consolas',
   marca: '',
+  precioCompra: 0,
   precioVenta: 0,
   stock: 0,
+  stockMinimo: 5,
+  activo: true,
   descripcion: '',
 });
 
@@ -33,7 +38,7 @@ async function guardarProducto() {
     ...formulario,
     id: original.value?.id ?? 0,
   });
-  window.alert(`Producto ${editando.value ? 'actualizado' : 'creado'} correctamente (simulación).`);
+  avisos.mostrar(`Producto ${editando.value ? 'actualizado' : 'creado'} correctamente.`);
   router.push('/admin/productos');
 }
 </script>
@@ -54,14 +59,16 @@ async function guardarProducto() {
       <aside class="panel media">
         <h3>Imagen del producto</h3>
         <button type="button" class="upload"><span class="material-symbols-outlined">add_photo_alternate</span><strong>Subir imagen</strong><small>PNG, JPG o WebP (máx. 5 MB)</small></button>
-        <label class="toggle-row"><span class="material-symbols-outlined">visibility</span><span>Visible en la tienda</span><input type="checkbox" checked /></label>
+        <label class="toggle-row"><span class="material-symbols-outlined">visibility</span><span>Producto activo</span><input v-model="formulario.activo" type="checkbox" /></label>
         <label class="toggle-row"><span class="material-symbols-outlined">inventory</span><span>Controlar inventario</span><input type="checkbox" checked /></label>
       </aside>
       <section class="panel pricing">
         <h3>Inventario y precio</h3>
         <div class="pricing-grid">
+          <div class="campo"><label>Precio de compra</label><input v-model.number="formulario.precioCompra" type="number" min="0" step=".01" required /></div>
           <div class="campo"><label>Precio de venta</label><input v-model.number="formulario.precioVenta" type="number" min="0" step=".01" required /></div>
           <div class="campo"><label>Cantidad disponible</label><input v-model.number="formulario.stock" type="number" min="0" required /></div>
+          <div class="campo"><label>Stock mínimo</label><input v-model.number="formulario.stockMinimo" type="number" min="0" required /></div>
         </div>
       </section>
       <div class="acciones"><button type="button" class="btn-secondary" @click="router.back()">Cancelar</button><button class="btn-primary">Guardar producto</button></div>

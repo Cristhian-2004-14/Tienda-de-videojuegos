@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia';
 import { crearDetalleVenta } from '../composables/useDetalleFactory';
 import { calcularTotal } from '../composables/useCalculoTotal';
+const CLAVE_CARRITO = 'xstore-carrito';
+function cargarItems() {
+  try { return JSON.parse(localStorage.getItem(CLAVE_CARRITO)) || []; }
+  catch { return []; }
+}
 
 // Patrón Observer: al ser un store de Pinia (reactivo con Vue), cualquier
 // componente que lea `items` o `total` (ej. el resumen del carrito) se
@@ -8,8 +13,10 @@ import { calcularTotal } from '../composables/useCalculoTotal';
 // suscribirse manualmente, Vue/Pinia lo resuelven de forma nativa.
 export const useCarritoStore = defineStore('carrito', {
   state: () => ({
-    items: [],
+    items: cargarItems(),
     estrategiaDescuento: 'normal',
+    ultimoAgregado: '',
+    confirmacionId: 0,
   }),
 
   getters: {
@@ -28,17 +35,27 @@ export const useCarritoStore = defineStore('carrito', {
   },
 
   actions: {
+    persistir() {
+      localStorage.setItem(CLAVE_CARRITO, JSON.stringify(this.items));
+    },
     agregarProducto(producto, cantidad = 1) {
       const existente = this.items.find((i) => i.productoId === producto.id);
       if (existente) {
         existente.cantidad += cantidad;
+        this.ultimoAgregado = producto.nombre;
+        this.confirmacionId += 1;
+        this.persistir();
         return;
       }
       this.items.push(crearDetalleVenta(producto, cantidad));
+      this.ultimoAgregado = producto.nombre;
+      this.confirmacionId += 1;
+      this.persistir();
     },
 
     quitarProducto(productoId) {
       this.items = this.items.filter((i) => i.productoId !== productoId);
+      this.persistir();
     },
 
     cambiarCantidad(productoId, cantidad) {
@@ -49,10 +66,12 @@ export const useCarritoStore = defineStore('carrito', {
         return;
       }
       item.cantidad = cantidad;
+      this.persistir();
     },
 
     vaciarCarrito() {
       this.items = [];
+      this.persistir();
     },
   },
 });

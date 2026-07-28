@@ -69,5 +69,12 @@ export const useDatosApiStore = defineStore('datos-api', {
       await productosApi.eliminar(id);
       this.productos = this.productos.filter((producto) => producto.id !== id);
     },
+
+    async registrarVenta(venta) {
+      const guardada = await ventasApi.crear(venta);
+      this.ventas.unshift(guardada);
+      await this.cargarRecurso('productos', productosApi);
+      return guardada;
+    },
   },
 });

@@ -1,62 +1,19 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { useCarritoStore } from '../stores/carrito';
-
-defineProps({
-  buscador: { type: Boolean, default: true },
-});
-
-const carritoStore = useCarritoStore();
-const cantidad = computed(() => carritoStore.cantidadItems);
+import { useTiendaUiStore } from '../stores/tiendaUi';
+defineProps({ buscador:{type:Boolean,default:true} });
+const router=useRouter(), carrito=useCarritoStore(), ui=useTiendaUiStore();
+const {cantidadItems,ultimoAgregado,confirmacionId}=storeToRefs(carrito), {busqueda,categoria}=storeToRefs(ui);
+const menuAbierto=ref(false), mostrarAviso=ref(false), animarCarrito=ref(false); let temporizador;
+const cantidad=computed(()=>cantidadItems.value);
+function irCategoria(valor){ui.seleccionarCategoria(valor);menuAbierto.value=false;router.push({path:'/tienda',hash:'#productos'});window.setTimeout(()=>document.querySelector('#productos')?.scrollIntoView({behavior:'smooth'}),50)}
+function buscar(){if(busqueda.value.trim())irCategoria(categoria.value)}
+watch(confirmacionId,()=>{mostrarAviso.value=true;animarCarrito.value=false;requestAnimationFrame(()=>animarCarrito.value=true);clearTimeout(temporizador);temporizador=setTimeout(()=>mostrarAviso.value=false,2800)});
 </script>
-
-<template>
-  <div class="tienda-shell">
-    <header class="tienda-header">
-      <router-link to="/tienda" class="tienda-logo">X-STORE</router-link>
-      <nav class="tienda-nav">
-        <router-link to="/tienda">Tienda</router-link>
-        <a href="#productos">Juegos</a>
-        <a href="#productos">Hardware</a>
-        <router-link to="/tienda/servicio/1">Servicio técnico</router-link>
-      </nav>
-      <div v-if="buscador" class="tienda-search">
-        <span class="material-symbols-outlined">search</span>
-        <input aria-label="Buscar productos" placeholder="Buscar juegos, consolas, accesorios..." />
-      </div>
-      <div class="tienda-actions">
-        <router-link to="/tienda/carrito" class="tienda-icon" aria-label="Carrito">
-          <span class="material-symbols-outlined">shopping_cart</span>
-          <strong v-if="cantidad">{{ cantidad }}</strong>
-        </router-link>
-        <router-link to="/tienda/login" class="tienda-icon" aria-label="Cuenta">
-          <span class="material-symbols-outlined">account_circle</span>
-        </router-link>
-      </div>
-    </header>
-    <main><slot /></main>
-    <footer class="tienda-footer">
-      <div><strong>X-STORE KINETIC</strong><span>© 2026. Todos los derechos reservados.</span></div>
-      <nav><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Soporte</a></nav>
-    </footer>
-  </div>
-</template>
-
+<template><div class="tienda-shell"><header class="tienda-header"><router-link to="/tienda" class="tienda-logo">X-STORE</router-link><button class="menu-btn" :aria-expanded="menuAbierto" aria-label="Abrir navegación" @click="menuAbierto=!menuAbierto"><span class="material-symbols-outlined">{{menuAbierto?'close':'menu'}}</span></button><nav :class="['tienda-nav',{abierto:menuAbierto}]" aria-label="Catálogo"><button :class="{activo:categoria==='Todo'}" @click="irCategoria('Todo')">Tienda</button><button :class="{activo:categoria==='Videojuegos'}" @click="irCategoria('Videojuegos')">Juegos</button><button :class="{activo:['Consolas','Accesorios'].includes(categoria)}" @click="irCategoria('Consolas')">Hardware</button><router-link to="/tienda/servicio/1" @click="menuAbierto=false">Servicio técnico</router-link></nav><form v-if="buscador" class="tienda-search" role="search" @submit.prevent="buscar"><span class="material-symbols-outlined">search</span><input v-model="busqueda" aria-label="Buscar productos" placeholder="Buscar juegos, consolas, accesorios..."><button v-if="busqueda" type="button" aria-label="Limpiar búsqueda" @click="busqueda=''"><span class="material-symbols-outlined">close</span></button></form><div class="tienda-actions"><router-link to="/tienda/carrito" :class="['tienda-icon',{pulso:animarCarrito}]" :aria-label="`Carrito, ${cantidad} productos`"><span class="material-symbols-outlined">shopping_cart</span><strong v-if="cantidad">{{cantidad}}</strong></router-link><router-link to="/tienda/login" class="tienda-icon" aria-label="Cuenta"><span class="material-symbols-outlined">account_circle</span></router-link></div></header><main><slot/></main><transition name="aviso"><div v-if="mostrarAviso" class="toast" role="status" aria-live="polite"><span class="material-symbols-outlined">check_circle</span><div><strong>Agregado a tu selección</strong><small>{{ultimoAgregado}}</small></div><router-link to="/tienda/carrito">Ver carrito</router-link></div></transition><footer class="tienda-footer"><div><strong>X-STORE KINETIC</strong><span>© 2026. Todos los derechos reservados.</span></div><nav><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Soporte</a></nav></footer></div></template>
 <style scoped>
-.tienda-shell { min-height: 100vh; background: #101010; }
-.tienda-header { height: 82px; padding: 0 clamp(20px, 4vw, 54px); display: flex; align-items: center; gap: 38px; border-bottom: 1px solid #1d1d1d; position: sticky; top: 0; z-index: 30; background: rgba(16,16,16,.96); backdrop-filter: blur(14px); }
-.tienda-logo { color: var(--color-primary); font-size: 29px; font-weight: 900; letter-spacing: -1.5px; }
-.tienda-nav { display: flex; gap: 28px; font-size: 14px; }
-.tienda-nav a { color: #d2d2d2; }
-.tienda-nav a:hover, .tienda-nav .router-link-active { color: var(--color-primary); }
-.tienda-search { margin-left: auto; width: min(360px, 30vw); display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: #171717; border: 1px solid #292929; border-radius: 8px; }
-.tienda-search input { width: 100%; border: 0; outline: 0; background: transparent; color: white; }
-.tienda-actions { display: flex; gap: 10px; }
-.tienda-icon { width: 42px; height: 42px; display: grid; place-items: center; color: var(--color-primary); position: relative; border-radius: 8px; }
-.tienda-icon:hover { background: #202020; }
-.tienda-icon strong { position: absolute; top: -1px; right: -2px; min-width: 18px; height: 18px; padding: 0 4px; display: grid; place-items: center; border-radius: 9px; font-size: 10px; background: var(--color-primary); color: #062b05; }
-.tienda-footer { min-height: 130px; margin-top: 70px; padding: 35px clamp(20px, 4vw, 54px); border-top: 1px solid #2b2b2b; display: flex; justify-content: space-between; align-items: center; color: #9b9b9b; font-size: 13px; }
-.tienda-footer div { display: flex; flex-direction: column; gap: 8px; }.tienda-footer nav { display: flex; gap: 30px; }
-@media (max-width: 900px) { .tienda-nav { display:none; }.tienda-search { width:auto; flex:1; }.tienda-header { gap:14px; }.tienda-logo { font-size:22px; } }
-@media (max-width: 600px) { .tienda-search { display:none; }.tienda-actions { margin-left:auto; }.tienda-footer { align-items:flex-start; gap:24px; flex-direction:column; }.tienda-footer nav { flex-wrap:wrap; } }
+.tienda-shell{min-height:100vh;background:#101010}.tienda-header{height:82px;padding:0 clamp(20px,4vw,54px);display:flex;align-items:center;gap:34px;border-bottom:1px solid #1d1d1d;position:sticky;top:0;z-index:30;background:#101010f5;backdrop-filter:blur(14px)}.tienda-logo{color:#79dd68;font-size:29px;font-weight:900;letter-spacing:-1.5px;white-space:nowrap}.tienda-nav{display:flex;align-items:center;gap:26px}.tienda-nav button,.tienda-nav a{border:0;background:transparent;color:#d2d2d2;font-size:14px;padding:10px 0}.tienda-nav button:hover,.tienda-nav a:hover,.tienda-nav .activo,.tienda-nav .router-link-active{color:#79dd68}.tienda-nav .activo{box-shadow:inset 0 -2px #79dd68}.tienda-search{margin-left:auto;width:min(460px,33vw);display:flex;align-items:center;gap:10px;padding:10px 14px;background:#171717;border:1px solid #292929;border-radius:8px}.tienda-search:focus-within{border-color:#79dd68}.tienda-search input{width:100%;border:0;outline:0;background:transparent;color:#fff}.tienda-search button{display:grid;place-items:center;border:0;background:transparent;color:#888;padding:0}.tienda-search button span{font-size:18px}.tienda-actions{display:flex;gap:8px}.tienda-icon{width:42px;height:42px;display:grid;place-items:center;color:#79dd68;position:relative;border-radius:8px}.tienda-icon:hover{background:#202020}.tienda-icon strong{position:absolute;top:-2px;right:-3px;min-width:19px;height:19px;padding:0 4px;display:grid;place-items:center;border-radius:10px;font-size:10px;background:#79dd68;color:#062b05}.pulso{animation:pulso .55s ease}.menu-btn{display:none;border:0;background:transparent;color:#79dd68;margin-left:auto}.toast{position:fixed;right:24px;bottom:24px;z-index:80;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:13px;min-width:360px;padding:15px 17px;background:#182519;border:1px solid #79dd68;border-radius:9px;box-shadow:0 16px 50px #000a}.toast>span{color:#79dd68;font-size:29px}.toast div{display:flex;flex-direction:column;gap:3px}.toast small{color:#aeb8ab}.toast a{color:#79dd68;font-size:12px;font-weight:800}.aviso-enter-active,.aviso-leave-active{transition:.25s}.aviso-enter-from,.aviso-leave-to{opacity:0;transform:translateY(15px)}.tienda-footer{min-height:130px;margin-top:70px;padding:35px clamp(20px,4vw,54px);border-top:1px solid #2b2b2b;display:flex;justify-content:space-between;align-items:center;color:#9b9b9b;font-size:13px}.tienda-footer div{display:flex;flex-direction:column;gap:8px}.tienda-footer nav{display:flex;gap:30px}@keyframes pulso{50%{background:#79dd6830;transform:scale(1.16)}}@media(max-width:1000px){.menu-btn{display:grid}.tienda-nav{display:none;position:absolute;top:81px;left:0;right:0;padding:18px 24px;background:#151515;border-bottom:1px solid #333;flex-direction:column;align-items:stretch}.tienda-nav.abierto{display:flex}.tienda-nav button,.tienda-nav a{text-align:left}.tienda-search{margin-left:0;flex:1;width:auto}.tienda-header{gap:12px}}@media(max-width:620px){.tienda-search{order:5;position:absolute;top:81px;left:0;right:0;border-radius:0}.tienda-header{margin-bottom:55px}.tienda-logo{font-size:22px}.toast{left:14px;right:14px;bottom:14px;min-width:0}.tienda-footer{align-items:flex-start;gap:24px;flex-direction:column}}
 </style>

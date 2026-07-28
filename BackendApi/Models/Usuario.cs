@@ -3,6 +3,8 @@ namespace BackendApi.Models;
 public class Usuario : IEntidad
 {
     public int Id { get; set; }
+    public int EmpleadoId { get; set; }
+    public int RolId { get; set; }
     public string Username { get; set; } = "";
     public string Password { get; set; } = "";
     public string Nombre { get; set; } = "";

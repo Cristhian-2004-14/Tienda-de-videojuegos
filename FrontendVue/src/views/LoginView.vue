@@ -1,11 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
 // Consume el store Singleton de sesión (auth.js) para validar contra los
 // usuarios mock y redirigir — sin autenticación real (ver sección 9 de CLAUDE.md).
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
 
 const username = ref('');
@@ -21,7 +22,7 @@ async function manejarSubmit() {
   cargando.value = false;
 
   if (exito) {
-    router.push('/admin');
+    router.push(typeof route.query.redirect === 'string' ? route.query.redirect : '/admin');
   } else {
     error.value = 'Usuario o contraseña incorrectos o BackendApi no está disponible.';
   }

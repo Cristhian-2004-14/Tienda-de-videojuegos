@@ -1,6 +1,9 @@
 <script setup>
+import { computed } from 'vue';
+
 const props = defineProps({
-  producto: { type: Object, required: true },
+  producto: { type: Object, default: null },
+  tipo: { type: String, default: '' },
   grande: { type: Boolean, default: false },
 });
 
@@ -9,13 +12,19 @@ const iconos = {
   Accesorios: 'gamepad',
   Videojuegos: 'sports_esports',
 };
+
+const visualProducto = computed(() => props.producto || {
+  id: 0,
+  categoria: props.tipo || 'Otros',
+  marca: props.tipo || 'X-Store',
+});
 </script>
 
 <template>
-  <div class="visual" :class="[`visual-${producto.id}`, { grande }]">
+  <div class="visual" :class="[`visual-${visualProducto.id}`, { grande }]">
     <span class="halo"></span>
-    <span class="material-symbols-outlined">{{ iconos[producto.categoria] || 'devices' }}</span>
-    <small>{{ producto.marca }}</small>
+    <span class="material-symbols-outlined">{{ iconos[visualProducto.categoria] || 'devices' }}</span>
+    <small>{{ visualProducto.marca }}</small>
   </div>
 </template>
 

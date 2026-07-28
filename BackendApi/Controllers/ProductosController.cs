@@ -34,6 +34,11 @@ public class ProductosController(IFirestoreRepository<Producto> repositorio) : C
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> EliminarProducto(int id) =>
-        await repositorio.EliminarAsync(id) ? NoContent() : NotFound();
+    public async Task<IActionResult> EliminarProducto(int id)
+    {
+        var producto = await repositorio.ObtenerPorIdAsync(id);
+        if (producto is null) return NotFound();
+        producto.Activo = false;
+        return Ok(await repositorio.ActualizarAsync(id, producto));
+    }
 }

@@ -33,9 +33,23 @@ public class UsuariosController(
         return CreatedAtAction(nameof(ObtenerUsuario), new { id = creado.Id }, SinPassword(creado));
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<object>> ActualizarUsuario(int id, Usuario usuario)
+    {
+        var existente = await repositorio.ObtenerPorIdAsync(id);
+        if (existente is null) return NotFound();
+        usuario.Password = string.IsNullOrWhiteSpace(usuario.Password)
+            ? existente.Password
+            : passwordHasher.HashPassword(usuario, usuario.Password);
+        var actualizado = await repositorio.ActualizarAsync(id, usuario);
+        return Ok(SinPassword(actualizado!));
+    }
+
     internal static object SinPassword(Usuario usuario) => new
     {
         usuario.Id,
+        usuario.EmpleadoId,
+        usuario.RolId,
         usuario.Username,
         usuario.Nombre,
         usuario.Rol,
