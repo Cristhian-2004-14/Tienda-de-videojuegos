@@ -1,32 +1,93 @@
-# Tienda de videojuegos
+# X-Store — Tienda de videojuegos
 
-El repositorio está dividido en dos aplicaciones independientes:
+Proyecto académico para la gestión de una tienda de videojuegos y servicio
+técnico. Incluye una tienda pública para consultar productos y preparar pedidos
+por WhatsApp, además de un panel administrativo conectado a Cloud Firestore.
+
+## Tecnologías
+
+- Vue 3, Vite y Vue Router
+- Pinia para el estado global
+- Axios para el consumo de la API
+- ASP.NET Core Web API sobre .NET 10
+- Google Cloud Firestore como base de datos NoSQL
+- Firebase Analytics
+
+## Funcionalidades
+
+### Tienda pública
+
+- Catálogo con búsqueda, filtros y detalle de productos
+- Selección de edición y carrito persistente
+- Preparación del pedido y envío por WhatsApp
+- Consulta pública del estado de una reparación mediante orden y CI o teléfono
+- Enlace de soporte por WhatsApp
+
+> El sistema no procesa pagos en línea. El carrito prepara el pedido y los pagos
+> solo se registran administrativamente como efectivo, QR, tarjeta o transferencia.
+
+### Panel administrativo
+
+- Clientes, productos, inventario y dispositivos
+- Punto de venta con control de stock y descuentos
+- Ventas, comprobantes y pagos parciales
+- Proveedores, compras y actualización automática del inventario
+- Órdenes de servicio técnico, diagnósticos, repuestos, estados y pagos
+- Personal, usuarios, roles y permisos
+- Reportes de ventas, compras, pagos, servicios y productos con stock bajo
+
+## Arquitectura
+
+```text
+Vue 3 + Pinia
+       |
+     Axios
+       |
+ASP.NET Core API
+       |
+Cloud Firestore
+```
+
+El frontend utiliza componentes reutilizables para tablas, encabezados, estados,
+pagos y líneas de productos. El backend organiza el dominio mediante modelos,
+controladores REST y un repositorio genérico para Firestore.
+
+## Estructura
 
 ```text
 TiendaDeVideoJuegos/
-├── FrontendVue/                 # Interfaz Vue 3
-│   ├── diseños/                 # Mockups y referencia visual
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── composables/
-│   │   ├── data/                # Datos mock temporales
-│   │   ├── router/
-│   │   ├── stores/
-│   │   └── views/
-│   ├── package.json
-│   └── vite.config.js
-├── BackendApi/                  # ASP.NET Core Web API
-│   ├── Controllers/
-│   ├── Data/                    # Repositorios de Cloud Firestore
-│   ├── Models/
-│   ├── Properties/
-│   ├── Program.cs
-│   └── BackendApi.csproj
+├── FrontendVue/
+│   └── src/
+│       ├── components/
+│       │   ├── common/       # Encabezados, tablas, estados y estados vacíos
+│       │   ├── inventory/    # Edición de líneas de productos
+│       │   └── payments/     # Formularios, resúmenes e historial de pagos
+│       ├── composables/      # Formatos, cálculos y factories
+│       ├── router/           # Rutas públicas, administrativas y guardas
+│       ├── services/         # Cliente Axios y recursos REST
+│       ├── stores/           # Autenticación, carrito, datos y notificaciones
+│       └── views/            # Tienda pública y panel administrativo
+├── BackendApi/
+│   ├── Controllers/          # Endpoints REST y datos iniciales
+│   ├── Data/                 # Repositorio de Firestore
+│   ├── Models/               # Entidades del dominio
+│   └── Program.cs
+├── GUIA_DEMOSTRACION.md
 └── TiendaDeVideoJuegos.slnx
 ```
 
-## Frontend
+## Instalación y ejecución
+
+### Backend
+
+```powershell
+dotnet restore
+dotnet run --project BackendApi
+```
+
+API local: `http://localhost:5158`
+
+### Frontend
 
 ```powershell
 cd FrontendVue
@@ -34,52 +95,36 @@ npm install
 npm run dev
 ```
 
-URL predeterminada: `http://localhost:5173`.
+Aplicación local: `http://localhost:5173`
 
-## Backend
+## Inicializar datos de demostración
 
-```powershell
-dotnet run --project BackendApi
-```
-
-La especificación OpenAPI queda disponible en desarrollo en `/openapi/v1.json`.
-
-## Firebase y Cloud Firestore
-
-La comunicación sigue este flujo:
-
-```text
-Vue → Axios → BackendApi → Google Cloud Firestore
-```
-
-El proyecto Firebase configurado es `tienda-83288`. Firestore no utiliza tablas:
-los datos se organizan en las colecciones `clientes`, `productos`, `ventas`,
-`servicios` y `usuarios`.
-
-La etapa actual utiliza la API REST con la clave web y las reglas de prueba de
-Firestore. Con el backend iniciado, el inicializador se puede ejecutar de forma
-idempotente:
+Con el backend iniciado:
 
 ```powershell
 Invoke-RestMethod -Method Post http://localhost:5158/api/database/seed
 ```
 
-> Advertencia: las reglas de prueba permiten que cualquier persona lea, modifique
-> o elimine los datos. Antes de publicar la aplicación hay que cerrar las reglas
-> y migrar BackendApi a una cuenta de servicio o a Google Application Default
-> Credentials.
+El seed es idempotente y prepara clientes, productos, proveedores, compras,
+ventas, servicios y usuarios para demostrar los flujos principales.
 
-## API preparada
+Usuarios iniciales:
 
-- `api/auth/login`
-- `api/clientes`
-- `api/productos`
-- `api/ventas`
-- `api/servicios`
-- `api/usuarios`
-- `api/database/seed`
+| Rol | Usuario | Contraseña |
+|---|---|---|
+| Administrador | `admin` | `admin123` |
+| Vendedor | `jperez` | `vendedor123` |
+| Técnico | `mrodriguez` | `tecnico123` |
 
-La estructura sigue el patrón de
-[MauroMelgar98/ApiBackend](https://github.com/MauroMelgar98/ApiBackend):
-frontend y backend separados, modelos de dominio en `Models` y endpoints REST
-mediante controladores en `Controllers`.
+## Colecciones de Firestore
+
+`clientes`, `productos`, `ventas`, `servicios`, `usuarios`, `empleados`,
+`roles`, `proveedores`, `compras` y `dispositivos`.
+
+La configuración de Firebase se encuentra en `BackendApi/appsettings.json`.
+Para una instalación diferente se deben reemplazar `ProjectId` y `ApiKey`.
+
+## Demostración
+
+Consulta [GUIA_DEMOSTRACION.md](GUIA_DEMOSTRACION.md) para probar los recorridos
+de compra, venta, pagos parciales y servicio técnico.

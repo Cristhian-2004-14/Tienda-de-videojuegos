@@ -12,12 +12,3 @@ export function crearDetalleVenta(producto, cantidad = 1) {
     precioUnitario: producto.precioVenta,
   };
 }
-
-export function crearDetalleServicio({ cliente, dispositivo, diagnostico }) {
-  return {
-    cliente,
-    dispositivo,
-    diagnostico,
-    estado: 'Pendiente',
-  };
-}

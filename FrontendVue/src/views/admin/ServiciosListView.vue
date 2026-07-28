@@ -2,16 +2,38 @@
 import { computed, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import AdminLayout from '../../components/AdminLayout.vue';
-import { useDatosApiStore } from '../../stores/datosApi';
+import AdminPageHeader from '../../components/common/AdminPageHeader.vue';
+import DataTable from '../../components/common/DataTable.vue';
+import StatusBadge from '../../components/common/StatusBadge.vue';
+import StatCard from '../../components/StatCard.vue';
+import { formatearCodigo, formatearFecha } from '../../composables/useFormatters';
 import { serviciosApi } from '../../services/recursosApi';
+import { useDatosApiStore } from '../../stores/datosApi';
+
 const store=useDatosApiStore(),filtro=ref('Todos');
 const {servicios}=storeToRefs(store);
 const activos=computed(()=>servicios.value.filter(s=>!['Entregado','Cancelado'].includes(s.estado)));
 const reparacion=computed(()=>servicios.value.filter(s=>s.estado==='En reparación'));
 const listos=computed(()=>servicios.value.filter(s=>s.estado==='Listo para entrega'));
 const filtrados=computed(()=>filtro.value==='Todos'?servicios.value:servicios.value.filter(s=>s.estado===filtro.value));
-const clase=estado=>({'En reparación':'verde','En pruebas':'azul','Listo para entrega':'verde',Recibido:'gris','En diagnóstico':'naranja',Entregado:'azul',Cancelado:'rojo'}[estado]||'gris');
+const estados=['Todos','Recibido','En diagnóstico','En reparación','En pruebas','Listo para entrega','Entregado'];
 onMounted(()=>store.cargarRecurso('servicios',serviciosApi));
 </script>
-<template><AdminLayout titulo="Servicio técnico"><template #header><div class="modulo-header"><div><p class="eyebrow mono">OPERACIONES / TALLER</p><h2>Órdenes de servicio</h2><p>Recepción, diagnóstico, reparación, pruebas y entrega.</p></div><router-link class="btn-primary" to="/admin/servicios/nuevo"><span class="material-symbols-outlined">add</span>Nueva orden</router-link></div></template><section class="resumen-casos"><article><small>SERVICIOS ACTIVOS</small><strong>{{activos.length}}</strong></article><article><small>EN REPARACIÓN</small><strong>{{reparacion.length}}</strong></article><article><small>LISTOS PARA ENTREGA</small><strong>{{listos.length}}</strong></article></section><section class="panel-caso"><div class="filtros"><button v-for="estado in ['Todos','Recibido','En diagnóstico','En reparación','En pruebas','Listo para entrega','Entregado']" :key="estado" :class="{activo:filtro===estado}" @click="filtro=estado">{{estado}}</button></div><div class="tabla"><table class="tabla-caso"><thead><tr><th>Orden</th><th>Cliente</th><th>Dispositivo</th><th>Diagnóstico</th><th>Estado</th><th></th></tr></thead><tbody><tr v-for="s in filtrados" :key="s.id"><td class="mono ticket">#SRV-{{String(s.id).padStart(4,'0')}}</td><td><strong>{{s.cliente}}</strong><small>{{new Date(s.fechaIngreso).toLocaleDateString('es-BO')}}</small></td><td>{{s.dispositivo}}</td><td>{{s.diagnostico||'Pendiente de diagnóstico'}}</td><td><span class="estado" :class="clase(s.estado)">{{s.estado}}</span></td><td><router-link class="accion-caso" :to="`/admin/servicios/${s.id}`">Abrir</router-link></td></tr><tr v-if="!filtrados.length"><td colspan="6" class="vacio">No hay servicios para este filtro.</td></tr></tbody></table></div></section></AdminLayout></template>
-<style scoped>.filtros{display:flex;gap:7px;overflow:auto;padding-bottom:18px}.filtros button{white-space:nowrap;padding:8px 11px;border:1px solid #363636;background:#171717;color:#aaa;border-radius:6px}.filtros .activo{background:#107c10;border-color:#107c10;color:#fff}.tabla{overflow:auto}.tabla-caso{min-width:850px}.tabla-caso small{display:block;color:#818981;margin-top:4px}.ticket{color:#79dd68}.estado{padding:6px 9px;border-radius:5px;font-size:11px;font-weight:700}.verde{background:#153c18;color:#79dd68}.azul{background:#18334b;color:#7fc4ff}.naranja{background:#493015;color:#ffc36c}.gris{background:#333;color:#ccc}.rojo{background:#431d1d;color:#ffb4ab}.vacio{text-align:center!important;padding:38px!important;color:#899287!important}</style>
+
+<template>
+  <AdminLayout titulo="Servicio técnico">
+    <template #header><AdminPageHeader eyebrow="OPERACIONES / TALLER" title="Órdenes de servicio" description="Recepción, diagnóstico, reparación, pruebas y entrega."><router-link class="btn-primary" to="/admin/servicios/nuevo"><span class="material-symbols-outlined">add</span>Nueva orden</router-link></AdminPageHeader></template>
+    <section class="stats"><StatCard etiqueta="Servicios activos" :valor="activos.length" icono="pending_actions"/><StatCard etiqueta="En reparación" :valor="reparacion.length" icono="handyman"/><StatCard etiqueta="Listos para entrega" :valor="listos.length" icono="verified"/></section>
+    <section class="panel-caso">
+      <div class="filters"><button v-for="estado in estados" :key="estado" :class="{active:filtro===estado}" @click="filtro=estado">{{estado}}</button></div>
+      <DataTable :empty="!filtrados.length" empty-text="No hay servicios para este filtro" :columns="6" min-width="850px">
+        <template #header><thead><tr><th>Orden</th><th>Cliente</th><th>Dispositivo</th><th>Diagnóstico</th><th>Estado</th><th></th></tr></thead></template>
+        <tr v-for="servicio in filtrados" :key="servicio.id"><td class="mono code">{{formatearCodigo('SRV',servicio.id)}}</td><td><strong>{{servicio.cliente}}</strong><small>{{formatearFecha(servicio.fechaIngreso)}}</small></td><td>{{servicio.dispositivo}}</td><td>{{servicio.diagnostico||'Pendiente de diagnóstico'}}</td><td><StatusBadge :status="servicio.estado"/></td><td><router-link class="accion-caso" :to="`/admin/servicios/${servicio.id}`">Abrir</router-link></td></tr>
+      </DataTable>
+    </section>
+  </AdminLayout>
+</template>
+
+<style scoped>
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.filters{display:flex;gap:7px;overflow:auto;padding-bottom:18px}.filters button{white-space:nowrap;padding:8px 11px;border:1px solid #363636;background:#171717;color:#aaa;border-radius:6px}.filters .active{background:#107c10;border-color:#107c10;color:#fff}.code{color:#79dd68}.tabla-caso small{display:block;color:#818981;margin-top:4px}@media(max-width:750px){.stats{grid-template-columns:1fr}}
+</style>
