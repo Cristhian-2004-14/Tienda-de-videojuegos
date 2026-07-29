@@ -1,0 +1,34 @@
+services:
+  # Servicio 1: Base de Datos SQL Server 2022
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: tienda-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Admin12345*
+    ports:
+      - "1433:1433"
+
+  # Servicio 2: Backend API (.NET 10)
+  backend:
+    build:
+      context: ./BackendApi
+      dockerfile: Dockerfile
+    container_name: tienda-backend
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=database,1433;Database=TiendaVideojuegosDb;User Id=sa;Password=Admin12345*;TrustServerCertificate=True;Encrypt=False;
+    ports:
+      - "5158:5158"
+    depends_on:
+      - database
+
+  # Servicio 3: Frontend Web (Vue 3 + Nginx)
+  frontend:
+    build:
+      context: ./FrontendVue
+      dockerfile: Dockerfile
+    container_name: tienda-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

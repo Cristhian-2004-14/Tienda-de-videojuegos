@@ -29,6 +29,20 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Aplicar migraciones automáticamente al iniciar el servicio (ideal para Docker)
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Nota de migración al iniciar: {ex.Message}");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
