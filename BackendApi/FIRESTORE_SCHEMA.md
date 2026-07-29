@@ -8,7 +8,8 @@ Adaptación del diagrama de clases originalmente normalizado para SQL.
 - `empleados`: datos personales, cargo, salario, fecha de ingreso y estado.
 - `usuarios`: credenciales; conserva `empleadoId`, `rolId`, nombre y rol desnormalizados.
 - `roles`: nombre, descripción, permisos y protección del rol administrador.
-- `productos`: descripción, categoría y marca desnormalizadas, precios, stock y stock mínimo.
+- `productos`: descripción, categoría y marca desnormalizadas, precios, stock, stock mínimo y una miniatura de portada.
+- `imagenesProductos`: imágenes WebP comprimidas, vinculadas mediante `productoId`; cada imagen se guarda en un documento independiente.
 - `proveedores`: razón social, NIT y datos de contacto.
 - `compras`: proveedor y empleado desnormalizados, total y `detalles` embebidos.
 - `ventas`: cliente y empleado desnormalizados, `detalles` y `pagos` embebidos.

@@ -11,7 +11,7 @@ por WhatsApp, además de un panel administrativo conectado a Cloud Firestore.
 - Axios para el consumo de la API
 - ASP.NET Core Web API sobre .NET 10
 - Google Cloud Firestore como base de datos NoSQL
-- Firebase Analytics
+- Firebase Analytics y Cloud Firestore para imágenes de productos
 
 ## Funcionalidades
 
@@ -124,7 +124,38 @@ Usuarios iniciales:
 La configuración de Firebase se encuentra en `BackendApi/appsettings.json`.
 Para una instalación diferente se deben reemplazar `ProjectId` y `ApiKey`.
 
+## Imágenes de productos
+
+El formulario admite hasta tres imágenes JPG, PNG o WebP por producto. El
+navegador las redimensiona y comprime a WebP antes de enviarlas. Cada imagen se
+guarda como un documento independiente en `imagenesProductos`, mientras el
+producto conserva una miniatura ligera para los listados. No se requiere
+Firebase Storage.
+
 ## Demostración
 
 Consulta [GUIA_DEMOSTRACION.md](GUIA_DEMOSTRACION.md) para probar los recorridos
 de compra, venta, pagos parciales y servicio técnico.
+
+## Ejecución con Docker
+
+Los archivos `BackendApi/Dockerfile`, `FrontendVue/Dockerfile`,
+`FrontendVue/nginx.conf` y `compose.yaml` dejan la aplicación lista para
+construirse como dos contenedores. Nginx sirve Vue y reenvía `/api` al backend,
+por lo que el navegador no depende de una URL local fija.
+
+```powershell
+Copy-Item .env.example .env
+# Completar FIREBASE_API_KEY en .env
+docker compose up --build
+```
+
+Aplicación: `http://localhost:8080`
+
+En producción, el backend recibe la configuración mediante
+`Firebase__ProjectId` y `Firebase__ApiKey`. Antes del primer despliegue publica
+las reglas incluidas en el repositorio:
+
+```powershell
+firebase deploy --only firestore:rules
+```

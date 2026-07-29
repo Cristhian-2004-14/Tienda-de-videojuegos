@@ -141,7 +141,8 @@ public class DatabaseController(
             }
         }
 
-        if ((await usuarios.ObtenerTodosAsync()).Count == 0)
+        var usuariosExistentes = await usuarios.ObtenerTodosAsync();
+        if (usuariosExistentes.Count == 0)
         {
             foreach (var usuario in DatosIniciales.Usuarios)
             {
@@ -149,6 +150,27 @@ public class DatabaseController(
                 await usuarios.CrearAsync(usuario);
             }
             creados.Add("usuarios");
+        }
+        else
+        {
+            foreach (var usuario in usuariosExistentes)
+            {
+                var inicial = DatosIniciales.Usuarios.FirstOrDefault(item =>
+                    item.Username.Equals(usuario.Username, StringComparison.OrdinalIgnoreCase));
+                if (inicial is null) continue;
+                var requiereMigracion =
+                    usuario.EmpleadoId != inicial.EmpleadoId ||
+                    usuario.RolId != inicial.RolId ||
+                    usuario.Nombre != inicial.Nombre ||
+                    usuario.Rol != inicial.Rol;
+                if (!requiereMigracion) continue;
+                usuario.EmpleadoId = inicial.EmpleadoId;
+                usuario.RolId = inicial.RolId;
+                usuario.Nombre = inicial.Nombre;
+                usuario.Rol = inicial.Rol;
+                await usuarios.ActualizarAsync(usuario.Id, usuario);
+                creados.Add($"usuario {usuario.Username} migrado");
+            }
         }
 
         return Ok(new

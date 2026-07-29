@@ -1,0 +1,264 @@
+REGISTROS DE PRUEBA Y DEMOSTRACION - FIRESTORE
+================================================
+
+Proyecto: Tienda de Videojuegos / Kinetic Console
+Fecha de carga: 28 de julio de 2026 (America/La_Paz)
+Destino: base de datos Firestore conectada a BackendApi
+
+Este archivo contiene los registros agregados para realizar pruebas y
+demostraciones. Los identificadores indicados son los que quedaron
+persistidos y fueron comprobados mediante la API.
+
+
+1. PRODUCTOS AGREGADOS
+======================
+
+ID: 20
+Nombre: Steam Deck OLED 512GB
+Categoria: Consolas
+Marca: Valve
+Descripcion: Consola portatil con pantalla OLED de 7.4 pulgadas y 512 GB.
+Precio de compra inicial: 510.00
+Precio de compra actualizado por compra recibida: 500.00
+Precio de venta: 649.99
+Stock inicial: 7
+Entrada por compra: 5
+Stock final verificado: 12
+Stock minimo: 3
+Activo: Si
+
+ID: 21
+Nombre: Teclado mecanico HyperX Alloy Origins
+Categoria: Accesorios
+Marca: HyperX
+Descripcion: Teclado mecanico compacto con iluminacion RGB.
+Precio de compra: 72.00
+Precio de venta: 109.99
+Stock inicial: 14
+Salida por venta: 1
+Stock final verificado: 13
+Stock minimo: 5
+Activo: Si
+
+ID: 22
+Nombre: Cyberpunk 2077 Ultimate Edition
+Categoria: Videojuegos
+Marca: CD Projekt
+Descripcion: Edicion completa con expansion Phantom Liberty.
+Precio de compra: 39.00
+Precio de venta: 59.99
+Stock inicial: 10
+Salida por venta: 2
+Stock final verificado: 8
+Stock minimo: 4
+Activo: Si
+
+ID: 23
+Nombre: Monitor Gaming LG UltraGear 27
+Categoria: Accesorios
+Marca: LG
+Descripcion: Monitor QHD de 27 pulgadas, 165 Hz y 1 ms.
+Precio de compra: 275.00
+Precio de venta: 369.99
+Stock final verificado: 3
+Stock minimo: 4
+Activo: Si
+Escenario de prueba: producto con stock bajo.
+
+ID: 24
+Nombre: Astro Bot PS5
+Categoria: Videojuegos
+Marca: PlayStation Studios
+Descripcion: Aventura de plataformas exclusiva para PlayStation 5.
+Precio de compra: 42.00
+Precio de venta: 69.99
+Stock final verificado: 0
+Stock minimo: 3
+Activo: Si
+Escenario de prueba: producto agotado.
+
+
+2. CLIENTES AGREGADOS
+=====================
+
+ID: 6
+Nombre: Lucia Mendoza
+CI: 9102456
+Telefono: 70123456
+Correo: lucia.mendoza@demo.bo
+Direccion: Av. Busch 1450, La Paz
+
+ID: 7
+Nombre: Diego Vargas
+CI: 9203781
+Telefono: 71234567
+Correo: diego.vargas@demo.bo
+Direccion: Calle Aroma 320, Cochabamba
+
+ID: 8
+Nombre: Valentina Rojas
+CI: 9304612
+Telefono: 72345678
+Correo: valentina.rojas@demo.bo
+Direccion: Av. Banzer 2100, Santa Cruz
+
+
+3. PROVEEDORES AGREGADOS
+========================
+
+ID: 3
+Razon social: Tech Import Bolivia
+NIT: 5582103019
+Telefono: 77004561
+Correo: pedidos@techimport.demo
+Direccion: Zona Industrial, La Paz
+
+ID: 4
+Razon social: Next Level Distribuciones
+NIT: 6723401022
+Telefono: 78005672
+Correo: ventas@nextlevel.demo
+Direccion: Parque Industrial, Santa Cruz
+
+
+4. DISPOSITIVOS AGREGADOS
+=========================
+
+ID: 3
+Cliente: Lucia Mendoza (ID 6)
+Tipo: Consola
+Marca y modelo: Sony PlayStation 5 Slim
+Numero de serie: DEMO-PS5-001
+Falla reportada: No enciende despues de una actualizacion.
+
+ID: 4
+Cliente: Diego Vargas (ID 7)
+Tipo: Computadora
+Marca y modelo: Lenovo Legion 5
+Numero de serie: DEMO-LEG-002
+Falla reportada: Temperatura elevada durante juegos.
+
+ID: 5
+Cliente: Valentina Rojas (ID 8)
+Tipo: Control
+Marca y modelo: Microsoft Xbox Wireless Controller
+Numero de serie: DEMO-XWC-003
+Falla reportada: Boton A responde de forma intermitente.
+
+
+5. SERVICIOS TECNICOS AGREGADOS
+===============================
+
+ID: 4
+Cliente: Lucia Mendoza (ID 6)
+Dispositivo: Sony PlayStation 5 Slim (ID 3)
+Tecnico: Maria Rodriguez (empleado ID 3)
+Estado: Recibido
+Diagnostico: Diagnostico pendiente: posible falla de fuente de alimentacion.
+Total: 0.00
+
+ID: 5
+Cliente: Diego Vargas (ID 7)
+Dispositivo: Lenovo Legion 5 (ID 4)
+Tecnico: Maria Rodriguez (empleado ID 3)
+Estado: Recibido
+Diagnostico: Requiere limpieza interna y cambio de pasta termica.
+Total: 0.00
+
+ID: 6
+Cliente: Valentina Rojas (ID 8)
+Dispositivo: Microsoft Xbox Wireless Controller (ID 5)
+Tecnico: Maria Rodriguez (empleado ID 3)
+Estado: Recibido
+Diagnostico: Revision de membrana y contactos del boton A.
+Total: 0.00
+
+Datos para probar la consulta publica de servicios:
+- Servicio 4: CI 9102456 o telefono 70123456
+- Servicio 5: CI 9203781 o telefono 71234567
+- Servicio 6: CI 9304612 o telefono 72345678
+
+
+6. COMPRA AGREGADA
+==================
+
+ID: 3
+Proveedor: Tech Import Bolivia (ID 3)
+Empleado: Ana Torres (ID 1)
+Estado: Recibida
+Producto: Steam Deck OLED 512GB (ID 20)
+Cantidad: 5
+Precio unitario: 500.00
+Total: 2500.00
+Resultado verificado: el stock del producto 20 aumento de 7 a 12.
+
+
+7. VENTAS AGREGADAS
+===================
+
+ID: 5
+Cliente: Lucia Mendoza (ID 6)
+Empleado: Juan Perez (ID 2)
+Estado: Pendiente
+Producto: Cyberpunk 2077 Ultimate Edition (ID 22)
+Cantidad: 2
+Precio unitario: 59.99
+Subtotal: 119.98
+Descuento: 0.00
+Total: 119.98
+Pagos: ninguno
+Saldo pendiente: 119.98
+Resultado verificado: el stock del producto 22 disminuyo de 10 a 8.
+
+ID: 6
+Cliente: Diego Vargas (ID 7)
+Empleado: Juan Perez (ID 2)
+Estado: Completada
+Producto: Teclado mecanico HyperX Alloy Origins (ID 21)
+Cantidad: 1
+Precio unitario: 109.99
+Subtotal: 109.99
+Descuento: 10.00
+Total: 99.99
+Pago: 99.99 mediante QR
+Referencia del pago: DEMO-QR-2026
+Saldo pendiente: 0.00
+Resultado verificado: el stock del producto 21 disminuyo de 14 a 13.
+
+
+8. CREDENCIALES PARA DEMOSTRACION
+=================================
+
+Administrador:
+Usuario: admin
+Contrasena: admin123
+
+Vendedor:
+Usuario: jperez
+Contrasena: vendedor123
+
+Tecnico:
+Usuario: mrodriguez
+Contrasena: tecnico123
+
+
+9. RESUMEN FINAL VERIFICADO
+===========================
+
+Productos totales: 24
+Clientes totales: 8
+Proveedores totales: 4
+Dispositivos totales: 5
+Servicios totales: 6
+Compras totales: 3
+Ventas totales: 6
+
+Casos listos para demostrar:
+- Catalogo con productos disponibles.
+- Producto con stock bajo (ID 23).
+- Producto agotado (ID 24).
+- Compra recibida que incrementa stock (ID 3).
+- Venta pendiente con saldo por cobrar (ID 5).
+- Venta completada, con descuento y pago QR (ID 6).
+- Tres ingresos de servicio tecnico vinculados a clientes y dispositivos.
+- Consulta publica del estado de reparacion mediante CI o telefono.

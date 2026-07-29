@@ -12,4 +12,15 @@ public class Producto : IEntidad
     public int Stock { get; set; }
     public int StockMinimo { get; set; } = 5;
     public bool Activo { get; set; } = true;
+    public List<ImagenProducto> Imagenes { get; set; } = [];
+    // Compatibilidad con productos creados antes de habilitar la galería.
+    public string ImagenUrl { get; set; } = "";
+    public string ImagenStoragePath { get; set; } = "";
+}
+
+public class ImagenProducto
+{
+    public int Id { get; set; }
+    public string Url { get; set; } = "";
+    public string StoragePath { get; set; } = "";
 }

@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // La autenticación de empleados se gestiona en BackendApi y el frontend
+    // nunca accede directamente a Firestore. Estas reglas permiten que la API
+    // académica use el endpoint REST con la API key configurada.
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

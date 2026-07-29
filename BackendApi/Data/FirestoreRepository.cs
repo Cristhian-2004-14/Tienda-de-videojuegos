@@ -185,6 +185,7 @@ public class FirestoreRepository<T> : IFirestoreRepository<T>
         nameof(Proveedor) => "proveedores",
         nameof(Compra) => "compras",
         nameof(Dispositivo) => "dispositivos",
+        nameof(ImagenProductoDocumento) => "imagenesProductos",
         _ => throw new InvalidOperationException($"No existe colección para {typeof(T).Name}."),
     };
 }
