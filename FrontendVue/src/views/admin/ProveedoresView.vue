@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
 import AdminLayout from '../../components/AdminLayout.vue';
+import AdminPageHeader from '../../components/common/AdminPageHeader.vue';
+import DataTable from '../../components/common/DataTable.vue';
 import { proveedoresApi } from '../../services/recursosApi';
 
 const proveedores = ref([]);
@@ -34,7 +36,7 @@ onMounted(cargar);
 
 <template>
   <AdminLayout titulo="Proveedores">
-    <template #header><div class="modulo-header"><div><p class="eyebrow mono">INVENTARIO / PROVEEDORES</p><h2>Proveedores</h2><p>Datos de contacto para registrar el abastecimiento.</p></div><router-link class="btn-primary" to="/admin/compras">Ir a compras</router-link></div></template>
+    <template #header><AdminPageHeader eyebrow="INVENTARIO / PROVEEDORES" title="Proveedores" description="Datos de contacto para registrar el abastecimiento."><router-link class="btn-primary" to="/admin/compras">Ir a compras</router-link></AdminPageHeader></template>
     <form class="panel-caso formulario-grid" @submit.prevent="guardar">
       <div class="campo"><label>Razón social</label><input v-model.trim="formulario.razonSocial" required></div>
       <div class="campo"><label>NIT</label><input v-model.trim="formulario.nit"></div>
@@ -45,7 +47,7 @@ onMounted(cargar);
       <div class="acciones"><button class="btn-primary" :disabled="guardando">{{ guardando ? 'Guardando...' : editandoId ? 'Actualizar proveedor' : 'Agregar proveedor' }}</button><button v-if="editandoId" class="btn-secondary" type="button" @click="limpiar">Cancelar</button></div>
       <p v-if="error" class="error">{{ error }}</p>
     </form>
-    <section class="panel-caso"><table class="tabla-caso"><thead><tr><th>Proveedor</th><th>NIT</th><th>Contacto</th><th>Estado</th><th>Acción</th></tr></thead><tbody><tr v-for="p in proveedores" :key="p.id"><td>{{ p.razonSocial }}</td><td>{{ p.nit || '—' }}</td><td>{{ p.telefono || p.email || '—' }}</td><td><span class="estado-caso">{{ p.activo ? 'Activo' : 'Inactivo' }}</span></td><td><button class="accion-caso boton-link" @click="editar(p)">Editar</button></td></tr></tbody></table></section>
+    <section class="panel-caso"><DataTable :empty="!proveedores.length" empty-text="No hay proveedores registrados" :columns="5"><template #header><thead><tr><th>Proveedor</th><th>NIT</th><th>Contacto</th><th>Estado</th><th>Acción</th></tr></thead></template><tr v-for="p in proveedores" :key="p.id"><td>{{ p.razonSocial }}</td><td>{{ p.nit || '—' }}</td><td>{{ p.telefono || p.email || '—' }}</td><td><span class="estado-caso">{{ p.activo ? 'Activo' : 'Inactivo' }}</span></td><td><button class="accion-caso boton-link" @click="editar(p)">Editar</button></td></tr></DataTable></section>
   </AdminLayout>
 </template>
 

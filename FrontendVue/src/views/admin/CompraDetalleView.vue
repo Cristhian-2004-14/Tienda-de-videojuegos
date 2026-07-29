@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import AdminLayout from '../../components/AdminLayout.vue';
+import DataTable from '../../components/common/DataTable.vue';
+import StatusBadge from '../../components/common/StatusBadge.vue';
 import { comprasApi } from '../../services/recursosApi';
 const props=defineProps({id:{type:String,required:true}});
 const compra=ref(null), error=ref('');
@@ -10,8 +12,8 @@ onMounted(async()=>{try{compra.value=await comprasApi.obtenerPorId(props.id)}cat
   <AdminLayout titulo="Detalle de compra">
     <p v-if="error" class="error">{{error}}</p>
     <div v-else-if="compra" class="detalle">
-      <section class="panel-caso cabecera"><div><p class="eyebrow mono">COMPRA #C-{{compra.id}}</p><h2>{{compra.proveedor}}</h2><p>{{new Date(compra.fecha).toLocaleString('es-BO')}} · {{compra.empleado||'Sin empleado asignado'}}</p></div><span class="estado-caso">{{compra.estado}}</span></section>
-      <section class="panel-caso"><table class="tabla-caso"><thead><tr><th>Producto</th><th>Cantidad</th><th>Costo unitario</th><th>Subtotal</th></tr></thead><tbody><tr v-for="d in compra.detalles" :key="d.productoId"><td>{{d.producto}}</td><td>{{d.cantidad}}</td><td>${{Number(d.precioUnitario).toFixed(2)}}</td><td>${{Number(d.subtotal).toFixed(2)}}</td></tr></tbody><tfoot><tr><th colspan="3">Total</th><th>${{Number(compra.total).toFixed(2)}}</th></tr></tfoot></table></section>
+      <section class="panel-caso cabecera"><div><p class="eyebrow mono">COMPRA #C-{{compra.id}}</p><h2>{{compra.proveedor}}</h2><p>{{new Date(compra.fecha).toLocaleString('es-BO')}} · {{compra.empleado||'Sin empleado asignado'}}</p></div><StatusBadge :status="compra.estado"/></section>
+      <section class="panel-caso"><DataTable :empty="!compra.detalles?.length" empty-text="Esta compra no tiene productos" :columns="4"><template #header><thead><tr><th>Producto</th><th>Cantidad</th><th>Costo unitario</th><th>Subtotal</th></tr></thead></template><tr v-for="d in compra.detalles" :key="d.productoId"><td>{{d.producto}}</td><td>{{d.cantidad}}</td><td>${{Number(d.precioUnitario).toFixed(2)}}</td><td>${{Number(d.subtotal).toFixed(2)}}</td></tr><template #footer><tfoot v-if="compra.detalles?.length"><tr><th colspan="3">Total</th><th>${{Number(compra.total).toFixed(2)}}</th></tr></tfoot></template></DataTable></section>
       <router-link class="btn-secondary volver" to="/admin/compras">Volver a compras</router-link>
     </div>
     <p v-else>Cargando compra...</p>
