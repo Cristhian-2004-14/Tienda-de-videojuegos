@@ -21,6 +21,7 @@ const seguimiento=reactive({estado:'Recibido',diagnostico:'',costoManoObra:0,det
 const total=computed(()=>Number(seguimiento.costoManoObra||0)+seguimiento.detalles.reduce((s,d)=>s+Number(d.cantidad||0)*Number(d.precioUnitario||0),0));
 const pagado=computed(()=>(servicio.value?.pagos||[]).reduce((s,p)=>s+Number(p.monto||0),0));
 const saldo=computed(()=>Math.max(0,total.value-pagado.value));
+const datosSeguimiento=()=>({...seguimiento,detalles:seguimiento.detalles.map(d=>({...d,productoId:Number(d.productoId)}))});
 
 async function cargar(){
   try{
@@ -31,7 +32,7 @@ async function cargar(){
 async function guardar(){
   guardando.value=true;error.value='';mensaje.value='';
   try{
-    servicio.value=await actualizarSeguimientoServicioApi(props.id,{...seguimiento,detalles:seguimiento.detalles.map(d=>({...d,productoId:Number(d.productoId)}))});
+    servicio.value=await actualizarSeguimientoServicioApi(props.id,datosSeguimiento());
     mensaje.value='Seguimiento actualizado y stock sincronizado.';
     await cargar();
   }catch(e){error.value=e.response?.data?.message||'No se pudo actualizar el servicio.'}
@@ -39,7 +40,12 @@ async function guardar(){
 }
 async function registrarPago(pago){
   guardandoPago.value=true;error.value='';mensaje.value='';
-  try{servicio.value=await registrarPagoServicioApi(props.id,pago);mensaje.value='Pago de servicio registrado.'}
+  try{
+    servicio.value=await actualizarSeguimientoServicioApi(props.id,datosSeguimiento());
+    servicio.value=await registrarPagoServicioApi(props.id,pago);
+    await cargar();
+    mensaje.value='Servicio actualizado y pago registrado correctamente.';
+  }
   catch(e){error.value=e.response?.data?.message||'No se pudo registrar el pago.'}
   finally{guardandoPago.value=false}
 }

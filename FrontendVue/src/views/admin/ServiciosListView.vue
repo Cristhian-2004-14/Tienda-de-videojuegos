@@ -1,11 +1,12 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import AdminLayout from '../../components/AdminLayout.vue';
 import AdminPageHeader from '../../components/common/AdminPageHeader.vue';
 import DataTable from '../../components/common/DataTable.vue';
 import StatusBadge from '../../components/common/StatusBadge.vue';
 import StatCard from '../../components/StatCard.vue';
+import PaginacionRegistros from '../../components/common/PaginacionRegistros.vue';
 import { formatearCodigo, formatearFecha } from '../../composables/useFormatters';
 import { serviciosApi } from '../../services/recursosApi';
 import { useDatosApiStore } from '../../stores/datosApi';
@@ -16,7 +17,10 @@ const activos=computed(()=>servicios.value.filter(s=>!['Entregado','Cancelado'].
 const reparacion=computed(()=>servicios.value.filter(s=>s.estado==='En reparación'));
 const listos=computed(()=>servicios.value.filter(s=>s.estado==='Listo para entrega'));
 const filtrados=computed(()=>filtro.value==='Todos'?servicios.value:servicios.value.filter(s=>s.estado===filtro.value));
+const pagina=ref(1),porPagina=10;
+const serviciosPagina=computed(()=>filtrados.value.slice((pagina.value-1)*porPagina,pagina.value*porPagina));
 const estados=['Todos','Recibido','En diagnóstico','En reparación','En pruebas','Listo para entrega','Entregado'];
+watch(filtro,()=>{pagina.value=1});
 onMounted(()=>store.cargarRecurso('servicios',serviciosApi));
 </script>
 
@@ -28,8 +32,9 @@ onMounted(()=>store.cargarRecurso('servicios',serviciosApi));
       <div class="filters"><button v-for="estado in estados" :key="estado" :class="{active:filtro===estado}" @click="filtro=estado">{{estado}}</button></div>
       <DataTable :empty="!filtrados.length" empty-text="No hay servicios para este filtro" :columns="6" min-width="850px">
         <template #header><thead><tr><th>Orden</th><th>Cliente</th><th>Dispositivo</th><th>Diagnóstico</th><th>Estado</th><th></th></tr></thead></template>
-        <tr v-for="servicio in filtrados" :key="servicio.id"><td class="mono code">{{formatearCodigo('SRV',servicio.id)}}</td><td><strong>{{servicio.cliente}}</strong><small>{{formatearFecha(servicio.fechaIngreso)}}</small></td><td>{{servicio.dispositivo}}</td><td>{{servicio.diagnostico||'Pendiente de diagnóstico'}}</td><td><StatusBadge :status="servicio.estado"/></td><td><router-link class="accion-caso" :to="`/admin/servicios/${servicio.id}`">Abrir</router-link></td></tr>
+        <tr v-for="servicio in serviciosPagina" :key="servicio.id"><td class="mono code">{{formatearCodigo('SRV',servicio.id)}}</td><td><strong>{{servicio.cliente}}</strong><small>{{formatearFecha(servicio.fechaIngreso)}}</small></td><td>{{servicio.dispositivo}}</td><td>{{servicio.diagnostico||'Pendiente de diagnóstico'}}</td><td><StatusBadge :status="servicio.estado"/></td><td><router-link class="accion-caso" :to="`/admin/servicios/${servicio.id}`">Abrir</router-link></td></tr>
       </DataTable>
+      <PaginacionRegistros v-model:pagina="pagina" :total="filtrados.length" :por-pagina="porPagina" />
     </section>
   </AdminLayout>
 </template>

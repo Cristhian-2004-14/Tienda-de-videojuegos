@@ -8,7 +8,8 @@ namespace BackendApi.Controllers;
 [Route("api/[controller]")]
 public class VentasController(
     IFirestoreRepository<Venta> repositorio,
-    IFirestoreRepository<Producto> productos) : ControllerBase
+    IFirestoreRepository<Producto> productos,
+    IFirestoreRepository<Cliente> clientes) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Venta>>> ObtenerVentas() =>
@@ -25,6 +26,33 @@ public class VentasController(
     public async Task<ActionResult<Venta>> RegistrarVenta(Venta venta)
     {
         if (venta.Detalles.Count == 0) return BadRequest(new { message = "La venta debe incluir productos." });
+        if (venta.ClienteId > 0)
+        {
+            var cliente = await clientes.ObtenerPorIdAsync(venta.ClienteId);
+            if (cliente is null) return BadRequest(new { message = "El cliente seleccionado no existe." });
+            venta.TipoCliente = "Registrado";
+            venta.Cliente = $"{cliente.Nombre} {cliente.Apellido}".Trim();
+            venta.ClienteCi = cliente.Ci;
+            venta.ClienteTelefono = cliente.Telefono;
+            venta.ClienteEmail = cliente.Email;
+            venta.ClienteDireccion = cliente.Direccion;
+        }
+        else
+        {
+            venta.ClienteId = 0;
+            venta.TipoCliente = "Ocasional";
+            venta.Cliente = venta.Cliente.Trim();
+            venta.ClienteCi = venta.ClienteCi.Trim();
+            venta.ClienteTelefono = venta.ClienteTelefono.Trim();
+            venta.ClienteEmail = venta.ClienteEmail.Trim();
+            venta.ClienteDireccion = venta.ClienteDireccion.Trim();
+            if (string.IsNullOrWhiteSpace(venta.Cliente))
+                return BadRequest(new { message = "Ingresa el nombre del cliente ocasional." });
+            if (string.IsNullOrWhiteSpace(venta.ClienteCi))
+                return BadRequest(new { message = "Ingresa el CI o NIT del cliente ocasional." });
+            if (string.IsNullOrWhiteSpace(venta.ClienteTelefono))
+                return BadRequest(new { message = "Ingresa el teléfono del cliente ocasional." });
+        }
         foreach (var detalle in venta.Detalles)
         {
             var producto = await productos.ObtenerPorIdAsync(detalle.ProductoId);

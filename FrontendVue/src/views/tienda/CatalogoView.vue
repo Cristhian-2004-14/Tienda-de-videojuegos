@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import TiendaLayout from '../../components/TiendaLayout.vue';
 import ProductoVisual from '../../components/ProductoVisual.vue';
+import PaginacionRegistros from '../../components/common/PaginacionRegistros.vue';
 import { useDatosApiStore } from '../../stores/datosApi';
 import { productosApi } from '../../services/recursosApi';
 import { useCarritoStore } from '../../stores/carrito';
@@ -15,6 +16,8 @@ const { productos } = storeToRefs(datosStore);
 const { busqueda, categoria } = storeToRefs(uiStore);
 const destacados = ref([]);
 const indiceActivo = ref(0);
+const pagina = ref(1);
+const porPagina = 9;
 let temporizador;
 
 const productoActivo = computed(() => destacados.value[indiceActivo.value] || productos.value[0]);
@@ -25,6 +28,10 @@ const productosFiltrados = computed(() => {
     .filter((producto) => !termino || [producto.nombre, producto.marca, producto.categoria]
       .some((valor) => valor.toLowerCase().includes(termino)));
 });
+const productosPagina = computed(() => productosFiltrados.value.slice(
+  (pagina.value - 1) * porPagina,
+  pagina.value * porPagina,
+));
 
 function prepararDestacados() {
   destacados.value = [...productos.value]
@@ -40,6 +47,7 @@ function cambiarDiapositiva(direccion) {
 }
 
 watch(productos, prepararDestacados, { immediate: true });
+watch([busqueda, categoria], () => { pagina.value = 1; });
 onMounted(async () => {
   await datosStore.cargarRecurso('productos', productosApi);
   temporizador = window.setInterval(() => cambiarDiapositiva(1), 5500);
@@ -72,11 +80,12 @@ onBeforeUnmount(() => window.clearInterval(temporizador));
       <div class="titulo"><div><p class="sobre">EXPLORA EL CATÁLOGO</p><h2>{{ busqueda ? `Resultados para “${busqueda}”` : 'Encuentra tu próxima aventura' }}</h2></div><p>{{ productosFiltrados.length }} productos</p></div>
       <div class="filtros"><button v-for="filtro in ['Todo','Consolas','Videojuegos','Accesorios']" :key="filtro" :class="{ activo: categoria === filtro }" @click="uiStore.seleccionarCategoria(filtro)">{{ filtro }}</button><span></span><select aria-label="Ordenar"><option>Más destacados</option><option>Precio: menor a mayor</option></select></div>
       <div class="grid">
-        <router-link v-for="producto in productosFiltrados" :key="producto.id" :to="`/tienda/producto/${producto.id}`" class="card">
+        <router-link v-for="producto in productosPagina" :key="producto.id" :to="`/tienda/producto/${producto.id}`" class="card">
           <div class="media-card"><span v-if="producto.stock < 5 && producto.stock > 0" class="alerta">ÚLTIMAS UNIDADES</span><ProductoVisual :producto="producto" /></div>
           <div class="info"><p>{{ producto.categoria }} · {{ producto.marca }}</p><h3>{{ producto.nombre }}</h3><div><strong>${{ producto.precioVenta.toFixed(2) }}</strong><button aria-label="Agregar a la selección" :disabled="producto.stock <= 0" @click.prevent="carritoStore.agregarProducto(producto)"><span class="material-symbols-outlined">add_shopping_cart</span></button></div></div>
         </router-link>
       </div>
+      <PaginacionRegistros v-model:pagina="pagina" :total="productosFiltrados.length" :por-pagina="porPagina" />
       <div v-if="!productosFiltrados.length" class="sin-resultados"><span class="material-symbols-outlined">search_off</span><h3>No encontramos productos</h3><p>Prueba otra búsqueda o cambia la categoría.</p><button @click="busqueda = ''; uiStore.seleccionarCategoria('Todo')">Mostrar todo</button></div>
     </main>
   </TiendaLayout>

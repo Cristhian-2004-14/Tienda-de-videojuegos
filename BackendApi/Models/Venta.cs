@@ -5,6 +5,11 @@ public class Venta : IEntidad
     public int Id { get; set; }
     public int ClienteId { get; set; }
     public string Cliente { get; set; } = "";
+    public string TipoCliente { get; set; } = "Registrado";
+    public string ClienteCi { get; set; } = "";
+    public string ClienteTelefono { get; set; } = "";
+    public string ClienteEmail { get; set; } = "";
+    public string ClienteDireccion { get; set; } = "";
     public int EmpleadoId { get; set; }
     public string Empleado { get; set; } = "";
     public DateTime Fecha { get; set; } = DateTime.UtcNow;
