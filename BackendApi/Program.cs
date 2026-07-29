@@ -54,6 +54,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("FrontendVue");
 app.UseAuthorization();
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "ok",
+    service = "BackendApi",
+    timestamp = DateTimeOffset.UtcNow,
+}));
 app.MapControllers();
 
 app.Run();

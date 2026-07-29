@@ -126,11 +126,9 @@ Para una instalación diferente se deben reemplazar `ProjectId` y `ApiKey`.
 
 ## Imágenes de productos
 
-El formulario admite hasta tres imágenes JPG, PNG o WebP por producto. El
-navegador las redimensiona y comprime a WebP antes de enviarlas. Cada imagen se
-guarda como un documento independiente en `imagenesProductos`, mientras el
-producto conserva una miniatura ligera para los listados. No se requiere
-Firebase Storage.
+El formulario admite una imagen JPG, PNG o WebP por producto. El navegador la
+redimensiona y comprime a WebP antes de enviarla. La imagen se guarda en
+Firestore sin depender de Firebase Storage.
 
 ## Demostración
 
@@ -146,11 +144,31 @@ por lo que el navegador no depende de una URL local fija.
 
 ```powershell
 Copy-Item .env.example .env
-# Completar FIREBASE_API_KEY en .env
-docker compose up --build
+# Completar FIREBASE_PROJECT_ID y FIREBASE_API_KEY en .env
+docker compose config
+docker compose up --build -d
+docker compose ps
 ```
 
 Aplicación: `http://localhost:8080`
+
+El puerto público puede modificarse con `APP_PORT` en `.env`. El backend no se
+expone directamente: Nginx sirve la aplicación y reenvía las solicitudes
+`/api`. Ambos contenedores incluyen comprobaciones de salud y se reinician
+automáticamente salvo que se detengan manualmente.
+
+Comandos de operación:
+
+```powershell
+# Consultar registros
+docker compose logs -f
+
+# Reconstruir después de actualizar el código
+docker compose up --build -d
+
+# Detener y eliminar los contenedores
+docker compose down
+```
 
 En producción, el backend recibe la configuración mediante
 `Firebase__ProjectId` y `Firebase__ApiKey`. Antes del primer despliegue publica

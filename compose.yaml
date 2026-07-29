@@ -2,17 +2,44 @@ services:
   backend:
     build:
       context: ./BackendApi
+      dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      Firebase__ProjectId: ${FIREBASE_PROJECT_ID}
-      Firebase__ApiKey: ${FIREBASE_API_KEY}
+      Firebase__ProjectId: ${FIREBASE_PROJECT_ID:?Configura FIREBASE_PROJECT_ID en el archivo .env}
+      Firebase__ApiKey: ${FIREBASE_API_KEY:?Configura FIREBASE_API_KEY en el archivo .env}
+    expose:
+      - "8080"
+    init: true
     restart: unless-stopped
+    networks:
+      - tienda-interna
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
 
   frontend:
     build:
       context: ./FrontendVue
+      dockerfile: Dockerfile
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
-      - "8080:80"
+      - "${APP_PORT:-8080}:80"
+    init: true
     restart: unless-stopped
+    networks:
+      - tienda-interna
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/health"]
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+
+networks:
+  tienda-interna:
+    driver: bridge
