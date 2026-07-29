@@ -20,8 +20,10 @@ public class Servicio : IEntidad
     public double SaldoPendiente => Math.Max(0, Total - Pagos.Sum(pago => pago.Monto));
 }
 
-public class DetalleServicio
+public class DetalleServicio : IEntidad
 {
+    public int Id { get; set; }
+    public int ServicioId { get; set; }
     public int ProductoId { get; set; }
     public string Producto { get; set; } = "";
     public int Cantidad { get; set; }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BackendApi.Controllers;
 
 [ApiController, Route("api/empleados")]
-public class EmpleadosController(IFirestoreRepository<Empleado> repositorio) : ControllerBase
+public class EmpleadosController(IRepository<Empleado> repositorio) : ControllerBase
 {
     [HttpGet] public async Task<IActionResult> Obtener() => Ok(await repositorio.ObtenerTodosAsync());
     [HttpGet("{id:int}")] public async Task<IActionResult> ObtenerPorId(int id) =>
@@ -16,7 +16,7 @@ public class EmpleadosController(IFirestoreRepository<Empleado> repositorio) : C
 }
 
 [ApiController, Route("api/roles")]
-public class RolesController(IFirestoreRepository<Rol> repositorio) : ControllerBase
+public class RolesController(IRepository<Rol> repositorio) : ControllerBase
 {
     [HttpGet] public async Task<IActionResult> Obtener() => Ok(await repositorio.ObtenerTodosAsync());
     [HttpGet("{id:int}")] public async Task<IActionResult> ObtenerPorId(int id) =>
@@ -38,7 +38,7 @@ public class RolesController(IFirestoreRepository<Rol> repositorio) : Controller
 }
 
 [ApiController, Route("api/proveedores")]
-public class ProveedoresController(IFirestoreRepository<Proveedor> repositorio) : ControllerBase
+public class ProveedoresController(IRepository<Proveedor> repositorio) : ControllerBase
 {
     [HttpGet] public async Task<IActionResult> Obtener() => Ok(await repositorio.ObtenerTodosAsync());
     [HttpGet("{id:int}")] public async Task<IActionResult> ObtenerPorId(int id) =>
@@ -50,9 +50,9 @@ public class ProveedoresController(IFirestoreRepository<Proveedor> repositorio) 
 
 [ApiController, Route("api/compras")]
 public class ComprasController(
-    IFirestoreRepository<Compra> repositorio,
-    IFirestoreRepository<Producto> productos,
-    IFirestoreRepository<Proveedor> proveedores) : ControllerBase
+    IRepository<Compra> repositorio,
+    IRepository<Producto> productos,
+    IRepository<Proveedor> proveedores) : ControllerBase
 {
     [HttpGet] public async Task<IActionResult> Obtener() => Ok(await repositorio.ObtenerTodosAsync());
     [HttpGet("{id:int}")] public async Task<IActionResult> ObtenerPorId(int id) =>
@@ -87,7 +87,7 @@ public class ComprasController(
 }
 
 [ApiController, Route("api/dispositivos")]
-public class DispositivosController(IFirestoreRepository<Dispositivo> repositorio) : ControllerBase
+public class DispositivosController(IRepository<Dispositivo> repositorio) : ControllerBase
 {
     [HttpGet] public async Task<IActionResult> Obtener() => Ok(await repositorio.ObtenerTodosAsync());
     [HttpGet("{id:int}")] public async Task<IActionResult> ObtenerPorId(int id) =>

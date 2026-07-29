@@ -8,7 +8,7 @@ namespace BackendApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class UsuariosController(
-    IFirestoreRepository<Usuario> repositorio,
+    IRepository<Usuario> repositorio,
     IPasswordHasher<Usuario> passwordHasher) : ControllerBase
 {
     [HttpGet]

@@ -7,8 +7,8 @@ namespace BackendApi.Controllers;
 
 [ApiController, Route("api/[controller]")]
 public class AuthController(
-    IFirestoreRepository<Usuario> usuarios,
-    IFirestoreRepository<Rol> roles,
+    IRepository<Usuario> usuarios,
+    IRepository<Rol> roles,
     IPasswordHasher<Usuario> passwordHasher) : ControllerBase
 {
     [HttpPost("login")]

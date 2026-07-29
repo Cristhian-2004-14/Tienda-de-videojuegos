@@ -2,7 +2,7 @@ using BackendApi.Models;
 
 namespace BackendApi.Data;
 
-public interface IFirestoreRepository<T> where T : class, IEntidad
+public interface IRepository<T> where T : class, IEntidad
 {
     Task<IReadOnlyList<T>> ObtenerTodosAsync();
     Task<T?> ObtenerPorIdAsync(int id);

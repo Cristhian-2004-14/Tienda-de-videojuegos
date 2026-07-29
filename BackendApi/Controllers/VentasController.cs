@@ -7,8 +7,8 @@ namespace BackendApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class VentasController(
-    IFirestoreRepository<Venta> repositorio,
-    IFirestoreRepository<Producto> productos) : ControllerBase
+    IRepository<Venta> repositorio,
+    IRepository<Producto> productos) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Venta>>> ObtenerVentas() =>

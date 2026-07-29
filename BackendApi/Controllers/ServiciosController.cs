@@ -6,10 +6,10 @@ namespace BackendApi.Controllers;
 
 [ApiController, Route("api/[controller]")]
 public class ServiciosController(
-    IFirestoreRepository<Servicio> repositorio,
-    IFirestoreRepository<Cliente> clientes,
-    IFirestoreRepository<Dispositivo> dispositivos,
-    IFirestoreRepository<Producto> productos) : ControllerBase
+    IRepository<Servicio> repositorio,
+    IRepository<Cliente> clientes,
+    IRepository<Dispositivo> dispositivos,
+    IRepository<Producto> productos) : ControllerBase
 {
     [HttpGet] public async Task<IActionResult> Obtener() => Ok(await repositorio.ObtenerTodosAsync());
     [HttpGet("{id:int}")] public async Task<IActionResult> Obtener(int id) =>

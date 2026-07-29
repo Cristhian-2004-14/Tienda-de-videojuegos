@@ -13,8 +13,10 @@ public class Compra : IEntidad
     public List<DetalleCompra> Detalles { get; set; } = [];
 }
 
-public class DetalleCompra
+public class DetalleCompra : IEntidad
 {
+    public int Id { get; set; }
+    public int CompraId { get; set; }
     public int ProductoId { get; set; }
     public string Producto { get; set; } = "";
     public int Cantidad { get; set; }

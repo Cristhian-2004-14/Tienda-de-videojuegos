@@ -6,7 +6,7 @@ namespace BackendApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ClientesController(IFirestoreRepository<Cliente> repositorio) : ControllerBase
+public class ClientesController(IRepository<Cliente> repositorio) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Cliente>>> ObtenerClientes() =>

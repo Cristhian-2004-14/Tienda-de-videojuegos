@@ -17,8 +17,10 @@ public class Venta : IEntidad
     public double SaldoPendiente => Math.Max(0, Total - Pagos.Sum(pago => pago.Monto));
 }
 
-public class DetalleVenta
+public class DetalleVenta : IEntidad
 {
+    public int Id { get; set; }
+    public int VentaId { get; set; }
     public int ProductoId { get; set; }
     public string Producto { get; set; } = "";
     public string Edicion { get; set; } = "Estándar";

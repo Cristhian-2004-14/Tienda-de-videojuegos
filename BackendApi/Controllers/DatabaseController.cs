@@ -8,16 +8,16 @@ namespace BackendApi.Controllers;
 [ApiController]
 [Route("api/database")]
 public class DatabaseController(
-    IFirestoreRepository<Cliente> clientes,
-    IFirestoreRepository<Producto> productos,
-    IFirestoreRepository<Venta> ventas,
-    IFirestoreRepository<Servicio> servicios,
-    IFirestoreRepository<Usuario> usuarios,
-    IFirestoreRepository<Empleado> empleados,
-    IFirestoreRepository<Rol> roles,
-    IFirestoreRepository<Proveedor> proveedores,
-    IFirestoreRepository<Compra> compras,
-    IFirestoreRepository<Dispositivo> dispositivos,
+    IRepository<Cliente> clientes,
+    IRepository<Producto> productos,
+    IRepository<Venta> ventas,
+    IRepository<Servicio> servicios,
+    IRepository<Usuario> usuarios,
+    IRepository<Empleado> empleados,
+    IRepository<Rol> roles,
+    IRepository<Proveedor> proveedores,
+    IRepository<Compra> compras,
+    IRepository<Dispositivo> dispositivos,
     IPasswordHasher<Usuario> passwordHasher) : ControllerBase
 {
     [HttpPost("seed")]
