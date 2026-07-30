@@ -30,7 +30,7 @@ onMounted(cargarProducto);
       <nav class="migas"><router-link to="/tienda">Tienda</router-link><span>/</span><span>{{ producto.categoria }}</span><span>/</span><strong>{{ producto.nombre }}</strong></nav>
       <section class="producto">
         <div class="galeria"><div class="principal"><span class="edition mono">ENGINEERED FOR PLAY</span><ProductoVisual :producto="producto" grande /></div></div>
-        <div class="compra"><p class="categoria">{{ producto.categoria }} / {{ producto.marca }}</p><h1>{{ producto.nombre }}</h1><div class="rating"><span>★★★★★</span><small>4.9 · 248 reseñas</small></div><p class="descripcion">Rendimiento de nueva generación, velocidad extraordinaria y una experiencia diseñada para que nada se interponga entre tú y el juego.</p><div class="precio">${{ precioSeleccionado.toFixed(2) }} <small>Impuestos incluidos</small></div>
+        <div class="compra"><p class="categoria">{{ producto.categoria }} / {{ producto.marca }}</p><h1>{{ producto.nombre }}</h1><div class="rating"><span>★★★★★</span><small>4.9 · 248 reseñas</small></div><p class="descripcion">{{ producto.descripcion?.trim() || 'Este producto todavía no tiene una descripción disponible.' }}</p><div class="precio">${{ precioSeleccionado.toFixed(2) }} <small>Impuestos incluidos</small></div>
           <div class="stock"><span></span>{{ producto.stock > 0 ? `Disponible · ${producto.stock} unidades` : 'Sin existencias' }}</div>
           <button class="agregar" :disabled="producto.stock <= 0" @click="carritoStore.agregarProducto(producto)"><span class="material-symbols-outlined">shopping_bag</span>Agregar a mi selección</button>
         </div>
