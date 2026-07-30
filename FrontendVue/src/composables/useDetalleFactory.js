@@ -10,6 +10,7 @@ export function crearDetalleVenta(producto, cantidad = 1) {
     edicion: producto.edicion || 'Estándar',
     cantidad,
     precioUnitario: producto.precioVenta,
+    stock: producto.stock !== undefined ? producto.stock : Infinity,
     imagenUrl: producto.imagenUrl || producto.imagenes?.[0]?.url || '',
   };
 }

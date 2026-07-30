@@ -39,15 +39,27 @@ export const useCarritoStore = defineStore('carrito', {
       localStorage.setItem(CLAVE_CARRITO, JSON.stringify(this.items));
     },
     agregarProducto(producto, cantidad = 1) {
+      const stockMax = producto.stock !== undefined ? producto.stock : Infinity;
+      if (stockMax <= 0) return;
+
       const existente = this.items.find((i) => i.productoId === producto.id);
       if (existente) {
-        existente.cantidad += cantidad;
+        const cantidadActual = existente.cantidad;
+        if (cantidadActual >= stockMax) return;
+        existente.cantidad = Math.min(cantidadActual + cantidad, stockMax);
+        existente.stock = stockMax;
         this.ultimoAgregado = producto.nombre;
         this.confirmacionId += 1;
         this.persistir();
         return;
       }
-      this.items.push(crearDetalleVenta(producto, cantidad));
+
+      const cantidadInicial = Math.min(cantidad, stockMax);
+      if (cantidadInicial <= 0) return;
+
+      const nuevoItem = crearDetalleVenta(producto, cantidadInicial);
+      nuevoItem.stock = stockMax;
+      this.items.push(nuevoItem);
       this.ultimoAgregado = producto.nombre;
       this.confirmacionId += 1;
       this.persistir();
@@ -65,7 +77,8 @@ export const useCarritoStore = defineStore('carrito', {
         this.quitarProducto(productoId);
         return;
       }
-      item.cantidad = cantidad;
+      const stockMax = item.stock !== undefined ? item.stock : Infinity;
+      item.cantidad = Math.min(cantidad, stockMax);
       this.persistir();
     },
 

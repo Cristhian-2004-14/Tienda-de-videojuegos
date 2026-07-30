@@ -29,6 +29,8 @@ const productoSeleccionado = computed(() => ({
   edicion: edicionSeleccionada.value,
   precioVenta: precioSeleccionado.value,
 }));
+const cantidadEnCarrito = computed(() => carritoStore.items.find((i) => i.productoId === productoSeleccionado.value.id)?.cantidad || 0);
+const alcanzadoMaximo = computed(() => !producto.value || producto.value.stock <= 0 || cantidadEnCarrito.value >= producto.value.stock);
 watch(producto, () => { edicionSeleccionada.value = 'Estándar'; });
 async function cargarProducto() {
   await datosStore.cargarRecurso('productos', productosApi);
@@ -47,7 +49,7 @@ onMounted(cargarProducto);
         <div class="compra"><p class="categoria">{{ producto.categoria }} / {{ producto.marca }}</p><h1>{{ producto.nombre }}</h1><div class="rating"><span>★★★★★</span><small>4.9 · 248 reseñas</small></div><p class="descripcion">Rendimiento de nueva generación, velocidad extraordinaria y una experiencia diseñada para que nada se interponga entre tú y el juego.</p><div class="precio">${{ precioSeleccionado.toFixed(2) }} <small>Impuestos incluidos</small></div>
           <div class="opciones"><label id="edicion-label">Edición</label><div role="group" aria-labelledby="edicion-label"><button v-for="edicion in ediciones" :key="edicion.nombre" :class="{ activa: edicionSeleccionada === edicion.nombre }" :aria-pressed="edicionSeleccionada === edicion.nombre" @click="edicionSeleccionada = edicion.nombre">{{ edicion.nombre }}<small v-if="edicion.nombre === 'Digital'">−10%</small></button></div><p>Seleccionada: <strong>{{ edicionSeleccionada }}</strong></p></div>
           <div class="stock"><span></span>{{ producto.stock > 0 ? `Disponible · ${producto.stock} unidades` : 'Sin existencias' }}</div>
-          <button class="agregar" :disabled="producto.stock <= 0" @click="carritoStore.agregarProducto(productoSeleccionado)"><span class="material-symbols-outlined">shopping_bag</span>Agregar {{ edicionSeleccionada }} a mi selección</button>
+          <button class="agregar" :disabled="alcanzadoMaximo" @click="carritoStore.agregarProducto(productoSeleccionado)"><span class="material-symbols-outlined">shopping_bag</span>{{ alcanzadoMaximo ? (producto.stock <= 0 ? 'Sin existencias' : 'Límite de stock alcanzado') : `Agregar ${edicionSeleccionada} a mi selección` }}</button>
           <div class="beneficios"><p><span class="material-symbols-outlined">local_shipping</span><b>Envío gratuito</b><small>Entrega estimada en 2–4 días</small></p><p><span class="material-symbols-outlined">verified_user</span><b>Garantía oficial</b><small>Cobertura por 12 meses</small></p></div>
         </div>
       </section>
