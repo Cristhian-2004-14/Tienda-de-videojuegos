@@ -177,3 +177,11 @@ las reglas incluidas en el repositorio:
 ```powershell
 firebase deploy --only firestore:rules
 ```
+
+Para instalar o actualizar el proyecto en un servidor Linux consulta
+[DESPLIEGUE_VPS.md](DESPLIEGUE_VPS.md). El procedimiento conserva el archivo
+`.env` del servidor y reconstruye los contenedores con un solo comando:
+
+```bash
+bash scripts/deploy-vps.sh
+```

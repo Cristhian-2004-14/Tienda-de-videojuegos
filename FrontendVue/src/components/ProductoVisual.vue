@@ -30,6 +30,7 @@ const imagenPrincipal = computed(() => visualProducto.value.imagenes?.[0]?.url
       :src="imagenPrincipal"
       :alt="visualProducto.nombre || 'Imagen del producto'"
       loading="lazy"
+      decoding="async"
     />
     <span class="halo"></span>
     <span v-if="!imagenPrincipal" class="material-symbols-outlined">{{ iconos[visualProducto.categoria] || 'devices' }}</span>

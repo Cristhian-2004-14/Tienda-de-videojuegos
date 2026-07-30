@@ -16,6 +16,8 @@ export const useCarritoStore = defineStore('carrito', {
     items: cargarItems(),
     estrategiaDescuento: 'normal',
     ultimoAgregado: '',
+    ultimoAviso: '',
+    avisoTipo: 'exito',
     confirmacionId: 0,
   }),
 
@@ -38,19 +40,35 @@ export const useCarritoStore = defineStore('carrito', {
     persistir() {
       localStorage.setItem(CLAVE_CARRITO, JSON.stringify(this.items));
     },
-    agregarProducto(producto, cantidad = 1) {
-      const existente = this.items.find((i) => i.productoId === producto.id);
-      if (existente) {
-        existente.cantidad += cantidad;
-        this.ultimoAgregado = producto.nombre;
-        this.confirmacionId += 1;
-        this.persistir();
-        return;
-      }
-      this.items.push(crearDetalleVenta(producto, cantidad));
-      this.ultimoAgregado = producto.nombre;
+    avisar(mensaje, tipo = 'exito') {
+      this.ultimoAviso = mensaje;
+      this.avisoTipo = tipo;
       this.confirmacionId += 1;
+    },
+    agregarProducto(producto, cantidad = 1) {
+      const stock = Math.max(0, Number(producto.stock) || 0);
+      const unidades = Math.max(1, Math.trunc(Number(cantidad) || 1));
+      const existente = this.items.find((i) => i.productoId === producto.id);
+      const cantidadActual = existente?.cantidad || 0;
+      if (stock === 0 || cantidadActual + unidades > stock) {
+        this.avisar(stock === 0
+          ? `${producto.nombre} está agotado.`
+          : `Solo hay ${stock} unidades de ${producto.nombre}; ya tienes ${cantidadActual} en el carrito.`, 'error');
+        return false;
+      }
+      if (existente) {
+        existente.cantidad += unidades;
+        existente.stockDisponible = stock;
+        this.ultimoAgregado = producto.nombre;
+        this.avisar(producto.nombre);
+        this.persistir();
+        return true;
+      }
+      this.items.push(crearDetalleVenta(producto, unidades));
+      this.ultimoAgregado = producto.nombre;
+      this.avisar(producto.nombre);
       this.persistir();
+      return true;
     },
 
     quitarProducto(productoId) {
@@ -60,13 +78,40 @@ export const useCarritoStore = defineStore('carrito', {
 
     cambiarCantidad(productoId, cantidad) {
       const item = this.items.find((i) => i.productoId === productoId);
-      if (!item) return;
-      if (cantidad <= 0) {
+      if (!item) return false;
+      const nuevaCantidad = Math.trunc(Number(cantidad));
+      if (nuevaCantidad <= 0) {
         this.quitarProducto(productoId);
-        return;
+        return true;
       }
-      item.cantidad = cantidad;
+      if (!Number.isFinite(nuevaCantidad) || nuevaCantidad > item.stockDisponible) {
+        this.avisar(`No puedes agregar más de ${item.stockDisponible} unidades de ${item.nombre}.`, 'error');
+        return false;
+      }
+      item.cantidad = nuevaCantidad;
       this.persistir();
+      return true;
+    },
+
+    sincronizarStock(productos) {
+      const porId = new Map(productos.map((producto) => [producto.id, producto]));
+      let ajustado = false;
+      this.items = this.items.flatMap((item) => {
+        const producto = porId.get(item.productoId);
+        if (!producto) return [item];
+        const stock = Math.max(0, Number(producto.stock) || 0);
+        if (stock === 0) {
+          ajustado = true;
+          return [];
+        }
+        const cantidad = Math.min(item.cantidad, stock);
+        if (cantidad !== item.cantidad || item.stockDisponible !== stock) ajustado = true;
+        return [{ ...item, cantidad, stockDisponible: stock }];
+      });
+      if (ajustado) {
+        this.persistir();
+        this.avisar('El carrito fue actualizado según el stock disponible.', 'error');
+      }
     },
 
     vaciarCarrito() {

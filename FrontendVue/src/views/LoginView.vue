@@ -51,6 +51,11 @@ async function manejarSubmit() {
               v-model="username"
               type="text"
               placeholder="nombre.usuario"
+              minlength="3"
+              maxlength="40"
+              pattern="[A-Za-z0-9._-]+"
+              title="Usa entre 3 y 40 letras, números, puntos, guiones o guiones bajos."
+              autocomplete="username"
               required
             />
           </div>
@@ -64,6 +69,9 @@ async function manejarSubmit() {
               id="password"
               v-model="password"
               type="password"
+              minlength="6"
+              maxlength="100"
+              autocomplete="current-password"
               placeholder="••••••••"
               required
             />

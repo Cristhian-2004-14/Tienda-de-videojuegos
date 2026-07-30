@@ -9,6 +9,7 @@ export function crearDetalleVenta(producto, cantidad = 1) {
     marca: producto.marca,
     edicion: producto.edicion || 'Estándar',
     cantidad,
+    stockDisponible: Math.max(0, Number(producto.stock) || 0),
     precioUnitario: producto.precioVenta,
     imagenUrl: producto.imagenUrl || producto.imagenes?.[0]?.url || '',
   };

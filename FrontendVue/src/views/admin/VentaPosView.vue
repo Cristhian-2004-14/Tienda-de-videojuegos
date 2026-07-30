@@ -88,9 +88,14 @@ function validarCliente() {
     if (!clienteId.value) throw new Error('Selecciona un cliente registrado.');
     return;
   }
-  if (!clienteOcasional.nombre.trim()) throw new Error('Ingresa el nombre del cliente.');
-  if (!clienteOcasional.ci.trim()) throw new Error('Ingresa el CI o NIT del cliente.');
-  if (!clienteOcasional.telefono.trim()) throw new Error('Ingresa el teléfono del cliente.');
+  if (!/^[\p{L}][\p{L}\s'.-]{1,59}$/u.test(clienteOcasional.nombre.trim()))
+    throw new Error('Ingresa un nombre válido usando letras y espacios.');
+  if (!/^[A-Za-z0-9-]{4,20}$/.test(clienteOcasional.ci.trim()))
+    throw new Error('El CI o NIT debe tener entre 4 y 20 letras, números o guiones.');
+  if (!/^[0-9]{7,15}$/.test(clienteOcasional.telefono.trim()))
+    throw new Error('El teléfono debe contener solamente entre 7 y 15 números.');
+  if (clienteOcasional.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clienteOcasional.email))
+    throw new Error('Ingresa un correo electrónico válido.');
 }
 
 async function confirmar() {
@@ -238,12 +243,12 @@ onMounted(() => datos.cargarTodo());
             <small>Los campos con * son obligatorios</small>
           </div>
           <div class="campos-cliente">
-            <div class="campo-cliente"><label for="ocasional-nombre">Nombre *</label><input id="ocasional-nombre" v-model.trim="clienteOcasional.nombre" autocomplete="given-name"></div>
-            <div class="campo-cliente"><label for="ocasional-apellido">Apellido</label><input id="ocasional-apellido" v-model.trim="clienteOcasional.apellido" autocomplete="family-name"></div>
-            <div class="campo-cliente"><label for="ocasional-ci">CI o NIT *</label><input id="ocasional-ci" v-model.trim="clienteOcasional.ci"></div>
-            <div class="campo-cliente"><label for="ocasional-telefono">Teléfono *</label><input id="ocasional-telefono" v-model.trim="clienteOcasional.telefono" type="tel" autocomplete="tel"></div>
-            <div class="campo-cliente ancho"><label for="ocasional-email">Correo electrónico</label><input id="ocasional-email" v-model.trim="clienteOcasional.email" type="email" autocomplete="email"></div>
-            <div class="campo-cliente ancho"><label for="ocasional-direccion">Dirección</label><textarea id="ocasional-direccion" v-model.trim="clienteOcasional.direccion" rows="2" autocomplete="street-address"></textarea></div>
+            <div class="campo-cliente"><label for="ocasional-nombre">Nombre *</label><input id="ocasional-nombre" v-model.trim="clienteOcasional.nombre" required minlength="2" maxlength="60" pattern="[\p{L}][\p{L}\s'.-]*" autocomplete="given-name"></div>
+            <div class="campo-cliente"><label for="ocasional-apellido">Apellido</label><input id="ocasional-apellido" v-model.trim="clienteOcasional.apellido" maxlength="60" pattern="[\p{L}\s'.-]*" autocomplete="family-name"></div>
+            <div class="campo-cliente"><label for="ocasional-ci">CI o NIT *</label><input id="ocasional-ci" v-model.trim="clienteOcasional.ci" required minlength="4" maxlength="20" pattern="[A-Za-z0-9-]+"></div>
+            <div class="campo-cliente"><label for="ocasional-telefono">Teléfono *</label><input id="ocasional-telefono" v-solo-digitos v-model.trim="clienteOcasional.telefono" type="tel" required minlength="7" maxlength="15" pattern="[0-9]{7,15}" inputmode="numeric" autocomplete="tel"></div>
+            <div class="campo-cliente ancho"><label for="ocasional-email">Correo electrónico</label><input id="ocasional-email" v-model.trim="clienteOcasional.email" type="email" maxlength="120" autocomplete="email"></div>
+            <div class="campo-cliente ancho"><label for="ocasional-direccion">Dirección</label><textarea id="ocasional-direccion" v-model.trim="clienteOcasional.direccion" rows="2" maxlength="250" autocomplete="street-address"></textarea></div>
           </div>
           <p class="ayuda"><span class="material-symbols-outlined">info</span>Estos datos se guardan únicamente dentro de esta venta.</p>
         </div>

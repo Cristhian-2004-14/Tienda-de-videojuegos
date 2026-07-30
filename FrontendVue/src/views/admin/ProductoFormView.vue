@@ -147,10 +147,10 @@ async function guardarProducto() {
     <form class="form-grid" @submit.prevent="guardarProducto">
       <section class="panel core">
         <h3>Información principal</h3>
-        <div class="campo full"><label>Nombre del producto</label><input v-model="formulario.nombre" required placeholder="Ej. Control inalámbrico Xbox" /></div>
-        <div class="campo full"><label>Descripción</label><textarea v-model="formulario.descripcion" rows="5" placeholder="Características, compatibilidad y especificaciones..."></textarea></div>
+        <div class="campo full"><label>Nombre del producto</label><input v-model.trim="formulario.nombre" required minlength="2" maxlength="120" placeholder="Ej. Control inalámbrico Xbox" /></div>
+        <div class="campo full"><label>Descripción</label><textarea v-model.trim="formulario.descripcion" rows="5" maxlength="1000" placeholder="Características, compatibilidad y especificaciones..."></textarea></div>
         <div class="campo"><label>Categoría</label><select v-model="formulario.categoria"><option>Consolas</option><option>Videojuegos</option><option>Accesorios</option></select></div>
-        <div class="campo"><label>Marca</label><input v-model="formulario.marca" required placeholder="Ej. Microsoft" /></div>
+        <div class="campo"><label>Marca</label><input v-model.trim="formulario.marca" required maxlength="80" placeholder="Ej. Microsoft" /></div>
       </section>
       <aside class="panel media">
         <h3>Imagen del producto</h3>
@@ -180,9 +180,9 @@ async function guardarProducto() {
         <h3>Inventario y precio</h3>
         <div class="pricing-grid">
           <div class="campo"><label>Precio de compra</label><input v-model.number="formulario.precioCompra" type="number" min="0" step=".01" required /></div>
-          <div class="campo"><label>Precio de venta</label><input v-model.number="formulario.precioVenta" type="number" min="0" step=".01" required /></div>
-          <div class="campo"><label>Cantidad disponible</label><input v-model.number="formulario.stock" type="number" min="0" required /></div>
-          <div class="campo"><label>Stock mínimo</label><input v-model.number="formulario.stockMinimo" type="number" min="0" required /></div>
+          <div class="campo"><label>Precio de venta</label><input v-model.number="formulario.precioVenta" type="number" min="0.01" step=".01" required /></div>
+          <div class="campo"><label>Cantidad disponible</label><input v-model.number="formulario.stock" type="number" min="0" step="1" required /></div>
+          <div class="campo"><label>Stock mínimo</label><input v-model.number="formulario.stockMinimo" type="number" min="0" step="1" required /></div>
         </div>
       </section>
       <div class="acciones">

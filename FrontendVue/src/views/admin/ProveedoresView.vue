@@ -28,7 +28,7 @@ async function guardar() {
     if (editandoId.value) await proveedoresApi.actualizar(editandoId.value, { ...formulario, id: editandoId.value });
     else await proveedoresApi.crear({ ...formulario });
     limpiar(); await cargar();
-  } catch { error.value = 'No se pudo guardar el proveedor.'; }
+  } catch (e) { error.value = e.message || 'No se pudo guardar el proveedor.'; }
   finally { guardando.value = false; }
 }
 onMounted(cargar);
@@ -38,14 +38,14 @@ onMounted(cargar);
   <AdminLayout titulo="Proveedores">
     <template #header><AdminPageHeader eyebrow="INVENTARIO / PROVEEDORES" title="Proveedores" description="Datos de contacto para registrar el abastecimiento."><router-link class="btn-primary" to="/admin/compras">Ir a compras</router-link></AdminPageHeader></template>
     <form class="panel-caso formulario-grid" @submit.prevent="guardar">
-      <div class="campo"><label>Razón social</label><input v-model.trim="formulario.razonSocial" required></div>
-      <div class="campo"><label>NIT</label><input v-model.trim="formulario.nit"></div>
-      <div class="campo"><label>Teléfono</label><input v-model.trim="formulario.telefono"></div>
-      <div class="campo"><label>Correo</label><input v-model.trim="formulario.email" type="email"></div>
-      <div class="campo campo-ancho"><label>Dirección</label><input v-model.trim="formulario.direccion"></div>
+      <div class="campo"><label>Razón social</label><input v-model.trim="formulario.razonSocial" required minlength="2" maxlength="120"></div>
+      <div class="campo"><label>NIT</label><input v-model.trim="formulario.nit" minlength="5" maxlength="20" pattern="[A-Za-z0-9-]*" title="Usa letras, números o guiones."></div>
+      <div class="campo"><label>Teléfono</label><input v-solo-digitos v-model.trim="formulario.telefono" type="tel" minlength="7" maxlength="15" pattern="[0-9]{7,15}" inputmode="numeric" title="Ingresa solamente entre 7 y 15 números."></div>
+      <div class="campo"><label>Correo</label><input v-model.trim="formulario.email" type="email" maxlength="120"></div>
+      <div class="campo campo-ancho"><label>Dirección</label><input v-model.trim="formulario.direccion" maxlength="250"></div>
       <label class="check"><input v-model="formulario.activo" type="checkbox"> Proveedor activo</label>
       <div class="acciones"><button class="btn-primary" :disabled="guardando">{{ guardando ? 'Guardando...' : editandoId ? 'Actualizar proveedor' : 'Agregar proveedor' }}</button><button v-if="editandoId" class="btn-secondary" type="button" @click="limpiar">Cancelar</button></div>
-      <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="error" role="alert">{{ error }}</p>
     </form>
     <section class="panel-caso"><DataTable :empty="!proveedores.length" empty-text="No hay proveedores registrados" :columns="5"><template #header><thead><tr><th>Proveedor</th><th>NIT</th><th>Contacto</th><th>Estado</th><th>Acción</th></tr></thead></template><tr v-for="p in proveedores" :key="p.id"><td>{{ p.razonSocial }}</td><td>{{ p.nit || '—' }}</td><td>{{ p.telefono || p.email || '—' }}</td><td><span class="estado-caso">{{ p.activo ? 'Activo' : 'Inactivo' }}</span></td><td><button class="accion-caso boton-link" @click="editar(p)">Editar</button></td></tr></DataTable></section>
   </AdminLayout>

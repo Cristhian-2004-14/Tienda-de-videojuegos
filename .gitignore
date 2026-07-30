@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.pnpm-store/
 dist
 dist-ssr
 *.local
@@ -26,6 +27,8 @@ obj/
 !.vscode/extensions.json
 .idea
 .DS_Store
+output/
+tools/
 *.suo
 *.ntvs*
 *.njsproj

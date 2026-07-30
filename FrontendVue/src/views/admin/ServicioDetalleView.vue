@@ -60,8 +60,8 @@ onMounted(cargar);
       <form class="panel-caso form" @submit.prevent="guardar">
         <h3>Seguimiento técnico</h3>
         <div class="campo"><label>Estado actual</label><select v-model="seguimiento.estado"><option v-for="estado in estados" :key="estado">{{estado}}</option></select></div>
-        <div class="campo"><label>Diagnóstico y trabajo realizado</label><textarea v-model.trim="seguimiento.diagnostico" rows="5" required></textarea></div>
-        <div class="campo"><label>Costo de mano de obra</label><input v-model.number="seguimiento.costoManoObra" type="number" min="0" step=".01"></div>
+        <div class="campo"><label>Diagnóstico y trabajo realizado</label><textarea v-model.trim="seguimiento.diagnostico" rows="5" required minlength="5" maxlength="1000"></textarea></div>
+        <div class="campo"><label>Costo de mano de obra</label><input v-model.number="seguimiento.costoManoObra" type="number" min="0" step=".01" required></div>
         <h3>Repuestos utilizados</h3>
         <LineItemEditor v-model="seguimiento.detalles" :products="productos" price-label="Precio aplicado" auto-price allow-empty/>
         <button class="btn-primary" :disabled="guardando">{{guardando?'Guardando...':'Actualizar servicio'}}</button>
