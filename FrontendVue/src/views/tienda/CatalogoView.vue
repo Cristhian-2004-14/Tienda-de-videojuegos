@@ -17,10 +17,16 @@ const { busqueda, categoria } = storeToRefs(uiStore);
 const hero = ref(null);
 const pagina = ref(1);
 const porPagina = 8;
-const videojuegosEscena = computed(() => productos.value
-  .filter((producto) => producto.categoria === 'Videojuegos')
-  .filter((producto) => producto.imagenes?.[0]?.url || producto.imagenUrl)
-  .slice(0, 9));
+const inicioEscena = Math.floor(Math.random() * 10000);
+const videojuegosEscena = computed(() => {
+  const juegosConImagen = productos.value
+    .filter((producto) => producto.categoria === 'Videojuegos')
+    .filter((producto) => producto.imagenes?.[0]?.url || producto.imagenUrl);
+  if (juegosConImagen.length <= 16) return juegosConImagen;
+
+  const inicio = inicioEscena % juegosConImagen.length;
+  return [...juegosConImagen.slice(inicio), ...juegosConImagen.slice(0, inicio)].slice(0, 16);
+});
 const productosFiltrados = computed(() => {
   const termino = busqueda.value.trim().toLowerCase();
   return productos.value
